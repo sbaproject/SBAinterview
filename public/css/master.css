@@ -1,0 +1,211 @@
+@media only screen and (max-width: 2000px) {
+	.menu-left{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		list-style: none;
+		padding-left: 0px;
+	}
+	
+	.menu-left li a{
+		position: relative;
+		display: inline-block;
+		text-decoration: none;
+		color: #696969;
+		font-weight: 550;
+		padding: 50px 0px 0px 15px;
+		font-size: 25px;
+		letter-spacing: 2px;
+	}
+
+	.clswidthimg{
+		width: 30%;
+		padding-top: 20px;
+	}
+	#user-img{
+		text-align: center;
+	}
+  }
+
+  @media only screen and (max-width: 1433px) {
+	.menu-left{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		list-style: none;		
+	}
+	
+	.menu-left li a{
+		position: relative;
+		display: inline-block;
+		text-decoration: none;
+		color: #696969;
+		font-weight: bold;
+		padding: 50px 0px 0px 15px;
+		font-size: 19px;
+		letter-spacing: 2px;
+	}
+
+	.clswidthimg{
+		width: 60%;
+		padding-top: 25px;
+	}
+
+	#user-img{
+		margin-left: -18px;
+		text-align: center;
+	}
+  }
+
+  @media only screen and (max-width: 768px) {
+	.menu-left{
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		list-style: none;		
+	}
+	
+	.menu-left li a{
+		position: relative;
+		display: inline-block;
+		text-decoration: none;
+		color: #696969;
+		font-weight: bold;
+		padding: 50px 0px 0px 15px;
+		font-size: 12px;
+		letter-spacing: 2px;
+	}
+
+	.clswidthimg{
+		width: 80%;
+		padding-top: 25px;		
+	}
+
+	#user-img{
+		margin-right: 20px;
+		text-align: center;
+	}
+  }
+
+
+body {
+	font-family: 'ＭＳ Ｐゴシック';
+  }
+
+.logo{
+	margin-left: 14px;
+	padding-top: 10px;
+}
+
+.res-menu{
+	position: relative;
+	display: flex;
+	background-color: #EEEEEE;
+	margin-top: -16px;
+}
+
+.menu{
+	background-color: #EEEEEE;
+	height: 100vh;
+	width: 100%;
+}
+
+.col-3 .text-hair
+{
+    position: relative;
+    padding-top: 25px;
+    z-index: 1;
+    display: block;
+	font-size: 30px;
+}
+
+.user-name{
+    padding-top: 25px;
+    font-size: 25px;
+    text-align: right;
+}
+.user-name_ver{
+    padding-top: 25px;
+    font-size: 20px;
+    text-align: right;
+}
+
+.title_cls{
+	font-size: 30px;
+	text-align: left;
+	font-weight: bold;
+	padding-top: 25px;
+}
+
+.title_cls_ver {
+    font-size: 21px;
+    text-align: left;
+    font-weight: bold;
+    padding-top: 25px;
+}
+
+.user-logout{
+	padding-top: 27px;
+	font-size: 20px;
+}
+
+.user-logout_ver{
+	padding-top: 22px;
+	font-size: 20px;
+}
+/* .sidenav {
+	text-align: center;
+}
+
+.sidenav a {
+	padding: 30px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 25px;
+	display: block;
+	color: #363636;
+} */
+
+
+
+
+
+ul li a.active{
+	color:#0066FF;
+	text-decoration: underline;
+}
+
+hr {
+	border: 0.5px solid #C0C0C0;
+	width: 100%;
+}
+
+
+.main {
+	font-size: 20px; /* Increased text to enable scrolling */
+	padding: 5px 5px;
+	background-color: #fff;
+	margin-left: 20px;
+}
+
+
+
+@media screen and (min-device-width : 768px) and (max-device-width : 1024px){
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
+}
+
+.input-group-prepend {
+	width: 20%;
+}
+
+.input-group-prepend .input-group-text {
+	width: 100%;
+	justify-content: center;
+}
+
+.invalid-feedback {
+	margin-left: 20%;
+}

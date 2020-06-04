@@ -1,0 +1,89 @@
+@media only screen and (max-width: 2000px) {
+	#formSearch{
+        width:60%;
+        border: 2px solid #DDDDDD;
+        border-radius: 2px;
+    }
+    #formSearchload{
+        margin-top: 10px;
+        width:60%;
+    }
+  }
+
+  @media only screen and (max-width: 1433px) {
+	#formSearch{
+        width:80%;
+        border: 2px solid #DDDDDD;
+        border-radius: 2px;
+    }
+    #formSearchload{
+        margin-top: 10px;
+        width:80%;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+	#formSearch{
+        width:90%;
+        border: 2px solid #DDDDDD;
+        border-radius: 2px;
+    }
+    #formSearchload{
+        margin-top: 10px;
+        width:90%;
+    }
+  }
+
+
+.form-customer{
+    padding:20px;
+}
+
+.btn-addcustomer{
+    margin-top: -5px;
+    margin-left: -57px;
+}
+
+
+
+.formser{
+    padding: 10px;
+}
+.form-btn{
+    text-align:center;
+}
+
+.form-btn{
+    text-align:center;
+}
+
+.form-btnprcess{
+    margin-top:20px;
+    text-align:center;
+}
+.form-btnnextpre{
+    margin-top:20px;
+    text-align: center;
+}
+
+#btnSearch{
+    width:120px;
+    margin-bottom:15px;
+    margin-right:15px;
+}
+
+#btnCancelSearch{
+    width:120px;
+    margin-bottom:15px;
+}
+
+#btnUpdate{
+    width:120px;
+    margin-bottom:15px;
+    margin-right:15px;
+}
+
+#btnCancel{
+    width:120px;
+    margin-bottom:15px;
+}
