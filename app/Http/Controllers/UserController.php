@@ -29,10 +29,10 @@ class UserController extends Controller
             'u_user'   => 'required',
             'u_pw'    => 'required|min:4|max:8',
         ], [
-            'u_user.required'  => '入力してください。',
-            'u_pw.required'   => '入力してください。', 
-            'u_pw.max'   => 'パスワードは8文字以上です',
-            'u_pw.min'   => 'パスワードは4文字以上です',
+            'u_user.required'  => 'User name is required.',
+            'u_pw.required'   => '',
+            'u_pw.max'   => 'Password must has max 8 letters',
+            'u_pw.min'   => 'Password must has min 6 letters',
         ]);
 
         // check user and pass
@@ -89,10 +89,10 @@ class UserController extends Controller
             'u_user'   => 'required',
             'u_pw'    => 'required|min:4|max:8',
         ], [
-            'u_user.required'  => '入力してください。',
-            'u_pw.required'   => '入力してください。',
-            'u_pw.max'   => 'パスワードは8文字以上です',
-            'u_pw.min'   => 'パスワードは4文字以上です',
+            'u_user.required'  => 'User name is required.',
+            'u_pw.required'   => '',
+            'u_pw.max'   => 'Password must has max 8 letters',
+            'u_pw.min'   => 'Password must has min 6 letters',
         ]);
 
         $user = User::where('u_user',$req->u_user)
