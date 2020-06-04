@@ -9,6 +9,9 @@ use Session;
 
 class InterviewManagementController extends Controller
 {
+    public function wellcome(){
+        return view('pages.landing');
+    }
     public function index(Request $request) {
         $userLogged = Session::get('user');
         if ($userLogged == null) {
@@ -66,6 +69,14 @@ class InterviewManagementController extends Controller
             $list_interviewers_count= $list_interviewers->count();
             return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr'));
         }else{
+            $req_arr = array(
+                'in_name' => '',
+                'in_address' => '',
+                'in_dob' => '',
+                'in_tel' => '',
+                'in_mail' => '',
+                'in_language' => ''
+            );
             // get all interviewer have del_flg = 0 and soft by update time
             $list_interviewers = InterviewManagerment::where('in_del_flg', 0)->orderBy('in_id', 'DESC')->paginate(10);
             $list_interviewers_count= $list_interviewers->count();
@@ -86,10 +97,17 @@ class InterviewManagementController extends Controller
         $validator = $request->validate([
             'in_name'   => 'required',
             'in_language'    => 'required',
+            'in_salary' => 'nullable|numeric',
+            'in_mail' => 'nullable|email',
+            'in_tel' => 'nullable|regex:/(01)[0-9]{9}/|size:11'
+
 
         ], [
             'in_name.required'  => 'Please enter fullname.',
             'in_language.required'   => 'Please choose language.',
+//            'in_salary' => 'Please enter the number format',
+//            'in_tel' => 'Please enter the correct tel format',
+//            'in_mail' => 'Please enter the correct mail format'
         ]);
 
 
@@ -149,10 +167,17 @@ class InterviewManagementController extends Controller
         $validator = $request->validate([
             'in_name'   => 'required',
             'in_language'    => 'required',
+            'in_salary' => 'nullable|numeric',
+            'in_mail' => 'nullable|email',
+            'in_tel' => 'nullable|regex:/(01)[0-9]{9}/|size:11'
+
 
         ], [
             'in_name.required'  => 'Please enter fullname.',
             'in_language.required'   => 'Please choose language.',
+//            'in_salary' => 'Please enter the number format',
+//            'in_tel' => 'Please enter the correct tel format',
+//            'in_mail' => 'Please enter the correct mail format'
         ]);
 
         $interviewer  = InterviewManagerment::find($request->get('in_id'));
