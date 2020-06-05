@@ -58,5 +58,8 @@ Route::get('/interview-management/delete/{id}', 'InterviewManagementController@g
 Route::group(['prefix' => 'ung-vien'], function () {
     Route::get('/', 'UserHomeController@index')->name('userHome');
     Route::post('/', 'UserHomeController@postUserHome')->name('postUserHome');
-    Route::post('/test','UserHomeController@postUserTest')->name('postUserTest');
+    Route::get('/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
+    Route::post('/update','UserHomeController@postUserHomeEditById')->name('postUserHomeEditById');
+    Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
+    Route::post('/test/tech','UserHomeController@postTech')->name('postTech');
 });

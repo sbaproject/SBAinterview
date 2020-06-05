@@ -11,7 +11,8 @@
             </div>
             <div class="col-md-12">
                 <div class="panel-body">
-                    {{ Form::open(['route'=>['postUserHome'], 'method' => 'POST', 'class'=>'infoForm', 'autocomplete' => 'off']) }}
+                    {{ Form::open(['route'=>['postUserHomeEditById'], 'method' => 'POST', 'class'=>'infoForm', 'autocomplete' => 'off']) }}
+                    <input type="hidden" name="userId" value="{{$data->id}}">
                     <div class="infouser">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -27,38 +28,38 @@
                                 <tr>
                                     <td style="width: 30%;">First Name</td>
                                     <td>
-                                        <input type="text" name="firstname" value="{{old('firstname')}}" required>
+                                        <input type="text" name="firstname" value="{{$data->candidate_firstname}}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%;">Last Name</td>
                                     <td>
-                                        <input type="text" name="lastname" value="{{old('lastname')}}" required>
+                                        <input type="text" name="lastname" value="{{$data->candidate_lastname}}" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Address</td>
-                                    <td><input type="text" name="address" value="{{old('address')}}" required></td>
+                                    <td><input type="text" name="address" value="{{$data->candidate_address}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Birthday</td>
-                                    <td><input type="text" name="dob" value="{{old('dob')}}" id="dob" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" required></td>
+                                    <td><input type="text" name="dob" value="{{$data->candidate_dob}}" id="dob" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" required></td>
                                 </tr>
                                 <tr>
                                     <td>Tel</td>
-                                    <td><input type="text" name="tel" value="{{old('tel')}}" required></td>
+                                    <td><input type="text" name="tel" value="{{$data->candidate_tel}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="email" value="{{old('email')}}" required></td>
+                                    <td><input type="text" name="email" value="{{$data->candidate_mail}}" required></td>
                                 </tr>
                                 <tr>
                                     <td>Programing Language</td>
                                     <td>
                                         <select name="selecttest">
                                             <option value="0">-- Select the test</option>
-                                            <option value="1" @if(old('selecttest') == 1) selected @endif>{{Config::get('constants.LANGUAGE.1')}}</option>
-                                            <option value="2" @if(old('selecttest') == 2) selected @endif>{{Config::get('constants.LANGUAGE.2')}}</option>
+                                            <option value="1" @if($data->candidate_language == 1) selected @endif>{{Config::get('constants.LANGUAGE.1')}}</option>
+                                            <option value="2" @if($data->candidate_language == 2) selected @endif>{{Config::get('constants.LANGUAGE.2')}}</option>
                                         </select>
                                     </td>
                                 </tr>
