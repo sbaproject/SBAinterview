@@ -13,7 +13,7 @@
 
     <!-- CSS  -->
     <base href="{{asset('')}}">
-      <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+      {{--<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">--}}
     <!-- font-awesome CSS -->
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <!-- Bootstrap CSS -->
@@ -97,12 +97,9 @@
         <div class="col-2 res-menu">
           <div class="menu">
             <ul class="menu-left">
-              {{--<li><a class="{{ (request()->is('customer*')) ? 'active' : '' }}" href="customer" >顧客管理</a></li>--}}
-              {{--<li><a class="{{ (request()->is('sales*')) ? 'active' : '' }}" href="sales" >売上管理</a></li>--}}
-              {{--<li><a class="{{ (request()->is('staff*')) ? 'active' : '' }}" href="staff" >スタッフ管理</a></li>--}}
-              {{--<li><a class="{{ (request()->is('course*')) ? 'active' : '' }}" href="course">コース管理</a></li>--}}
-              <li><a class="{{ (request()->is('interview-management*')) ? 'active' : '' }}" href="interview-management">Interview Management</a></li>
-                {{--<li><a class="{{ (request()->is('interManagement*')) ? 'active' : '' }}" href="interManagement">Interview Question</a></li>--}}
+                <li><a class="{{ (request()->is('interview-management*')) ? 'active' : '' }}" href="interview-management">Interview Management</a></li>
+                <li><a class="{{ (request()->is('tech-list*')) ? 'active' : '' }}" href="tech-list">Technical questions</a></li>
+                <li><a class="{{ (request()->is('iq-list*')) ? 'active' : '' }}" href="iq-list">IQ questions</a></li>
             </ul>
           </div>
 
