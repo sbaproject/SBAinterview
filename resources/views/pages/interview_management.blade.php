@@ -27,19 +27,19 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="fullname">Funll name</label>
-                                        <input type="in_name" class="form-control" id="in_name"  placeholder="Full name">
+                                        <input type="in_name" class="form-control" id="in_name"  name="in_name" value="{{old('in_name',$req_arr['in_name'])}}" placeholder="Full name">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="address">Adress</label>
-                                        <input type="in_address" class="form-control" id="in_address"  placeholder="Address">
+                                        <input type="in_address" class="form-control" id="in_address"  name="in_address" value="{{old('in_address',$req_arr['in_address'])}}" placeholder="Address">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="dob">DOB</label>
-                                        <input type="in_dob" class="form-control" id="in_dob"  placeholder="DOB">
+                                        <input type="in_dob" class="form-control" id="in_dob"  name="in_dob" value="{{old('in_dob',$req_arr['in_dob'])}}" placeholder="DOB">
                                     </div>
                                 </div>
                             </div>
@@ -47,13 +47,21 @@
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="tel">Tel</label>
-                                        <input type="in_tel" class="form-control" id="in_tel"  placeholder="Tel">
+                                        <input type="in_tel" class="form-control {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }}" id="in_tel" name="in_tel" value="{{old('in_tel',$req_arr['in_tel'])}}" placeholder="Tel">
+                                        <div class="invalid-feedback">
+                                            @error('in_tel')
+                                            {{ $message }}
+                                            @enderror
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="mail">Mail</label>
-                                        <input type="in_mail" class="form-control" id="in_mail"  placeholder="Mail">
+                                        <input type="in_mail" class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }}" id="in_mail" name="in_mail" value="{{old('in_mail',$req_arr['in_mail'])}}"  placeholder="Mail">
+                                        @error('in_mail')
+                                        {{ $message }}
+                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -61,8 +69,8 @@
                                         <label for="language">Language</label>
                                         <select class="form-control" name="in_language" >
                                             <option value="0" >Please choose language</option>
-                                            <option value="1" {{ old('in_language') == 1 ? "selected"  : "" }}>PHP</option>
-                                            <option value="2" {{ old('in_language') == 2 ? "selected"  : "" }}>C#/ASP.NET</option>
+                                            <option value="1" {{ old('in_language',$req_arr['in_language']) == 1 ? "selected"  : "" }}>PHP</option>
+                                            <option value="2" {{ old('in_language',$req_arr['in_language']) == 2 ? "selected"  : "" }}>C#/ASP.NET</option>
                                         </select>
                                     </div>
                                 </div>
