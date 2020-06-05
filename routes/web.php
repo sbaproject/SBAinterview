@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function() {
-    return view('pages.landing');
+    return view('pages.login');
 });
 
 
@@ -47,3 +47,16 @@ Route::get('/interview-management/edit/{id}', 'InterviewManagementController@get
 Route::post('/interview-management/edit/{id}', 'InterviewManagementController@postInterviewerEdit');
 
 Route::get('/interview-management/delete/{id}', 'InterviewManagementController@getInterviewerDelete');
+
+
+/**
+ * 
+ * frontEnd user 
+ * PCVSTARBOARD
+ * 
+ * **/
+Route::group(['prefix' => 'ung-vien'], function () {
+    Route::get('/', 'UserHomeController@index')->name('userHome');
+    Route::post('/', 'UserHomeController@postUserHome')->name('postUserHome');
+    Route::post('/test','UserHomeController@postUserTest')->name('postUserTest');
+});

@@ -1,0 +1,91 @@
+.logo {
+    margin: 30px 0;
+    position: relative;
+    padding-bottom: 30px;
+}
+
+.logo img {
+    margin-left: -15px;
+}
+.logo:after {content: "";position: absolute;bottom: 0;left: 50%;width: 50%;height: 1px;background: #b1b1b1;transform: translateX(-50%);}
+
+.infouser input[type="text"], .infouser select {
+    width: 100%;
+    border: 1px solid #d0d0d0;
+    padding: 5px;
+}
+
+.infouser input[type="text"]:focus, .infouser select:focus {
+    box-shadow: 0px 0px 2px #007bff;
+    outline: 0;
+}
+
+.optiongroup input {display: none;}
+
+.optiongroup label {
+    width: 16%;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.checkboxcss {
+    border: 1px solid #d6d6d6;
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 10px;
+}
+
+.optiongroup input:checked + .checkboxcss {
+    background: #007bff;
+    box-shadow: 0px 0px 3px #007bff;
+}
+
+.infouser td {
+    position: relative;
+    vertical-align: middle;
+}
+
+.infouser td table th {font-size: 12px;padding: 10px;}
+
+.infouser td table td {
+    padding: 10px;
+}
+
+.listtest {
+    margin: 30px 0;
+}
+
+.listtest label {
+    width: 100%;
+    margin-left: 20px;
+}
+
+.question {
+    margin-bottom: 15px;
+}
+
+.anser input {
+    display: none;
+}
+
+.radioboxcss {
+    width: 15px;
+    height: 15px;
+    border: 1px solid #898989;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.anser input:checked + .radioboxcss {
+    background: #007bff;
+    box-shadow: 0px 0px 3px #007bff;
+    border-color: #007bff;
+}
+
+.test {
+    margin-bottom: 20px;
+}
