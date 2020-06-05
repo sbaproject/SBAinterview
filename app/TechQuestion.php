@@ -17,10 +17,7 @@ class TechQuestion extends Model
         'type',
         'del_flg',
         'date_created',
-        'date_update',
-        'in_del_flg',
-        'in_datecreate',
-        'in_update',
+        'date_update'
     ];
      
 
