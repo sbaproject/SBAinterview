@@ -209,3 +209,7 @@ hr {
 .invalid-feedback {
 	margin-left: 20%;
 }
+input[type=checkbox], input[type=radio]{
+	position: relative;
+	font-size: 1rem;
+}
