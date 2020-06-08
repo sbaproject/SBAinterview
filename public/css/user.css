@@ -89,3 +89,41 @@
 .test {
     margin-bottom: 20px;
 }
+
+.toptest {
+    background: #221e1f;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    display: inline-block;
+    width: 100%;
+}
+
+.toptest h2 {
+    font-size: 28px;
+    width: 90%;
+    float: left;
+    margin: 0;
+    padding: 10px 30px 11px;
+}
+
+.counttime {
+    width: 10%;
+    float: left;
+    text-align: center;
+    background: #bb162d;
+    padding: 10px;
+    position: relative;
+}
+
+.counttime:before {content: "";position: absolute;top: 0;left: -20px;height: 100%;/* border-top: 0px solid transparent; */border-left: 20px solid transparent;/* border-right: 20px solid #bb162d; */border-bottom: 50px solid #bb162d;}
+.listtest textarea {
+    width: 100%;
+}
+.scrollbar.sticky {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+    /* background: #ccc; */
+    top: 0;
+}

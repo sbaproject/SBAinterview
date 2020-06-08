@@ -19,5 +19,8 @@ class IqQuestion extends Model
         'date_update'
     ];
      
-
+    // Get option IQ
+    public function Options(){
+        return $this->hasMany('App\IqQuestionOption', 'iq_question_id')->where('del_flg', 0);
+    }
 }

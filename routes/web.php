@@ -58,7 +58,11 @@ Route::get('/interview-management/delete/{id}', 'InterviewManagementController@g
 Route::group(['prefix' => 'ung-vien'], function () {
     Route::get('/', 'UserHomeController@index')->name('userHome');
     Route::post('/', 'UserHomeController@postUserHome')->name('postUserHome');
-    Route::post('/test','UserHomeController@postUserTest')->name('postUserTest');
+    Route::get('/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
+    Route::post('/update','UserHomeController@postUserHomeEditById')->name('postUserHomeEditById');
+    Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
+    Route::post('/test/tech','UserHomeController@postResultTech')->name('postResultTech');
+    Route::post('/test/iq','UserHomeController@postResultIQ')->name('postResultIQ');
 });
 
 /* tech question */
@@ -97,5 +101,7 @@ Route::post('/iq-option/new/{iq_id}', 'IqQuestionOptionController@postIqQuestion
 Route::get('/iq-option/edit/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionEdit');
 
 Route::post('/iq-option/edit/{op_id}', 'IqQuestionOptionController@postIqQuestionOptionEdit');
+
+Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');
 
 Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');
