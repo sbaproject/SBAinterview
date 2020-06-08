@@ -103,3 +103,5 @@ Route::get('/iq-option/edit/{op_id}', 'IqQuestionOptionController@getIqQuestionO
 Route::post('/iq-option/edit/{op_id}', 'IqQuestionOptionController@postIqQuestionOptionEdit');
 
 Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');
+
+Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');

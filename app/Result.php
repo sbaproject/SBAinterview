@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Result extends Model
 {
-
     // change default Eloquent Model config
     protected $table = "t_result";
     public $timestamps = false;
