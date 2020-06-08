@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Config;
 use App\Result;
+use App\TechQuestion;
+use App\IqQuestion;
+use App\TestAnswer;
+use Carbon\Carbon;
 use DB;
+use Session;
 
 class UserHomeController extends Controller
 {
@@ -50,6 +55,7 @@ class UserHomeController extends Controller
             'tech_score' => 0
         ];
         $userId = DB::table('t_result')->insertGetId($data);
+        Session(['ID' => $userId]);
         return view('user.infoTest', compact("data", "userId"));
     }
     /**
@@ -105,24 +111,83 @@ class UserHomeController extends Controller
      * Start test with data selected
      * 
      * **/
-    public function postUserTest($type){
+    public function postUserTest($type, Request $request){
+        $data = [];
+        $time = Carbon::now();
+        $id = $request->session()->get('ID');
+        $result = Result::find($id);
+        $result->starttime = $time->toTimeString();
+        $result->save();
         if($type == "PHP"){
             $type = 1;
+            $data = TechQuestion::where([['type', 1], ['del_flg', 0]])->get();
         }elseif($type == "IQ"){
             $type = 3;
-            return view('user.testIQ', compact("type"));
+            $q = IqQuestion::where('del_flg', 0)->get();
+        
+            foreach($q as $k => $i){
+                $data['q'][$k]['id'] = $i->id;
+                $data['q'][$k]['content'] = $i->content;
+                $data['q'][$k]['option'] = $i->Options; 
+            }
+            return view('user.testIQ', compact("type", "data"));
         }else{
             $type = 2;
+            $data = TechQuestion::where([['type', 2], ['del_flg', 0]])->get();
         }
-        return view('user.questionTest', compact("type"));
+        return view('user.questionTest', compact("type", "data"));
     }
     /**
      * 
      * Save result test
      * 
      * **/
-    public function postTech(Request $request){
-        return "OK";
+    public function postResultTech(Request $request){
+        $tech = $request->tech;
+        $currentTime = Carbon::now();
+        foreach($tech as $key => $value){
+            $result = new TestAnswer;
+            $result->result_id = $request->session()->get('ID');
+            $result->type = 2;
+            $result->question_id = $key;
+            $result->tech_content_ans = $value;
+            $result->date_created = $currentTime;
+            $result->save();
+        }
+        //
+        $type = 3;
+        $q = IqQuestion::where('del_flg', 0)->get();
+        
+        foreach($q as $k => $i){
+            $data['q'][$k]['id'] = $i->id;
+            $data['q'][$k]['content'] = $i->content;
+            $data['q'][$k]['option'] = $i->Options; 
+        }
+        return view('user.testIQ', compact("type", "data"));
+    }
+    /**
+     * 
+     * Save result test IQ
+     * 
+     * **/
+    public function postResultIQ(Request $request){
+        $iq = $request->anser;
+        $id = $request->session()->get('ID');
+        $currentTime = Carbon::now();
+        foreach($iq as $key => $value){
+            $result = new TestAnswer;
+            $result->result_id = $id;
+            $result->type = 1;
+            $result->question_id = $key;
+            $result->date_created = $currentTime;
+            $result->question_options_id = $value;
+            $result->save();
+        }
+        $result = Result::find($id);
+        $result->endtime = $currentTime->toTimeString();
+        $result->save();
+        $request->session()->forget('ID');
+        return view('user.success');
     }
     /**
      * Show the form for creating a new resource.

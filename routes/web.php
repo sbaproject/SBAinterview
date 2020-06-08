@@ -61,7 +61,8 @@ Route::group(['prefix' => 'ung-vien'], function () {
     Route::get('/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
     Route::post('/update','UserHomeController@postUserHomeEditById')->name('postUserHomeEditById');
     Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
-    Route::post('/test/tech','UserHomeController@postTech')->name('postTech');
+    Route::post('/test/tech','UserHomeController@postResultTech')->name('postResultTech');
+    Route::post('/test/iq','UserHomeController@postResultIQ')->name('postResultIQ');
 });
 
 /* tech question */

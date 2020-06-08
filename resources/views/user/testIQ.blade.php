@@ -22,37 +22,22 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
-                    {{ Form::open(['route'=>['postUserHome'], 'method' => 'POST', 'class'=>'infoForm']) }}
+                    {{ Form::open(['route'=>['postResultIQ'], 'method' => 'POST', 'class'=>'infoForm']) }}
                     <div class="listtest">
-                        <?php
-                            for($i = 1; $i <= 10; $i++){
-                        ?>
+                        @foreach($data['q'] as $k => $v)
                         <div class="test">
-                            <div class="question"><strong>{{$i}}.</strong> Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</div>
+                            <div class="question"><strong>{{$k+1}}.</strong> {{$v['content']}}</div>
                             <div class="anser">
+                                @foreach($v['option'] as $key => $val)
                                 <label>
-                                    <input type="radio" name="anser[{{$i}}]" />
+                                    <input type="radio" name="anser[{{$v['id']}}]" value="{{$val->id}}"/>
                                     <div class="radioboxcss"></div>
-                                    <span>Proin nunc justo felis mollis tincidunt, risus risus pede, posuere cubilia Curae. </span>
+                                    <span>{{$val->option_value}}</span>
                                 </label>
-                                <label>
-                                    <input type="radio" name="anser[{{$i}}]" />
-                                    <div class="radioboxcss"></div>
-                                    <span>Proin nunc justo felis mollis tincidunt, risus risus pede, posuere cubilia Curae. </span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="anser[{{$i}}]" />
-                                    <div class="radioboxcss"></div>
-                                    <span>Proin nunc justo felis mollis tincidunt, risus risus pede, posuere cubilia Curae. </span>
-                                </label>
-                                <label>
-                                    <input type="radio" name="anser[{{$i}}]" />
-                                    <div class="radioboxcss"></div>
-                                    <span>Proin nunc justo felis mollis tincidunt, risus risus pede, posuere cubilia Curae. </span>
-                                </label>
+                                @endforeach
                             </div>
                         </div> 
-                        <?php } ?>
+                        @endforeach
                     </div>                  
                     <div class="text-center">
                         <button type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">SAVE/EXIT</button>

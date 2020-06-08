@@ -22,21 +22,20 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel-body">
-                    {{ Form::open(['route'=>['postTech'], 'method' => 'POST', 'class'=>'infoForm']) }}
+                    {{ Form::open(['route'=>['postResultTech'], 'method' => 'POST', 'class'=>'infoForm']) }}
+                    <input type="hidden" name="typetech" value="{{$type}}" />
                     <div class="listtest">
-                        <?php
-                            for($i = 1; $i <= 10; $i++){
-                        ?>
+                        @foreach($data as $key => $item)
                         <div class="test">
-                            <div class="question"><strong>{{$i}}.</strong> Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies.</div>
+                            <div class="question"><strong>{{$key+1}}.</strong> {!!$item->content!!}</div>
                             <div class="anser">
-                                <textarea rows="6"></textarea>
+                                <textarea rows="6" id="aws-{{$key}}" name="tech[{{$item->id}}]"></textarea>
                             </div>
                         </div> 
-                        <?php } ?>
+                        @endforeach
                         <div class="text-center">
-                            <button type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">SAVE</button>
-                            <a href="{{route('postUserTest', 'IQ')}}" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">TEST IQ</a>
+                            <button type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;">SAVE/TEST IQ</button>
+                            <!-- <a href="{{route('postUserTest', 'IQ')}}" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">TEST IQ</a> -->
                         </div>
                     </div>                  
                     {{ Form::close() }}
@@ -47,8 +46,8 @@
 </section>
 @endsection
 @section('footInclude')
-<script src="{{URL::asset('js/moment.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('frontEnd/countdown/jquery.countdown.js')}}" type="text/javascript"></script>
+<script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
     $(document).ready(function() {
         var fiveSeconds = new Date().getTime() + 1000 * 45 * 60;
@@ -71,5 +70,17 @@
             }
         }
     });   
+</script>
+<script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script>
+  var options = {
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+  };
+  @foreach($data as $k => $v)
+  CKEDITOR.replace( 'aws-' + {{$k}}, options);
+  @endforeach
 </script>
 @endsection
