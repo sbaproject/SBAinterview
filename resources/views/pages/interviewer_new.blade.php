@@ -50,7 +50,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Salary(VNĐ/USD)</span>
                             </div>
-                            <input type="text"  class="form-control "  name="in_salary" value="{{ old('in_salary') }}" >
+                            <input type="text"  class="form-control {{ ($errors->first('in_salary')) ? 'is-invalid'  :'' }} "  name="in_salary" value="{{ old('in_salary') }}" >
+                            <div class="invalid-feedback">
+                                @error('in_salary')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -59,7 +64,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Mail</span>
                             </div>
-                            <input type="text"  class="form-control "  name="in_mail" value="{{ old('in_mail') }}" >
+                            <input type="text"  class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }} "  name="in_mail" value="{{ old('in_mail') }}" >
+                            <div class="invalid-feedback">
+                                @error('in_mail')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -109,7 +119,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Tel</span>
                             </div>
-                            <input type="text" maxlength="14" class="form-control "  name="in_tel" value="{{ old('in_tel') }}" >
+                            <input type="text" maxlength="14" class="form-control  {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }} "  name="in_tel" value="{{ old('in_tel') }}" >
+                            <div class="invalid-feedback">
+                                @error('in_tel')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

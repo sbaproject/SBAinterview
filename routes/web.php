@@ -63,3 +63,42 @@ Route::group(['prefix' => 'ung-vien'], function () {
     Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
     Route::post('/test/tech','UserHomeController@postTech')->name('postTech');
 });
+
+/* tech question */
+Route::get('/tech-list', 'TechQuestionController@index');
+
+Route::get('/tech-list/new', 'TechQuestionController@getTechQuestionNew');
+
+Route::post('/tech-list/new', 'TechQuestionController@postTechQuestionNew');
+
+Route::get('/tech-list/edit/{id}', 'TechQuestionController@getTechQuestionEdit');
+
+Route::post('/tech-list/edit/{id}', 'TechQuestionController@postTechQuestionEdit');
+
+Route::get('/tech-list/delete/{id}', 'TechQuestionController@getTechQuestionDelete');
+
+/* iq question */
+Route::get('/iq-list', 'IqQuestionController@index');
+
+Route::get('/iq-list/new', 'IqQuestionController@getIqQuestionNew');
+
+Route::post('/iq-list/new', 'IqQuestionController@postIqQuestionNew');
+
+Route::get('/iq-list/edit/{id}', 'IqQuestionController@getIqQuestionEdit');
+
+Route::post('/iq-list/edit/{id}', 'IqQuestionController@postIqQuestionEdit');
+
+Route::get('/iq-list/delete/{id}', 'IqQuestionController@getIqQuestionDelete');
+
+/* iq question */
+Route::get('/iq-option-list/{iq_id}', 'IqQuestionOptionController@index');
+
+Route::get('/iq-option/new/{iq_id}', 'IqQuestionOptionController@getIqQuestionOptionNew');
+
+Route::post('/iq-option/new/{iq_id}', 'IqQuestionOptionController@postIqQuestionOptionNew');
+
+Route::get('/iq-option/edit/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionEdit');
+
+Route::post('/iq-option/edit/{op_id}', 'IqQuestionOptionController@postIqQuestionOptionEdit');
+
+Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');

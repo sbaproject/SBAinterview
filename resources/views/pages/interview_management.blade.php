@@ -26,7 +26,7 @@
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="fullname">Funll name</label>
+                                        <label for="fullname">Full name</label>
                                         <input type="in_name" class="form-control" id="in_name"  name="in_name" value="{{old('in_name',$req_arr['in_name'])}}" placeholder="Full name">
                                     </div>
                                 </div>
@@ -59,9 +59,12 @@
                                     <div class="form-group">
                                         <label for="mail">Mail</label>
                                         <input type="in_mail" class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }}" id="in_mail" name="in_mail" value="{{old('in_mail',$req_arr['in_mail'])}}"  placeholder="Mail">
-                                        @error('in_mail')
-                                        {{ $message }}
-                                        @enderror
+                                        <div class="invalid-feedback">
+                                            @error('in_mail')
+                                            {{ $message }}
+                                            @enderror
+                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -163,6 +166,15 @@
             </div>
             <div class="pagination-container">
                 <div>{{ $list_interviewers->links() }}</div>
+            </div>
+            @else
+            <div class="row">
+                <div class="md-12">
+                    <div class="padding-20">
+                        There are no results
+                    </div>
+
+                </div>
             </div>
         @endif
     </div>
