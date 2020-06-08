@@ -25,6 +25,12 @@
                         <table class="table table-bordered table-striped" id="users">
                             <tbody>
                                 <tr>
+                                    <td style="width: 30%;">Candidate ID</td>
+                                    <td>
+                                        <input type="text" name="candidate_id" value="{{old('candidate_id')}}" required>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td style="width: 30%;">First Name</td>
                                     <td>
                                         <input type="text" name="firstname" value="{{old('firstname')}}" required>

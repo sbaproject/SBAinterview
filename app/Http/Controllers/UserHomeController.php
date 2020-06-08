@@ -35,6 +35,7 @@ class UserHomeController extends Controller
         ]);
 
         $data = [
+            'candidate_id' => $request->candidate_id,
             'candidate_firstname' => $request->firstname,
             'candidate_lastname' => $request->lastname,
             'candidate_tel' => $request->tel,
@@ -42,8 +43,8 @@ class UserHomeController extends Controller
             'candidate_mail' => $request->email,
             'candidate_language' => $request->selecttest,
             'candidate_dob' => $request->dob,
-            'starttime' => '',
-            'endtime' => '',
+            'starttime' => '00:00',
+            'endtime' => '00:00',
             'totaltime' => 0,
             'iq_score' => 0,
             'tech_score' => 0
@@ -75,6 +76,7 @@ class UserHomeController extends Controller
         ]);
 
         $user = Result::find($request->userId);
+        $user->candidate_id = $request->candidate_id;
         $user->candidate_firstname = $request->firstname;
         $user->candidate_lastname = $request->lastname;
         $user->candidate_tel = $request->tel;
@@ -85,6 +87,7 @@ class UserHomeController extends Controller
         $user->save();
         
         $data = [
+            'candidate_id' => $request->candidate_id,
             'candidate_firstname' => $request->firstname,
             'candidate_lastname' => $request->lastname,
             'candidate_tel' => $request->tel,

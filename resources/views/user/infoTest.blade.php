@@ -16,6 +16,12 @@
                         <table class="table table-bordered table-striped" id="users">
                             <tbody>
                                 <tr>
+                                    <td style="width: 30%;">Candidate ID</td>
+                                    <td>
+                                        {{$data['candidate_id']}}
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td style="width: 30%;">FullName</td>
                                     <td>{{$data['candidate_firstname']}} {{$data['candidate_lastname']}}</td>
                                 </tr>
