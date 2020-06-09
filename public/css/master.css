@@ -184,7 +184,7 @@ hr {
 
 
 .main {
-	font-size: 20px; /* Increased text to enable scrolling */
+	/*font-size: 20px; !* Increased text to enable scrolling *!*/
 	padding: 5px 5px;
 	background-color: #fff;
 	margin-left: 20px;

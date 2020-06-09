@@ -164,15 +164,15 @@
     width: 120px;
 }
 
-.table-fixed thead,
-.table-fixed tbody,
-.table-fixed tr,
-.table-fixed td,
-.table-fixed th {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-}
+/*.table-fixed thead,*/
+/*.table-fixed tbody,*/
+/*.table-fixed tr,*/
+/*.table-fixed td,*/
+/*.table-fixed th {*/
+    /*white-space: nowrap;*/
+    /*text-overflow: ellipsis;*/
+    /*overflow: hidden;*/
+/*}*/
 
 .table-fixed tbody td,
 .table-fixed tbody th,
