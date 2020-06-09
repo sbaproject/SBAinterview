@@ -100,6 +100,7 @@
                 <li><a class="{{ (request()->is('interview-management*')) ? 'active' : '' }}" href="interview-management">Interview Management</a></li>
                 <li><a class="{{ (request()->is('tech-list*')) ? 'active' : '' }}" href="tech-list">Technical questions</a></li>
                 <li><a class="{{ (request()->is('iq-list*')) ? 'active' : '' }}" href="iq-list">IQ questions</a></li>
+                <li><a class="{{ (request()->is('result-list*')) ? 'active' : '' }}" href="result-list">Results</a></li>
             </ul>
           </div>
 
