@@ -50,10 +50,19 @@
 <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
 <script>
     $(document).ready(function() {
-        var fiveSeconds = new Date().getTime() + 1000 * 45 * 60;
-        $('#clock1').countdown(fiveSeconds)
+        var time = 0;
+        var d = localStorage.getItem('time');
+        if(!d) {
+            time = new Date().getTime() + 1000  * 60 * 45;
+        } else {
+            var a = d.split(':');
+            var second = 1000 * 60 * parseInt(a[0]) + parseInt(a[1])*1000;
+            time = new Date().getTime() + second ;
+        }
+        $('#clock1').countdown(time)
         .on('update.countdown', function(event) {
-            var $this = $(this);             
+            var $this = $(this);   
+            localStorage.setItem('timeTECH', event.strftime('%M:%S'));       
             $this.html(event.strftime('<span style="font-size: 23px; color: #FFC300;">%M:%S</span>'));
         });
         //
