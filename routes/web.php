@@ -108,3 +108,6 @@ Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestio
 Route::get('/result-list', 'ResultController@index');
 
 Route::get('/result-iq/{candidate_id}', 'TestAnswerController@resultIQ');
+Route::get('/result-tech/{candidate_id}', 'TestAnswerController@ResultTech');
+Route::get('/result-tech/mark/{candidate_id}', 'TestAnswerController@getResultTechMark');
+Route::post('/result-tech/mark/{candidate_id}', 'TestAnswerController@postResultTechMark');
