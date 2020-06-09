@@ -35,7 +35,7 @@ Route::post('/changepassword/{username}/{password}', 'UserController@changePassw
 
 /*************sba interview ********************/
 
-/* staff */
+/* interview-management */
 Route::get('/interview-management', 'InterviewManagementController@index');
 
 Route::get('/interview-management/new', 'InterviewManagementController@getInterviewerNew');
@@ -104,4 +104,7 @@ Route::post('/iq-option/edit/{op_id}', 'IqQuestionOptionController@postIqQuestio
 
 Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');
 
-Route::get('/iq-option/delete/{op_id}', 'IqQuestionOptionController@getIqQuestionOptionDelete');
+/* result */
+Route::get('/result-list', 'ResultController@index');
+
+Route::get('/result-iq/{candidate_id}', 'TestAnswerController@resultIQ');
