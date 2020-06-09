@@ -106,6 +106,7 @@
                 <thead class="table-header">
                     <tr>
                         <th width="5%" scope="col">No.</th>
+                        <th width="10%" scope="col">Candidate ID</th>
                         <th width="10%" scope="col">First name</th>
                         <th width="10%" scope="col">Last name</th>
                         <th width="10%" scope="col">Tel</th>
@@ -141,6 +142,7 @@
                     @foreach($list_result as $result)
                         <tr>
                             <th width="5%">{{ $index < 10 ? '0' . $index : $index }}</th>
+                            <td width="10%">{{ $result->candidate_id }}</td>
                             <td width="10%">{{ $result->candidate_firstname }}</td>
                             <td width="10%">{{ $result->candidate_lastname }}</td>
                             <td width="10%">{{ $result->candidate_tel }}</td>
