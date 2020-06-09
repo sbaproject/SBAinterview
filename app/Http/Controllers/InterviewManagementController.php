@@ -127,7 +127,7 @@ class InterviewManagementController extends Controller
             'in_lastname.required'  => 'The last name field is required.',
             'in_language.required'   => 'Please choose a progamming language.',
             'in_salary.numeric' => 'The salary must be a number.',
-            'in_tel.regex' => 'The in tel format is invalid.',
+            'in_tel.regex' => 'The tel format is invalid.',
             'in_mail.email' => 'The mail must be a valid email address.'
         ]);
 
@@ -206,7 +206,7 @@ class InterviewManagementController extends Controller
             'in_lastname.required'  => 'The last name field is required.',
             'in_language.required'   => 'Please choose a progamming language.',
             'in_salary.numeric' => 'The salary must be a number.',
-            'in_tel.regex' => 'The in tel format is invalid.',
+            'in_tel.regex' => 'The tel format is invalid.',
             'in_mail.email' => 'The mail must be a valid email address.'
         ]);
 
