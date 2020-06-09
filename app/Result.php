@@ -25,6 +25,7 @@ class Result extends Model
         'totaltime',
         'iq_score',
         'tech_score',
+        'is_marked',
         'date_created',
         'date_update'
     ];
