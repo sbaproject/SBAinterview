@@ -84,7 +84,7 @@ class IqQuestionOptionController extends Controller
 
         $correct_flg = $request->get('correct_flg');
         if($correct_flg == 'on'){
-            $list_iq_option_last = IqQuestionOption::where('del_flg', 0)->where('iq_question_id' ,'!=', $option->id)->get()->all();
+            $list_iq_option_last = IqQuestionOption::where('del_flg', 0)->where('iq_question_id' , $option->iq_question_id)->get()->all();
             foreach ($list_iq_option_last as $option_iq){
                 $option1= IqQuestionOption::find($option_iq->id);
                 $option1 -> correct_flg    = 0;
