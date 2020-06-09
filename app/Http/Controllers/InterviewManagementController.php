@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\InterviewManagerment;
 use Carbon\Carbon;
 use Session;
+use config\constants;
 
 class InterviewManagementController extends Controller
 {
@@ -17,8 +18,13 @@ class InterviewManagementController extends Controller
         if ($userLogged == null) {
             return redirect('/login');
         }
+        $cst_lang =config('constants.LANGUAGE');
+        $cst_cvchannel = config('constants.CV_CHANNEL');
+        $cst_status = config('constants.STATUS');
         $req_arr = array(
-            'in_name' => '',
+            'in_firstname' => '',
+            'in_lastname' => '',
+            'in_cvchannel' => '',
             'in_address' => '',
             'in_dob' => '',
             'in_tel' => '',
@@ -27,27 +33,33 @@ class InterviewManagementController extends Controller
         );
         if($request->has('submit')){
             $validator = $request->validate([
-                'in_tel'    => 'nullable|regex:/(01)[0-9]{9}/|size:11',
+                'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
                 'in_mail'    => 'nullable|email',
 
             ], [
-                'in_tel'    => 'Please enter the correct tel format',
-                'in_mail'    => 'Please enter the correct email format',
+                'in_tel.regex' => 'The in tel format is invalid.',
+                'in_mail.email' => 'The mail must be a valid email address.'
             ]);
 
-            $name = $request->get('in_name');
+            $first_name = $request->get('in_firstname');
+            $last_name = $request->get('in_lastname');
             $address = $request->get('in_address');
             $dob = $request->get('in_dob');
             $tel = $request->get('in_tel');
             $mail = $request->get('in_mail');
             $language = $request->get('in_language');
+            $cv_channel = $request->get('in_cvchannel');
+
 
             $req_arr = $request->all();
 
             $list_interviewers = InterviewManagerment::where('in_del_flg', 0);
-             if(!empty($name)){
-               $list_interviewers = $list_interviewers ->where('in_name','like','%'.$name.'%');
+             if(!empty($first_name)){
+               $list_interviewers = $list_interviewers ->where('in_firstname','like','%'.$first_name.'%');
              }
+            if(!empty($last_name)){
+                $list_interviewers = $list_interviewers ->where('in_lastname','like','%'.$last_name.'%');
+            }
             if(!empty($address)){
                 $list_interviewers = $list_interviewers ->where('in_address','like','%'.$address.'%');
             }
@@ -63,14 +75,19 @@ class InterviewManagementController extends Controller
             if(!empty($language)){
                 $list_interviewers = $list_interviewers ->where('in_language',$language);
             }
+            if(!empty($cv_channel)){
+                $list_interviewers = $list_interviewers ->where('in_cvchannel',$cv_channel);
+            }
              $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->paginate(10);
 
 
             $list_interviewers_count= $list_interviewers->count();
-            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr'));
+            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status'));
         }else{
             $req_arr = array(
-                'in_name' => '',
+                'in_firstname' => '',
+                'in_lastname' => '',
+                'in_cvchannel' => '',
                 'in_address' => '',
                 'in_dob' => '',
                 'in_tel' => '',
@@ -80,7 +97,7 @@ class InterviewManagementController extends Controller
             // get all interviewer have del_flg = 0 and soft by update time
             $list_interviewers = InterviewManagerment::where('in_del_flg', 0)->orderBy('in_id', 'DESC')->paginate(10);
             $list_interviewers_count= $list_interviewers->count();
-            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr'));
+            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status'));
         }
 
 
@@ -88,26 +105,30 @@ class InterviewManagementController extends Controller
 
     public function getInterviewerNew() {
         $currentTime = Carbon::now()->format('yy/m/d');
-
-        return view('pages.interviewer_new',compact('currentTime'));
+        $cst_lang =config('constants.LANGUAGE');
+        $cst_cvchannel = config('constants.CV_CHANNEL');
+        $cst_status = config('constants.STATUS');
+        return view('pages.interviewer_new',compact('currentTime','cst_status','cst_cvchannel','cst_lang'));
     }
 
     public function postInterviewerNew(Request $request) {
 
         $validator = $request->validate([
-            'in_name'   => 'required',
+            'in_firstname'   => 'required',
+            'in_lastname'   => 'required',
             'in_language'    => 'required',
             'in_salary' => 'nullable|numeric',
             'in_mail' => 'nullable|email',
-            'in_tel' => 'nullable|regex:/(01)[0-9]{9}/|size:11'
+            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/'
 
 
         ], [
-            'in_name.required'  => 'Please enter fullname.',
-            'in_language.required'   => 'Please choose language.',
-//            'in_salary' => 'Please enter the number format',
-//            'in_tel' => 'Please enter the correct tel format',
-//            'in_mail' => 'Please enter the correct mail format'
+            'in_firstname.required'  => 'The first name field is required.',
+            'in_lastname.required'  => 'The last name field is required.',
+            'in_language.required'   => 'Please choose a progamming language.',
+            'in_salary.numeric' => 'The salary must be a number.',
+            'in_tel.regex' => 'The in tel format is invalid.',
+            'in_mail.email' => 'The mail must be a valid email address.'
         ]);
 
 
@@ -116,8 +137,10 @@ class InterviewManagementController extends Controller
         $interviewer = new InterviewManagerment([
 //        'in_id'               => $request->get('in_id'),
         'in_cvno'             => $request->get('in_cvno'),
-        'in_name'             => $request->get('in_name'),
-        'in_dob'             => $request->get('in_dob'),
+        'in_cvchannel'       => $request->get('in_cvchannel'),
+        'in_firstname'       => $request->get('in_firstname'),
+        'in_lastname'         => $request->get('in_lastname'),
+        'in_cvlink'           => $request->get('in_cvlink'),
         'in_salary'           => $request->get('in_salary'),
         'in_mail'             => $request->get('in_mail'),
         'in_education'        => $request->get('in_education'),
@@ -132,6 +155,7 @@ class InterviewManagementController extends Controller
         'in_note'             => $request->get('in_note'),
         'in_extraskill'       => $request->get('in_extraskill'),
         'in_personality'      => $request->get('in_personality'),
+         'in_dob'               => $request->get('in_dob'),
         'in_del_flg'          => 0,
         'in_datecreate'       => $currentTime,
         'in_update'           => $currentTime
@@ -159,32 +183,41 @@ class InterviewManagementController extends Controller
     public function getInterviewerEdit($id) {
         $currentTime = Carbon::now()->format('yy/m/d');
         $interviewer = InterviewManagerment::where('in_id', $id)->first();
+        $cst_lang =config('constants.LANGUAGE');
+        $cst_cvchannel = config('constants.CV_CHANNEL');
+        $cst_status = config('constants.STATUS');
 
-        return view('pages.interviewer_edit', compact('interviewer','currentTime'));
+        return view('pages.interviewer_edit', compact('interviewer','currentTime','cst_status','cst_cvchannel','cst_lang'));
     }
 
     public function postInterviewerEdit(Request $request) {
+
         $validator = $request->validate([
-            'in_name'   => 'required',
+            'in_firstname'   => 'required',
+            'in_lastname'   => 'required',
             'in_language'    => 'required',
             'in_salary' => 'nullable|numeric',
             'in_mail' => 'nullable|email',
-            'in_tel' => 'nullable|regex:/(01)[0-9]{9}/|size:11'
+            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/'
 
 
         ], [
-            'in_name.required'  => 'Please enter fullname.',
-            'in_language.required'   => 'Please choose language.',
-//            'in_salary' => 'Please enter the number format',
-//            'in_tel' => 'Please enter the correct tel format',
-//            'in_mail' => 'Please enter the correct mail format'
+            'in_firstname.required'  => 'The first name field is required.',
+            'in_lastname.required'  => 'The last name field is required.',
+            'in_language.required'   => 'Please choose a progamming language.',
+            'in_salary.numeric' => 'The salary must be a number.',
+            'in_tel.regex' => 'The in tel format is invalid.',
+            'in_mail.email' => 'The mail must be a valid email address.'
         ]);
 
         $interviewer  = InterviewManagerment::find($request->get('in_id'));
 
 
         $interviewer ->in_cvno            = $request->get('in_cvno');
-        $interviewer-> in_name            = $request->get('in_name');
+        $interviewer ->in_cvchannel            = $request->get('in_cvchannel');
+        $interviewer ->in_cvlink            = $request->get('in_cvlink');
+        $interviewer-> in_firstname            = $request->get('in_firstname');
+        $interviewer-> in_lastname           = $request->get('in_lastname');
         $interviewer-> in_dob              = $request->get('in_dob');
         $interviewer->in_salary           = $request->get('in_salary');
         $interviewer->in_mail             = $request->get('in_mail');

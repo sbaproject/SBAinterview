@@ -43,10 +43,25 @@ class IqQuestionOptionController extends Controller
         ]);
         // get current time
         $currentTime = Carbon::now();
+        $correct_flg = $request->get('correct_flg');
+
+
+        if($correct_flg == 'on'){
+            $list_iq_option_last = IqQuestionOption::where([
+                'del_flg'=> 0,
+                'iq_question_id' => $iq_id
+            ])->orderBy('option_key', 'DESC')->get()->all();
+            foreach ($list_iq_option_last as $option_iq){
+                $option= IqQuestionOption::find($option_iq->id);
+                $option -> correct_flg    = 0;
+                $option->save();
+            }
+        }
+
         $iq_option = new IqQuestionOption([
-        'option_value'             => $request->get('o_value'),
+        'option_value'             => $request->get('option_value'),
         'iq_question_id' => $iq_id,
-        'correct_flg' => 0,
+        'correct_flg' => ($request->get('correct_flg') == 'on') ? 1 : 0,
         'del_flg'          => 0,
         'date_created'       => $currentTime,
         'date_update'           => $currentTime
@@ -67,10 +82,22 @@ class IqQuestionOptionController extends Controller
 
         $option= IqQuestionOption::find($request->get('id'));
 
+        $correct_flg = $request->get('correct_flg');
+        if($correct_flg == 'on'){
+            $list_iq_option_last = IqQuestionOption::where('del_flg', 0)->where('iq_question_id' ,'!=', $option->id)->get()->all();
+            foreach ($list_iq_option_last as $option_iq){
+                $option1= IqQuestionOption::find($option_iq->id);
+                $option1 -> correct_flg    = 0;
+                $option1->save();
+            }
+
+        }
+
         $option -> option_value    = $request->get('option_value');
-        $option -> correct_flg    = 0;
+        $option -> correct_flg    = ($request->get('correct_flg') == 'on') ? 1 : 0;
         $option->date_update    = Carbon::now();
         $option->save();
+
         return redirect('iq-option-list/'.$option->iq_question_id)->with('success', 'Updated IQ question option successfully!');
     }
 
