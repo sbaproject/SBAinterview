@@ -26,13 +26,53 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Fullname</span>
+                                <span class="input-group-text">CV channel</span>
                             </div>
-                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_name')) ? 'is-invalid'  :'' }}"
-                                   name="in_name" value="{{ old('in_name', $interviewer->in_name) }}" >
+                            <div class="form-control wrapper-select">
+                                <select class="select-cvchannel" name="in_cvchannel">
+                                    <option value="0">Please choose CV channel</option>
+                                    @foreach($cst_cvchannel as $kcn => $vcn)
+                                        <option value="{{$kcn}}" {{ $kcn == old('in_cvchannel',$interviewer->in_cvchannel) ? 'selected' : '' }}>
+                                            {{$vcn}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">CV link</span>
+                            </div>
+                            <input type="text"  class="form-control" name="in_cvlink" value="{{ old('in_cvlink',$interviewer->in_cvlink)  }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">First name</span>
+                            </div>
+                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
+                                   name="in_firstname" value="{{ old('in_firstname', $interviewer->in_firstname) }}" >
 
                             <div class="invalid-feedback">
-                                @error('in_name')
+                                @error('in_firstname')
+                                {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Last name</span>
+                            </div>
+                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_lastname')) ? 'is-invalid'  :'' }}"
+                                   name="in_lastname" value="{{ old('in_lastname', $interviewer->in_lastname) }}" >
+
+                            <div class="invalid-feedback">
+                                @error('in_lastname')
                                 {{ $message }}
                                 @enderror
                             </div>
@@ -99,14 +139,14 @@
                             </div>
                             <div class="form-control wrapper-select">
                                 <select class="select-language" name="in_language">
-                                    <option value="1" {{ 1 == old('in_language', $interviewer->in_language) ? 'selected' : '' }}>
-                                        PHP
-                                    </option>
-                                    <option value="2" {{ 2 == old('in_language',$interviewer->in_language) ? 'selected' : '' }}>
-                                        C#/ASP.Net
-                                    </option>
+                                    @foreach($cst_lang as $klg => $vlg)
+                                        <option value="{{$klg}}" {{ $klg == old('in_language',$interviewer->in_language) ? 'selected' : '' }} >
+                                            {{$vlg}}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
+
                         </div>
                     </div>
                     <div class="form-group">
@@ -146,21 +186,12 @@
                             </div>
                             <div class="form-control wrapper-select">
                                 <select class="select-status" name="in_status">
-                                    <option value="0">
-                                        Please choose a status
-                                    </option>
-                                    <option value="1" {{ 1 == old('in_status',old('in_status',$interviewer->in_status)) ? 'selected' : '' }}>
-                                        Phone&mail contacted
-                                    </option>
-                                    <option value="2" {{ 2 == old('in_status',$interviewer->in_status) ? 'selected' : '' }}>
-                                        Interviewed
-                                    </option>
-                                    <option value="3" {{ 3 == old('in_status',$interviewer->in_status) ? 'selected' : '' }}>
-                                        Cancelled interview
-                                    </option>
-                                    <option value="4" {{ 4 == old('in_status',$interviewer->in_status) ? 'selected' : '' }}>
-                                        Not Pass contacted
-                                    </option>
+                                    <option value="0">Please choose a status</option>
+                                    @foreach($cst_status as $kst => $vst)
+                                        <option value="{{$kst}}" {{ $kst == old('in_status',$interviewer->in_status ) ? 'selected' : '' }}>
+                                            {{$vst}}
+                                        </option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
