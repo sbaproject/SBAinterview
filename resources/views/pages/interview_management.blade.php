@@ -103,6 +103,7 @@
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" name="submit" class="btn btn-primary">Search</button>
+                                    <a role="button" href="{{url('interview-management')}}" class="btn btn-secondary btn-form" >Reset</a>
                                 </div>
                             </div>
                         </form>
@@ -121,12 +122,12 @@
                     <tr>
                         <th width="5%" scope="col">No.</th>
                         <th width="10%" scope="col">CV No. </th>
-                        <th width="5%" scope="col">CV Channel</th>
+                        <th width="10%" scope="col">CV Channel</th>
                         <th width="10%" scope="col">First name</th>
                         <th width="10%" scope="col">Last name</th>
                         <th width="10%" scope="col">DOB</th>
                         <th width="10%" scope="col">Mail</th>
-                        <th width="10%" scope="col">Language</th>
+                        <th width="5%" scope="col">Language</th>
                         <th width="10%" scope="col">Tel</th>
                         <th width="10%" scope="col">Status</th>
                         <th width="10%" scope="col">Action</th>
@@ -179,12 +180,12 @@
                         <tr>
                             <th width="5%">{{ $index < 10 ? '0' . $index : $index }}</th>
                             <td width="10%">{{ $interviewer->in_cvno }}</td>
-                            <td width="5%">{{ getCVChannel_lay($interviewer->in_cvchannel,$cst_cvchannel) }}</td>
+                            <td width="10%">{{ getCVChannel_lay($interviewer->in_cvchannel,$cst_cvchannel) }}</td>
                             <td width="10%">{{ $interviewer->in_firstname }}</td>
                             <td width="10%">{{ $interviewer->in_lastname}}</td>
                             <td width="10%">{{ $interviewer->in_dob }}</td>
                             <td width="10%">{{ $interviewer->in_mail }}</td>
-                            <td width="10%">{{getLanguage_lay($interviewer->in_language ,$cst_lang)}}</td>
+                            <td width="5%">{{getLanguage_lay($interviewer->in_language ,$cst_lang)}}</td>
                             <td width="10%">{{ $interviewer->in_tel }}</td>
                             <td width="10%">{{ getStatusInterview_lay($interviewer->in_status,$cst_status) }}</td>
                             <td id="link" width="10%"><a href="{{ url('interview-management/edit/' . $interviewer->in_id) }}">Edit /
