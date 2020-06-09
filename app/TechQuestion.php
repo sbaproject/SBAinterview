@@ -20,4 +20,5 @@ class TechQuestion extends Model
         'date_update'
     ];
      
+
 }

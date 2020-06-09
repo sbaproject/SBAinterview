@@ -28,4 +28,6 @@ class Result extends Model
         'date_created',
         'date_update'
     ];
+     
+
 }

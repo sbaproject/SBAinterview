@@ -13,8 +13,11 @@ class InterviewManagerment extends Model
 
     protected $fillable = [
         'in_id',
+        'in_cvchannel',
         'in_cvno',
-        'in_name',
+        'in_firstname',
+        'in_lastname',
+        'in_dob',
         'in_salary',
         'in_mail',
         'in_education',
@@ -26,6 +29,7 @@ class InterviewManagerment extends Model
         'in_university',
         'in_tel',
         'in_address',
+        'in_cvlink',
         'in_status',
         'in_time',
         'in_date',
