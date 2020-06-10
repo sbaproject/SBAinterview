@@ -54,10 +54,19 @@
 <script src="{{URL::asset('frontEnd/countdown/jquery.countdown.js')}}" type="text/javascript"></script>
 <script>
     $(document).ready(function() {
-        var fiveSeconds = new Date().getTime() + 1000 * 30 * 60;
-        $('#clock1').countdown(fiveSeconds)
+        var time = 0;
+        var d = localStorage.getItem('timeIQ');
+        if(!d) {
+            time = new Date().getTime() + 1000  * 60 * 30;
+        } else {
+            var a = d.split(':');
+            var second = (1000 * 60 * parseInt(a[0]) + parseInt(a[1])*1000);
+            time = new Date().getTime() + second ;
+        }
+        $('#clock1').countdown(time)
         .on('update.countdown', function(event) {
-            var $this = $(this);             
+            var $this = $(this);   
+            localStorage.setItem('timeIQ', event.strftime('%M:%S'));       
             $this.html(event.strftime('<span style="font-size: 23px; color: #FFC300;">%M:%S</span>'));
         });
     });   
