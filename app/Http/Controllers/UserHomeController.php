@@ -40,7 +40,7 @@ class UserHomeController extends Controller
         ]);
         if (!is_numeric($request->tel)){
             return \Redirect::back()->withErrors(['Tel is not a number, please try again']);
-        } elseif ((int) $request->tel < 10) {
+        } elseif (strlen($request->tel) < 10) {
             return \Redirect::back()->withErrors(['Number must greater than 10']);
         }
         $data = [
@@ -86,7 +86,7 @@ class UserHomeController extends Controller
         ]);
         if (!is_numeric($request->tel)){
             return \Redirect::back()->withErrors(['Tel is not a number, please try again']);
-        } elseif ((int) $request->tel < 10) {
+        } elseif ( strlen($request->tel) < 10) {
             return \Redirect::back()->withErrors(['Number must greater than 10']);
         }
         $user = Result::find($request->userId);
