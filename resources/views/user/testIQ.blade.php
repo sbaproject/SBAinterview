@@ -28,7 +28,7 @@
                         <div class="test">
                             <div class="question"><strong>{{$k+1}}.</strong> {{$v['content']}}</div>
                             <div class="anser">
-                                @foreach($v['option'] as $key => $val)
+                                @foreach($v['option'] as $val)
                                 <label>
                                     <input type="radio" name="anser[{{$v['id']}}]" value="{{$val->id}}"/>
                                     <div class="radioboxcss"></div>
