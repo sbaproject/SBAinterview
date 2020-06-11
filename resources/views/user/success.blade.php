@@ -31,6 +31,9 @@
         .on('update.countdown', function(event) {
             var $this = $(this);             
             $this.html(event.strftime('<span style="font-size: 23px; color: #FFC300;">EXIT(%S)</span>'));
+        })
+        .on('finish.countdown', function(event){
+            window.location.href = "/logout";
         });
     });   
 </script>
