@@ -7,13 +7,15 @@
         <div class="row">
             <div class="col-md-12">
                 <h4 class="text-center">CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH BÀI TEST CỦA STARBOARD ASIA</h4>
+                <h4 class="text-center">TEST TECHNICAL: {{$tech_total}}</h4>
+                <h4 class="text-center">TEST IQ: {{$iq_total}}</h4>
                 <h2 class="text-center">THANKS YOU!</h2>      
                 <div class="text-center">
-                    <button type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">
+                    <div class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;">
                         <div class="timeexit">
                             <div id="clock1">10</div>
                         </div>
-                    </button>          
+                    </div>          
                 </div>
             </div>
         </div>

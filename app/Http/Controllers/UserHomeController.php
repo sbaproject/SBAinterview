@@ -41,7 +41,7 @@ class UserHomeController extends Controller
         } elseif (strlen($request->tel) < 10) {
             return \Redirect::back()->withErrors(['Number must greater than 10.'])->withInput(\Request::all());
         } elseif (substr($request->tel, 0, 1) != 0){
-            return \Redirect::back()->withErrors(['The in Tel format is invalid.'])->withInput(\Request::all());
+            return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
         }
         $this->validate($request, [
             'firstname' => 'required',
@@ -92,7 +92,7 @@ class UserHomeController extends Controller
         } elseif (strlen($request->tel) < 10) {
             return \Redirect::back()->withErrors(['Number must greater than 10.'])->withInput(\Request::all());
         } elseif (substr($request->tel, 0, 1) != 0){
-            return \Redirect::back()->withErrors(['The in Tel format is invalid.'])->withInput(\Request::all());
+            return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
         }
         $this->validate($request, [
             'firstname' => 'required',
@@ -166,17 +166,27 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postResultTech(Request $request){
+        $total = "";
         $tech = $request->tech;
+        $id = $request->session()->get('ID');
         $currentTime = Carbon::now();
+        $cnt = 0;
         foreach($tech as $key => $value){
+            if($value != null){
+                $cnt++;
+            }
             $result = new TestAnswer;
-            $result->result_id = $request->session()->get('ID');
+            $result->result_id = $id;
             $result->type = 2;
             $result->question_id = $key;
             $result->tech_content_ans = $value;
             $result->date_created = $currentTime;
             $result->save();
         }
+        $total = $cnt."/".count($tech);
+        $user = Result::find($id);
+        $user->tech_total = $total;
+        $user->save();
         //
         $type = 3;
         $q = IqQuestion::where('del_flg', 0)->get();
@@ -194,23 +204,47 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postResultIQ(Request $request){
-        $iq = $request->anser;
+        $total = "";
         $id = $request->session()->get('ID');
         $currentTime = Carbon::now();
-        foreach($iq as $key => $value){
-            $result = new TestAnswer;
-            $result->result_id = $id;
-            $result->type = 1;
-            $result->question_id = $key;
-            $result->date_created = $currentTime;
-            $result->question_options_id = $value;
-            $result->save();
+        $q = IqQuestion::where('del_flg', 0)->get();
+        if($request->anser){
+            $iq = $request->anser;            
+            foreach($q as $value){
+                $result = new TestAnswer;
+                if(isset($iq[$value->id])){
+                    $result->result_id = $id;
+                    $result->type = 1;
+                    $result->question_id = $value->id;
+                    $result->date_created = $currentTime;
+                    $result->question_options_id = $iq[$value->id];
+                }else{
+                    $result->result_id = $id;
+                    $result->type = 1;
+                    $result->question_id = $value->id;
+                    $result->date_created = $currentTime;
+                }         
+                $result->save();
+            }
+            $total = count($iq)."/".count($q);
+        }else{
+            $total = "0/".count($q);
         }
         $result = Result::find($id);
+        //
+        $start = explode(':',$result->starttime);
+        $end = explode(':',$currentTime->toTimeString());
+        $totaltime = (((int)$end[0]-(int)$start[0])*60) + ((int)$end[1]-(int)$start[1]);
+        //
+        $tech_total = $result->tech_total;
+        $iq_total = $total;
+        //
         $result->endtime = $currentTime->toTimeString();
+        $result->tech_total = $total;
+        $result->totaltime = $totaltime;
         $result->save();
         $request->session()->forget('ID');
-        return view('user.success');
+        return view('user.success', compact("tech_total", "iq_total"));
     }
     /**
      * Show the form for creating a new resource.
@@ -283,7 +317,11 @@ class UserHomeController extends Controller
      * 
      * **/
     public function getLoadCandidate($id){
-        $user = InterviewManagerment::find($id);
-        return response()->json($user, 200);
+        $user = InterviewManagerment::where([['in_id', $id],['in_del_flg', 0]])->first();
+        if($user != null){
+            return response()->json($user, 200);
+        }else{
+            return 'error';
+        }
     }
 }

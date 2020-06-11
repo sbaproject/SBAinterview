@@ -22,13 +22,13 @@
                                 </ul>
                             </div>
                         @endif
+                        <div class="alert alert-danger" role="alert" style="display:none" id="errorcandi">Candidate not found</div>
                         <table class="table table-bordered table-striped" id="users">
                             <tbody>
                                 <tr>
                                     <td style="width: 30%;">Candidate ID</td>
                                     <td class="candidateid">
                                         <input type="text" name="candidate_id" value="{{old('candidate_id')}}" id="candidate_id" required>
-                                        <div id="btnload" class="btnload"><span>Load Candidate</span></div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -62,7 +62,7 @@
                                 <tr>
                                     <td>Programing Language</td>
                                     <td>
-                                        <select name="selecttest">
+                                        <select name="selecttest" id="in_language">
                                             <option value="0">-- Select the test</option>
                                             <option value="1" @if(old('selecttest') == 1) selected @endif>{{Config::get('constants.LANGUAGE.1')}}</option>
                                             <option value="2" @if(old('selecttest') == 2) selected @endif>{{Config::get('constants.LANGUAGE.2')}}</option>
@@ -88,7 +88,7 @@
 <script src="{{URL::asset('js/user.js')}}" type="text/javascript"></script>
 <script>
     $(document).ready(function(){
-        $('#btnload').on('click', function(){
+        $('#candidate_id').on('keyup', function(){
             var is = $(this);
             var id = $('#candidate_id').val();
             if(id == ''){
@@ -99,9 +99,10 @@
                     type: 'GET',
                     url: '{{Request::root()}}/ung-vien/load-candidate/' + id,
                     success: function(msg){
-                        if(msg){
+                        
+                        if(msg != "error"){
                             var d = "", r = "";
-                            if(msg.in_dob != ''){
+                            if(msg.in_dob != null){
                                  d = msg.in_dob.split('-');
                                  r = d[2] + "-" + d[1] + "-" + d[0];
                             }else{
@@ -112,9 +113,18 @@
                             $('#address').val(msg.in_firstname);
                             $('#dob').val(r);
                             $('#tel').val(msg.in_tel);
-                            $('#email').val(msg.in_mail);
+                            $('#email').val(msg.in_mail);                            
+                            $('#in_language').val(msg.in_language.toString());
+                            $('#errorcandi').css('display','none');
                         }else{
-                            alert('Candidate not found!');
+                            $('#errorcandi').css('display','block');
+                            $('#firstname').val("");
+                            $('#lastname').val("");
+                            $('#address').val("");
+                            $('#dob').val("");
+                            $('#tel').val("");
+                            $('#email').val("");
+                            $('#in_language').val(0);
                         }
                     }
                 });
