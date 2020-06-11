@@ -72,14 +72,22 @@
 
     <script type="text/javascript">
         $(document).ready(function(){
-            @foreach($list_tech_question_arr As $question)
-                    @if($errors->first('score_'.$question['id']))
-                      @php
-                          $name = 'score_'.$question['id'];
-                      @endphp
-                        $("input[name='{{$name }}']").focus();
-                    @endif
-            @endforeach
+            @for($i =count($list_tech_question_arr)-1;$i>-1;$i--)
+                @if($errors->first('score_'.$list_tech_question_arr[$i]['id']))
+                    @php
+                        $name = 'score_'.$list_tech_question_arr[$i]['id'];
+                    @endphp
+                    $("input[name='{{$name }}']").focus();
+                @endif
+            @endfor
+            {{--@foreach($list_tech_question_arr As $question)--}}
+                    {{--@if($errors->first('score_'.$question['id']))--}}
+                      {{--@php--}}
+                          {{--$name = 'score_'.$question['id'];--}}
+                      {{--@endphp--}}
+                        {{--$("input[name='{{$name }}']").focus();--}}
+                    {{--@endif--}}
+            {{--@endforeach--}}
         });
 
     </script>
