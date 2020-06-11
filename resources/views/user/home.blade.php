@@ -26,25 +26,26 @@
                             <tbody>
                                 <tr>
                                     <td style="width: 30%;">Candidate ID</td>
-                                    <td>
-                                        <input type="text" name="candidate_id" value="{{old('candidate_id')}}" required>
+                                    <td class="candidateid">
+                                        <input type="text" name="candidate_id" value="{{old('candidate_id')}}" id="candidate_id" required>
+                                        <div id="btnload" class="btnload"><span>Load Candidate</span></div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%;">First Name</td>
                                     <td>
-                                        <input type="text" name="firstname" value="{{old('firstname')}}" required>
+                                        <input type="text" name="firstname" value="{{old('firstname')}}" id="firstname" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%;">Last Name</td>
                                     <td>
-                                        <input type="text" name="lastname" value="{{old('lastname')}}" required>
+                                        <input type="text" name="lastname" value="{{old('lastname')}}" id="lastname" required>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Address</td>
-                                    <td><input type="text" name="address" value="{{old('address')}}" required></td>
+                                    <td><input type="text" name="address" value="{{old('address')}}" id="address" required></td>
                                 </tr>
                                 <tr>
                                     <td>Birthday</td>
@@ -52,11 +53,11 @@
                                 </tr>
                                 <tr>
                                     <td>Tel</td>
-                                    <td><input type="text" name="tel" value="{{old('tel')}}" required></td>
+                                    <td><input type="text" name="tel" value="{{old('tel')}}" id="tel" required></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="email" value="{{old('email')}}" required></td>
+                                    <td><input type="text" name="email" value="{{old('email')}}" id="email" required></td>
                                 </tr>
                                 <tr>
                                     <td>Programing Language</td>
@@ -85,4 +86,48 @@
 <script src="{{URL::asset('js/moment.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('frontEnd/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('js/user.js')}}" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        $('#btnload').on('click', function(){
+            var is = $(this);
+            var id = $('#candidate_id').val();
+            if(id == ''){
+                alert('Please input candidate ID!');
+                return false;
+            }else{
+                $.ajax({
+                    type: 'GET',
+                    url: '{{Request::root()}}/ung-vien/load-candidate/' + id,
+                    success: function(msg){
+                        if(msg){
+                            var d = "", r = "";
+                            if(msg.in_dob != ''){
+                                 d = msg.in_dob.split('-');
+                                 r = d[2] + "-" + d[1] + "-" + d[0];
+                            }else{
+                                d = "";
+                            }
+                            $('#firstname').val(msg.in_firstname);
+                            $('#lastname').val(msg.in_lastname);
+                            $('#address').val(msg.in_firstname);
+                            $('#dob').val(r);
+                            $('#tel').val(msg.in_tel);
+                            $('#email').val(msg.in_mail);
+                        }else{
+                            alert('Candidate not found!');
+                        }
+                    }
+                });
+            }
+        });
+        //
+        $("#dob").datetimepicker({
+            format: 'DD-MM-YYYY',
+            widgetPositioning:{
+                vertical:'bottom'
+            },
+            useCurrent: false,
+        });
+    });
+</script>
 @endsection

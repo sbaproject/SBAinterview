@@ -27,7 +27,7 @@
                     <div class="listtest">
                         @foreach($data as $key => $item)
                         <div class="test">
-                            <div class="question"><strong>{{$key+1}}.</strong> {!!$item->content!!}</div>
+                            <div class="question"><strong>{{$key+1}}.</strong> <div>{!!$item->content!!}</div></div>
                             <div class="anser">
                                 <textarea rows="6" id="aws-{{$key}}" name="tech[{{$item->id}}]"></textarea>
                             </div>
@@ -44,6 +44,7 @@
         </div>
     </div>
 </section>
+<footer></footer>
 @endsection
 @section('footInclude')
 <script src="{{URL::asset('frontEnd/countdown/jquery.countdown.js')}}" type="text/javascript"></script>
