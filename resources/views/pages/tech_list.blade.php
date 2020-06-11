@@ -16,7 +16,38 @@
                 </div>    
             @endif
         </div>
+        <div class="card card-default mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <form method="get" id="search_form" action="">
+                            @csrf
 
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label for="type">Programming language</label>
+                                        <select class="form-control" name="type" >
+                                            <option value="0" >Please choose language</option>
+                                            @foreach($cst_lang As $k => $v){
+                                            <option value="{{$k}}" {{ old('type',$req_arr['type']) == $k ? "selected"  : "" }}>{{$v}}</option>
+                                            }
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="submit" name="submit" class="btn btn-primary">Search</button>
+                                    <a role="button" href="{{url('result-list')}}" class="btn btn-secondary btn-form" >Reset</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         @if (isset($list_tech) && $list_tech_count > 0)
@@ -48,7 +79,7 @@
                     @foreach($list_tech as $tech)
                         <tr>
                             <th width="5%">{{ $index < 10 ? '0' . $index : $index }}</th>
-                            <td width="10%" class="text-left pl-2 pr-2">{{ $tech->content }}</td>
+                            <td width="10%" class="text-left pl-2 pr-2">{!! $tech->content !!}</td>
                             <td width="10%">{{ $tech->type }}</td>
                             <td id="link" width="10%"><a href="{{ url('tech-list/edit/' . $tech->id) }}">Edit  </a> /&nbsp;<a href="{{ url('tech-list/delete/' . $tech->id.'/'.$current_page) }}" style="color: red;"  onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>
                         </tr>

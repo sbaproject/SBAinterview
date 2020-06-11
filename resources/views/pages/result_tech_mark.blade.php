@@ -41,7 +41,7 @@
                         @endphp
                         {{--<input type="hidden"  class="form-control" name="result_id" id="result_id" value="{{ $question['result_id'] }}">--}}
                         {{--<div    id="result_id" value="{{ $question['result_id'] }}" style="display: none;"></div>--}}
-                        <div class="font-weight-bold" for="question_content"><span>{{$n}}. </span>{{$question['content']}}</div>
+                        <div class="font-weight-bold" for="question_content"><span>{{$n}}. </span>{!! $question['content'] !!}</div>
                         <div class="pl-4 mb-2">{!! html_entity_decode($question['tech_content_ans']) !!}</div>
                         <div class="form-group">
                             <div class="input-group mb-3">
@@ -61,7 +61,7 @@
                     <div id="button_group" >
                             <div class="form-group-button">
                                 <button type="submit"  class="btn btn-primary btn-form btn-left">Update</button>
-                                <a role="button" href="{{url('result-tech')}}/mark/{{$question['result_id']}}" class="btn btn-secondary btn-form" >Cancel</a>
+                                <a role="button" href="{{url('result-tech')}}/{{$question['result_id']}}" class="btn btn-secondary btn-form" >Cancel</a>
                             </div>
 
                     </div>

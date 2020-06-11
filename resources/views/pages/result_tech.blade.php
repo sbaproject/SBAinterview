@@ -43,7 +43,7 @@
                             $n = $n +1;
                         @endphp
                         <input    id="result_id" value="{{ $question['result_id'] }}" type="hidden">
-                        <div class="font-weight-bold" for="question_content"><span>{{$n}}. </span>{{$question['content']}}</div>
+                        <div class="font-weight-bold" for="question_content"><span>{{$n}}. </span>{!! $question['content'] !!}</div>
                         <div class="pl-4 mb-2 ">{!! html_entity_decode($question['tech_content_ans']) !!}</div>
                         <div class="form-group">
                             <div class="input-group mb-3">
