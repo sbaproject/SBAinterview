@@ -104,7 +104,7 @@ body {
 	position: relative;
 	display: flex;
 	background-color: #EEEEEE;
-	margin-top: -16px;
+	/*margin-top: -16px;*/
 }
 
 .menu{
@@ -228,4 +228,16 @@ input[type="radio"]:checked:disabled:before {
 	height: 14px;
 	border-radius: 50%;
 	background: rgb(64, 77, 234);
+}
+.menu-left{
+	text-align: left;
+}
+.container{
+	padding-right:0 !important;
+	padding-left:0 !important;
+	max-width: initial !important;
+}
+.header-br{
+	padding-bottom: 30px;
+	border:0.5px solid #C0C0C0;
 }
