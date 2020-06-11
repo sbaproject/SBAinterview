@@ -20,10 +20,11 @@ class IqQuestionController extends Controller
         }
 
             // get all interviewer have del_flg = 0 and soft by update time
-            $list_iq = IqQuestion::where('del_flg', 0)->orderBy('id', 'DESC')->paginate(10);
+            $list_iq = IqQuestion::where('del_flg', 0)->orderBy('id', 'ASC')->paginate(10);
+            $current_page = $list_iq->currentPage();
             $list_iq_count= $list_iq->count();
 
-        return view('pages.iq_list', compact('list_iq','list_iq_count'));
+        return view('pages.iq_list', compact('list_iq','list_iq_count','current_page'));
         }
 
     public function getProgammingLanguage($type){
@@ -78,11 +79,19 @@ class IqQuestionController extends Controller
         return redirect('iq-list')->with('success', 'Updated IQ question successfully!');
     }
 
-    public function getIqQuestionDelete($id) {
+    public function getIqQuestionDelete($id,$page) {
         $iq = IqQuestion::where('id', $id)->first();
         $iq->del_flg = 1;
         $iq->date_update  = Carbon::now();
         $iq->save();
+
+        $result = IqQuestion::where('del_flg',0)->paginate(10,['*'],'page',$page);
+        //$a = $result->lastPage();
+        if (count($result) === 0) {
+            $lastPage = $result->lastPage(); // Get last page with results.
+            return redirect('iq-list?page='.$lastPage)->with('success', 'Deleted IQ question successfully!');
+        }
+
         return redirect()->back()->with('success', 'Deleted IQ question successfully!');
     }
 

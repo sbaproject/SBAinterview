@@ -22,12 +22,13 @@ class TechQuestionController extends Controller
             // get all interviewer have del_flg = 0 and soft by update time
             $list_tech = TechQuestion::where('del_flg', 0)->orderBy('id', 'DESC')->paginate(10);
             $list_tech_count= $list_tech->count();
+            $current_page = $list_tech->currentPage();
             for ($i=0;$i<$list_tech_count;$i++){
                 $list_tech[$i]['type'] = $this->getProgammingLanguage($list_tech[$i]['type']);
             }
 
 
-        return view('pages.tech_list', compact('list_tech','list_tech_count'));
+        return view('pages.tech_list', compact('list_tech','list_tech_count','current_page'));
         }
 
     public function getProgammingLanguage($type){
@@ -89,11 +90,17 @@ class TechQuestionController extends Controller
         return redirect('tech-list')->with('success', 'Updated technical question successfully!');
     }
 
-    public function getTechQuestionDelete($id) {
+    public function getTechQuestionDelete($id,$page) {
         $tech = TechQuestion::where('id', $id)->first();
         $tech->del_flg = 1;
         $tech->date_update  = Carbon::now();
         $tech->save();
+        $result = TechQuestion::where('del_flg',0)->paginate(10,['*'],'page',$page);
+        //$a = $result->lastPage();
+        if (count($result) === 0) {
+            $lastPage = $result->lastPage(); // Get last page with results.
+            return redirect('tech-list?page='.$lastPage)->with('success', 'Deleted technical question successfully!');
+        }
         return redirect()->back()->with('success', 'Deleted technical question successfully!');
     }
 }

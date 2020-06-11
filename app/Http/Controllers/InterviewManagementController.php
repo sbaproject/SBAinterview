@@ -29,7 +29,9 @@ class InterviewManagementController extends Controller
             'in_dob' => '',
             'in_tel' => '',
             'in_mail' => '',
-            'in_language' => ''
+            'in_language' => '',
+            'in_cvno' => '',
+            'in_status' => ''
         );
         if($request->has('submit')){
             $validator = $request->validate([
@@ -49,6 +51,8 @@ class InterviewManagementController extends Controller
             $mail = $request->get('in_mail');
             $language = $request->get('in_language');
             $cv_channel = $request->get('in_cvchannel');
+            $cvno = $request->get('in_cvno');
+            $status = $request->get('in_status');
 
 
             $req_arr = $request->all();
@@ -78,11 +82,18 @@ class InterviewManagementController extends Controller
             if(!empty($cv_channel)){
                 $list_interviewers = $list_interviewers ->where('in_cvchannel',$cv_channel);
             }
+            if(!empty($cvno)){
+                $list_interviewers = $list_interviewers ->where('in_cvno','like','%'.$cvno.'%');
+            }
+            if(!empty($status)){
+                $list_interviewers = $list_interviewers ->where('in_status',$status);
+            }
              $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->paginate(10);
 
 
             $list_interviewers_count= $list_interviewers->count();
-            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status'));
+            $current_page = $list_interviewers->currentPage();
+            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
         }else{
             $req_arr = array(
                 'in_firstname' => '',
@@ -92,12 +103,15 @@ class InterviewManagementController extends Controller
                 'in_dob' => '',
                 'in_tel' => '',
                 'in_mail' => '',
-                'in_language' => ''
+                'in_language' => '',
+                'in_cvno' => '',
+                'in_status' => ''
             );
             // get all interviewer have del_flg = 0 and soft by update time
             $list_interviewers = InterviewManagerment::where('in_del_flg', 0)->orderBy('in_id', 'DESC')->paginate(10);
             $list_interviewers_count= $list_interviewers->count();
-            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status'));
+            $current_page = $list_interviewers->currentPage();
+            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
         }
 
 
@@ -119,7 +133,8 @@ class InterviewManagementController extends Controller
             'in_language'    => 'required',
             'in_salary' => 'nullable|numeric',
             'in_mail' => 'nullable|email',
-            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/'
+            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
+            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
 
 
         ], [
@@ -128,7 +143,9 @@ class InterviewManagementController extends Controller
             'in_language.required'   => 'Please choose a progamming language.',
             'in_salary.numeric' => 'The salary must be a number.',
             'in_tel.regex' => 'The tel format is invalid.',
-            'in_mail.email' => 'The mail must be a valid email address.'
+            'in_mail.email' => 'The mail must be a valid email address.',
+            'in_cvno.required' => 'The CV No. field is required.',
+            'in_cvno.unique' => 'The CV No. has already been taken.',
         ]);
 
 
@@ -198,7 +215,8 @@ class InterviewManagementController extends Controller
             'in_language'    => 'required',
             'in_salary' => 'nullable|numeric',
             'in_mail' => 'nullable|email',
-            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/'
+            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
+            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
 
 
         ], [
@@ -207,7 +225,9 @@ class InterviewManagementController extends Controller
             'in_language.required'   => 'Please choose a progamming language.',
             'in_salary.numeric' => 'The salary must be a number.',
             'in_tel.regex' => 'The tel format is invalid.',
-            'in_mail.email' => 'The mail must be a valid email address.'
+            'in_mail.email' => 'The mail must be a valid email address.',
+            'in_cvno.required' => 'The CV No. field is required.',
+            'in_cvno.unique' => 'The CV No. has already been taken.',
         ]);
 
         $interviewer  = InterviewManagerment::find($request->get('in_id'));
@@ -238,11 +258,19 @@ class InterviewManagementController extends Controller
         return redirect('interview-management')->with('success', 'Updated interviewer successfully!');
     }
 
-    public function getInterviewerDelete($id) {
+    public function getInterviewerDelete($id,$page) {
         $interviewer = InterviewManagerment::find($id);
         $interviewer->in_del_flg = 1;
         $interviewer->in_update  = Carbon::now();
         $interviewer->save();
+
+
+       $result = InterviewManagerment::where('in_del_flg',0)->paginate(10,['*'],'page',$page);
+       //$a = $result->lastPage();
+        if (count($result) === 0) {
+            $lastPage = $result->lastPage(); // Get last page with results.
+            return redirect('interview-management?page='.$lastPage)->with('success', 'Deleted Interviewer successfully!');
+        }
         return redirect()->back()->with('success', 'Deleted Interviewer successfully!');
     }
 }
