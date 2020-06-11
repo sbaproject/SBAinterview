@@ -46,7 +46,7 @@ Route::get('/interview-management/edit/{id}', 'InterviewManagementController@get
 
 Route::post('/interview-management/edit/{id}', 'InterviewManagementController@postInterviewerEdit');
 
-Route::get('/interview-management/delete/{id}', 'InterviewManagementController@getInterviewerDelete');
+Route::get('/interview-management/delete/{id}/{page}', 'InterviewManagementController@getInterviewerDelete');
 
 
 /**
@@ -76,7 +76,7 @@ Route::get('/tech-list/edit/{id}', 'TechQuestionController@getTechQuestionEdit')
 
 Route::post('/tech-list/edit/{id}', 'TechQuestionController@postTechQuestionEdit');
 
-Route::get('/tech-list/delete/{id}', 'TechQuestionController@getTechQuestionDelete');
+Route::get('/tech-list/delete/{id}/{page}', 'TechQuestionController@getTechQuestionDelete');
 
 /* iq question */
 Route::get('/iq-list', 'IqQuestionController@index');
@@ -89,7 +89,7 @@ Route::get('/iq-list/edit/{id}', 'IqQuestionController@getIqQuestionEdit');
 
 Route::post('/iq-list/edit/{id}', 'IqQuestionController@postIqQuestionEdit');
 
-Route::get('/iq-list/delete/{id}', 'IqQuestionController@getIqQuestionDelete');
+Route::get('/iq-list/delete/{id}/{page}', 'IqQuestionController@getIqQuestionDelete');
 
 /* iq question */
 Route::get('/iq-option-list/{iq_id}', 'IqQuestionOptionController@index');
