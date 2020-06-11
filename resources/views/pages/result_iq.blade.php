@@ -32,8 +32,8 @@
                         @endphp
                     <div class="question-group">
                         <div class="form-group">
-                            <span for="formiqQuestion_content" class="font-weight-bold">Câu {{$n}}. </span>
-                            <label for="formiqQuestion_content" class="font-weight-bold">{{ $question['content']}} </label>
+                            <div for="formiqQuestion_content" class="font-weight-bold">Câu {{$n}}. </div>
+                            <label for="formiqQuestion_content" class="font-weight-bold">{!! html_entity_decode($question['content']) !!} </label>
                             @foreach($question['list_option'] As $option)
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="option_value[{{$n-1}}]"  value="{{$option['id']}}" disabled {{$option['id'] == $question['question_options_id'] ? 'checked' : ''}} >

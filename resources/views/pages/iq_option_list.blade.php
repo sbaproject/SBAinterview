@@ -15,6 +15,7 @@
                     {{ \Session::get('success') }}
                 </div>    
             @endif
+                <a class="btn btn-primary add-new-btn" style="margin-right: 0px;margin-left: auto;" href="{{url('iq-list')}}" role="button">Back to IQ question list</a>
         </div>
 
 

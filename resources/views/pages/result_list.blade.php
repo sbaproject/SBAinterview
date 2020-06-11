@@ -81,14 +81,15 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="dob">DOB</label>
-                                        <input type="text" class="form-control" id="candidate_dob"  name="candidate_dob" value="{{old('candidate_dob',$req_arr['candidate_dob'])}}" placeholder="DOB">
-                                    </div>
-                                </div>
+                                {{--<div class="col-4">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--<label for="dob">DOB</label>--}}
+                                        {{--<input type="text" class="form-control" id="candidate_dob"  name="candidate_dob" value="{{old('candidate_dob',$req_arr['candidate_dob'])}}" placeholder="DOB">--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="col-12">
                                     <button type="submit" name="submit" class="btn btn-primary">Search</button>
+                                    <a role="button" href="{{url('result-list')}}" class="btn btn-secondary btn-form" >Reset</a>
                                 </div>
                             </div>
                         </form>

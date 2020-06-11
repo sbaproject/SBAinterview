@@ -47,10 +47,10 @@
                     @foreach($list_iq as $iq)
                         <tr>
                             <th width="5%">{{ $index < 10 ? '0' . $index : $index }}</th>
-                            <td width="10%">{{ $iq->content }}</td>
+                            <td width="10%" class="iq_content_style text-left pl-2 pr-2">{!! html_entity_decode($iq->content) !!}</td>
                             <td id="link" width="10%"><a href="{{ url('iq-list/edit/' . $iq->id) }}">Edit  </a> /&nbsp;
                             <a href="{{url('iq-option-list/'.$iq->id)}}">Options management</a> /
-                                <a href="{{ url('iq-list/delete/' . $iq->id) }}" style="color: red;" onclick="return confirm('Are you sure to delete this item?')">Delete</a>
+                                <a href="{{ url('iq-list/delete/' . $iq->id.'/'.$current_page) }}" style="color: red;" onclick="return confirm('Are you sure to delete this item?')">Delete</a>
                             </td>
                         </tr>
                         @php
@@ -76,4 +76,10 @@
             </div>
         @endif
     </div>
+    <style type="text/css">
+
+        .iq_content_style img{
+            max-width: 100%;
+        }
+    </style>
 @endsection

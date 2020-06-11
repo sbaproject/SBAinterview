@@ -20,7 +20,12 @@
                                 <span class="input-group-text">CV No.</span>
                             </div>
 
-                            <input type="text"  class="form-control" name="in_cvno" value="{{ old('in_cvno', $interviewer->in_cvno) }}">
+                            <input type="text"  class="form-control {{ ($errors->first('in_cvno')) ? 'is-invalid'  :'' }}" name="in_cvno" value="{{ old('in_cvno', $interviewer->in_cvno) }}">
+                            <div class="invalid-feedback">
+                                @error('in_cvno')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -78,12 +83,30 @@
                             </div>
                         </div>
                     </div>
+                    {{--<div class="form-group">--}}
+                        {{--<div class="input-group mb-3">--}}
+                            {{--<div class="input-group-prepend">--}}
+                                {{--<span class="input-group-text">DOB</span>--}}
+                            {{--</div>--}}
+                            {{--<input type="text" maxlength="100" class="form-control "  name="in_dob" value="{{ old('in_dob', $interviewer->in_dob) }}" >--}}
+
+                        {{--</div>--}}
+                    {{--</div>--}}
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">DOB</span>
                             </div>
-                            <input type="text" maxlength="100" class="form-control "  name="in_dob" value="{{ old('in_dob', $interviewer->in_dob) }}" >
+                            @php
+                                $date = date_format(date_create($interviewer->in_dob),'Y/m/d');
+                            @endphp
+                            {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
+                            <input id="in_dob" readonly type="text" class="form-control datetimepicker-input"
+                                   name="in_dob" autocomplete="off" value="{{ old('in_dob', $date )}}">
+                            <div class="input-group-append" data-target="#in_dob" onclick="$('#in_dob').focus();">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                            </div>
+
 
                         </div>
                     </div>
@@ -213,9 +236,12 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Interview date</span>
                             </div>
+                            @php
+                                    $date = date_format(date_create($interviewer->in_date),'Y/m/d');
+                            @endphp
                             {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
                             <input id="in_date" readonly type="text" class="form-control datetimepicker-input"
-                                   name="in_date" autocomplete="off" value="{{ old('in_date', $currentTime )}}">
+                                   name="in_date" autocomplete="off" value="{{ old('in_date', $date )}}">
                             <div class="input-group-append" data-target="#in_date" onclick="$('#in_date').focus();">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>

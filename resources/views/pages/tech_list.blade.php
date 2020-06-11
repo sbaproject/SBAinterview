@@ -48,9 +48,9 @@
                     @foreach($list_tech as $tech)
                         <tr>
                             <th width="5%">{{ $index < 10 ? '0' . $index : $index }}</th>
-                            <td width="10%">{{ $tech->content }}</td>
+                            <td width="10%" class="text-left pl-2 pr-2">{{ $tech->content }}</td>
                             <td width="10%">{{ $tech->type }}</td>
-                            <td id="link" width="10%"><a href="{{ url('tech-list/edit/' . $tech->id) }}">Edit  </a> /&nbsp;<a href="{{ url('tech-list/delete/' . $tech->id) }}" style="color: red;"  onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>
+                            <td id="link" width="10%"><a href="{{ url('tech-list/edit/' . $tech->id) }}">Edit  </a> /&nbsp;<a href="{{ url('tech-list/delete/' . $tech->id.'/'.$current_page) }}" style="color: red;"  onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>
                         </tr>
                         @php
                             $index++;
