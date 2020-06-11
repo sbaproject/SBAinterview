@@ -232,11 +232,11 @@ input[type="radio"]:checked:disabled:before {
 .menu-left{
 	text-align: left;
 }
-.container{
-	padding-right:0 !important;
-	padding-left:0 !important;
-	max-width: initial !important;
-}
+/*.container{*/
+	/*padding-right:0 !important;*/
+	/*padding-left:0 !important;*/
+	/*max-width: initial !important;*/
+/*}*/
 .header-br{
 	padding-bottom: 30px;
 	border:0.5px solid #C0C0C0;
