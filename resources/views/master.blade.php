@@ -69,7 +69,8 @@
   </head>
   <body>
   {{--@section('menu')--}}
-    <div class="row">
+  <div class="container-fluid">
+    <div class="row header-br">
         <div id="logo" class="col-3 logo">
             <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
         </div>
@@ -91,7 +92,7 @@
           <a class="user-logout" href="{{ asset('/logout')}}">Logout</a>
         </div> -->
   	</div>
-    <hr>
+    {{--<hr>--}}
 
     <div class="row">
         <div class="col-2 res-menu">
@@ -112,6 +113,7 @@
           </div>
         </div>
     </div>
+  </div>
   </body>
 </html>
 
