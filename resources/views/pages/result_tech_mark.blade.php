@@ -48,7 +48,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Score</span>
                                 </div>
-                                <input type="text"  class="form-control score_class {{ ($errors->first('score_'.$question['id'])) ? 'is-invalid'  :'' }}"  name="score_{{$question['id']}}" value="{{ old('score_'.$question['id'], $question['score'] )}}"
+                                <input type="text"   class="form-control score_class {{ ($errors->first('score_'.$question['id'])) ? 'is-invalid'  :'' }}"  name="score_{{$question['id']}}" value="{{ old('score_'.$question['id'], $question['score'] )}}"
                                           >
                                 <div class="invalid-feedback">
                                     @error('score_'.$question['id'])
@@ -69,6 +69,20 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            @foreach($list_tech_question_arr As $question)
+                    @if($errors->first('score_'.$question['id']))
+                      @php
+                          $name = 'score_'.$question['id'];
+                      @endphp
+                        $("input[name='{{$name }}']").focus();
+                    @endif
+            @endforeach
+        });
+
+    </script>
 
 @endsection
 
