@@ -13,12 +13,33 @@ use config\constants;
 
 class TechQuestionController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $userLogged = Session::get('user');
         if ($userLogged == null) {
             return redirect('/login');
         }
+            $cst_lang = config('constants.LANGUAGE');
+            $req_arr = array(
+                'type' => '',
 
+            );
+        if($request->has('submit')){
+            $type = $request->get('type');
+            $req_arr = $request->all();
+
+            $list_tech = TechQuestion::where('del_flg', 0);
+            if(!empty($type)){
+                $list_tech = $list_tech ->where('type',$type);
+            }
+            $list_tech= $list_tech->orderBy('id', 'DESC')->paginate(10);
+
+            $list_tech_count= $list_tech->count();
+            $current_page = $list_tech->currentPage();
+
+            for ($i=0;$i<$list_tech_count;$i++){
+                $list_tech[$i]['type'] = $this->getProgammingLanguage($list_tech[$i]['type']);
+            }
+        }else{
             // get all interviewer have del_flg = 0 and soft by update time
             $list_tech = TechQuestion::where('del_flg', 0)->orderBy('id', 'DESC')->paginate(10);
             $list_tech_count= $list_tech->count();
@@ -26,9 +47,10 @@ class TechQuestionController extends Controller
             for ($i=0;$i<$list_tech_count;$i++){
                 $list_tech[$i]['type'] = $this->getProgammingLanguage($list_tech[$i]['type']);
             }
+        }
 
 
-        return view('pages.tech_list', compact('list_tech','list_tech_count','current_page'));
+        return view('pages.tech_list', compact('list_tech','list_tech_count','current_page','cst_lang','req_arr'));
         }
 
     public function getProgammingLanguage($type){

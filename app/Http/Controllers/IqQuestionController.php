@@ -20,7 +20,7 @@ class IqQuestionController extends Controller
         }
 
             // get all interviewer have del_flg = 0 and soft by update time
-            $list_iq = IqQuestion::where('del_flg', 0)->orderBy('id', 'ASC')->paginate(10);
+            $list_iq = IqQuestion::where('del_flg', 0)->orderBy('id', 'DESC')->paginate(10);
             $current_page = $list_iq->currentPage();
             $list_iq_count= $list_iq->count();
 
