@@ -86,4 +86,16 @@
 <script src="{{URL::asset('js/moment.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('frontEnd/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
 <script src="{{URL::asset('js/user.js')}}" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        //
+        $("#dob").datetimepicker({
+            format: 'DD-MM-YYYY',
+            widgetPositioning:{
+                vertical:'bottom'
+            },
+            useCurrent: false,
+        });
+    });
+</script>
 @endsection

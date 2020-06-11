@@ -8,7 +8,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="toptest">
-                        <h2>TEST {{Config::get('constants.LANGUAGE.'.$type)}}</h2>
+                        <h2>TEST IQ</h2>
                         <div class="counttime">
                             <div id="clock1">45:00</div>
                             <div id="clock2"></div>
@@ -26,7 +26,7 @@
                     <div class="listtest">
                         @foreach($data['q'] as $k => $v)
                         <div class="test">
-                            <div class="question"><strong>{{$k+1}}.</strong> {{$v['content']}}</div>
+                            <div class="question"><strong>{{$k+1}}.</strong> <div>{!!$v['content']!!}</div></div>
                             <div class="anser">
                                 @foreach($v['option'] as $val)
                                 <label>
@@ -48,6 +48,7 @@
         </div>
     </div>
 </section>
+<footer></footer>
 @endsection
 @section('footInclude')
 <script src="{{URL::asset('js/moment.min.js')}}" type="text/javascript"></script>

@@ -9,6 +9,7 @@ use App\Result;
 use App\TechQuestion;
 use App\IqQuestion;
 use App\TestAnswer;
+use App\InterviewManagerment;
 use Carbon\Carbon;
 use DB;
 use Session;
@@ -23,7 +24,11 @@ class UserHomeController extends Controller
     public function index()
     {
         //
-        return view('user.home');
+        if(session('user')){
+            return view('user.home');
+        }else{
+            return redirect()->back();
+        }        
     }
     /**
      * 
@@ -31,6 +36,13 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserHome(Request $request){
+        if (!is_numeric($request->tel)){
+            return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
+        } elseif (strlen($request->tel) < 10) {
+            return \Redirect::back()->withErrors(['Number must greater than 10.'])->withInput(\Request::all());
+        } elseif (substr($request->tel, 0, 1) != 0){
+            return \Redirect::back()->withErrors(['The in Tel format is invalid.'])->withInput(\Request::all());
+        }
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
@@ -38,10 +50,8 @@ class UserHomeController extends Controller
             'address' => 'required',
             'email' => 'required|email'
         ]);
-        if (!is_numeric($request->tel)){
-            return \Redirect::back()->withErrors(['Tel is not a number, please try again']);
-        } elseif (strlen($request->tel) < 10) {
-            return \Redirect::back()->withErrors(['Number must greater than 10']);
+        if($request->selecttest == 0){
+            return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
         }
         $data = [
             'candidate_id' => $request->candidate_id,
@@ -77,6 +87,13 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserHomeEditById(Request $request){
+        if (!is_numeric($request->tel)){
+            return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
+        } elseif (strlen($request->tel) < 10) {
+            return \Redirect::back()->withErrors(['Number must greater than 10.'])->withInput(\Request::all());
+        } elseif (substr($request->tel, 0, 1) != 0){
+            return \Redirect::back()->withErrors(['The in Tel format is invalid.'])->withInput(\Request::all());
+        }
         $this->validate($request, [
             'firstname' => 'required',
             'lastname' => 'required',
@@ -84,10 +101,8 @@ class UserHomeController extends Controller
             'address' => 'required',
             'email' => 'required|email'
         ]);
-        if (!is_numeric($request->tel)){
-            return \Redirect::back()->withErrors(['Tel is not a number, please try again']);
-        } elseif ( strlen($request->tel) < 10) {
-            return \Redirect::back()->withErrors(['Number must greater than 10']);
+        if($request->selecttest == 0){
+            return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
         }
         $user = Result::find($request->userId);
         $user->candidate_id = $request->candidate_id;
@@ -261,5 +276,14 @@ class UserHomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+    /**
+     * 
+     * Ajax get candidate by ID
+     * 
+     * **/
+    public function getLoadCandidate($id){
+        $user = InterviewManagerment::find($id);
+        return response()->json($user, 200);
     }
 }

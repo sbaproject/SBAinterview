@@ -42,7 +42,9 @@ class UserController extends Controller
         if (isset($user)) {
             session()->regenerate();
             session(['user' => $user]);
-
+            if($user->is_admin == 0){
+                return redirect()->route('userHome');
+            }
             return redirect('interview-management');
         }
         else {

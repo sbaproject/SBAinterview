@@ -63,6 +63,7 @@
 
 .question {
     margin-bottom: 15px;
+    display: flex;
 }
 
 .anser input {
@@ -126,4 +127,24 @@
     z-index: 999;
     /* background: #ccc; */
     top: 0;
+}
+td.candidateid {
+    display: flex;
+}
+
+div#btnload {
+    width: 180px;
+    background: #007bff;
+    text-align: center;
+    color: #fff;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+div#btnload:hover {
+    background: #0077f6;
+}
+
+footer{
+    margin: 50px 0;
 }
