@@ -9,7 +9,13 @@
             <div id="staff_new_edit_frm" class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
                 <h2 class="border-bottom">
                     Skill question registration
+
                 </h2>
+                @if (\Session::has('success'))
+                    <div class=" alert alert-success alert-dismissible fade show">
+                        {{ \Session::get('success') }}
+                    </div>
+                @endif
                 <form method="post">
                     @csrf
 
@@ -46,6 +52,7 @@
 
                     <div class="form-group-button">
                         <button type="submit" class="btn btn-primary btn-form btn-left">Create new</button>
+                        <button type="submit" name="continuos" class="btn btn-primary btn-form btn-left">Continuous Create New</button>
                         <a role="button" href="{{url('tech-list')}}" class="btn btn-secondary btn-form" >Cancel</a>
                     </div>
                 </form>

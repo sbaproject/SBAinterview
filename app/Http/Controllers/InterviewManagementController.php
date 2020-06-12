@@ -181,9 +181,9 @@ class InterviewManagementController extends Controller
         ]);
         $interviewer->save();
         if($request->has('continuos')){
-            return redirect('interview-management/new');
+            return redirect('interview-management/new')->with('success', 'Added candidate successfully!');
         }
-        return redirect('interview-management')->with('success', 'Added interviewer successfully!');
+        return redirect('interview-management')->with('success', 'Added candidate successfully!');
     }
     public  function getStatusInterview_lay($status){
         $status_arr = array(
@@ -265,7 +265,7 @@ class InterviewManagementController extends Controller
         $interviewer->in_personality      = $request->get('in_personality');
         $interviewer->in_update    = Carbon::now();
         $interviewer->save();
-        return redirect('interview-management')->with('success', 'Updated interviewer successfully!');
+        return redirect('interview-management')->with('success', 'Updated candidate successfully!');
     }
 
     public function getInterviewerDelete($id,$page) {
@@ -279,8 +279,8 @@ class InterviewManagementController extends Controller
        //$a = $result->lastPage();
         if (count($result) === 0) {
             $lastPage = $result->lastPage(); // Get last page with results.
-            return redirect('interview-management?page='.$lastPage)->with('success', 'Deleted Interviewer successfully!');
+            return redirect('interview-management?page='.$lastPage)->with('success', 'Deleted candidate successfully!');
         }
-        return redirect()->back()->with('success', 'Deleted Interviewer successfully!');
+        return redirect()->back()->with('success', 'Deleted candidate successfully!');
     }
 }

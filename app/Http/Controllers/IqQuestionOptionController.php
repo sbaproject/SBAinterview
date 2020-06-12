@@ -67,6 +67,9 @@ class IqQuestionOptionController extends Controller
         'date_update'           => $currentTime
         ]);
         $iq_option->save();
+        if($request->has('continuos')){
+            return redirect('iq-option/new/'.$iq_id)->with('success', 'Added QI question option successfully!');
+        }
         return redirect('iq-option-list/'.$iq_id)->with('success', 'Added QI question option successfully!');
     }
 

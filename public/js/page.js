@@ -16,9 +16,10 @@ $(document).ready(function(){
 
         });
     });
-    // $(function(){
-    //     $('#in_time').datetimepicker();
-    // });
+        $(".alert").delay(2000).slideUp(200, function() {
+            $(this).alert('close');
+        });
+
 })
 
 $(function() {

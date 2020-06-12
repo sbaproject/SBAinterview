@@ -59,6 +59,9 @@ class IqQuestionController extends Controller
         'date_update'           => $currentTime
         ]);
         $tech->save();
+        if($request->has('continuos')){
+            return redirect('iq-list/new')->with('success', 'Added QI question successfully!');
+        }
         return redirect('iq-list')->with('success', 'Added QI question successfully!');
     }
 

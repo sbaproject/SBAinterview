@@ -90,7 +90,10 @@ class TechQuestionController extends Controller
         'date_update'           => $currentTime
         ]);
         $tech->save();
-        return redirect('tech-list')->with('success', 'Added technical question successfully!');
+        if($request->has('continuos')){
+            return redirect('tech-list/new')->with('success', 'Added skill question successfully!');
+        }
+        return redirect('tech-list')->with('success', 'Added skill question successfully!');
     }
 
     public function getTechQuestionEdit($id) {
@@ -109,7 +112,7 @@ class TechQuestionController extends Controller
         $tech ->type   = $request->get('type');
         $tech->date_update    = Carbon::now();
         $tech->save();
-        return redirect('tech-list')->with('success', 'Updated technical question successfully!');
+        return redirect('tech-list')->with('success', 'Updated skill question successfully!');
     }
 
     public function getTechQuestionDelete($id,$page) {
@@ -121,8 +124,8 @@ class TechQuestionController extends Controller
         //$a = $result->lastPage();
         if (count($result) === 0) {
             $lastPage = $result->lastPage(); // Get last page with results.
-            return redirect('tech-list?page='.$lastPage)->with('success', 'Deleted technical question successfully!');
+            return redirect('tech-list?page='.$lastPage)->with('success', 'Deleted skill question successfully!');
         }
-        return redirect()->back()->with('success', 'Deleted technical question successfully!');
+        return redirect()->back()->with('success', 'Deleted skill question successfully!');
     }
 }

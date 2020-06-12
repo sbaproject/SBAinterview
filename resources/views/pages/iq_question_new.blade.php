@@ -10,6 +10,11 @@
                 <h2 class="border-bottom">
                    IQ question registration
                 </h2>
+                @if (\Session::has('success'))
+                    <div class=" alert alert-success alert-dismissible fade show">
+                        {{ \Session::get('success') }}
+                    </div>
+                @endif
                 <form method="post">
                     @csrf
 
@@ -29,7 +34,8 @@
 
                     <div class="form-group-button">
                         <button type="submit" class="btn btn-primary btn-form btn-left">Create new</button>
-                        <a role="button" href="{{url('iq-option-list')}}" class="btn btn-secondary btn-form" >Cancel</a>
+                        <button type="submit" name="continuos" class="btn btn-primary btn-form btn-left">Continuous Create New</button>
+                        <a role="button" href="{{url('iq-list')}}" class="btn btn-secondary btn-form" >Cancel</a>
                     </div>
                 </form>
             </div>
@@ -48,5 +54,6 @@
             height: "500px"
         };
         CKEDITOR.replace( 'question_content', options);
+
     </script>
 @endsection
