@@ -4,6 +4,10 @@
     padding-bottom: 30px;
 }
 
+dl, ol, ul{
+    margin: 0;
+}
+
 .logo img {
     margin-left: -15px;
 }
@@ -129,7 +133,7 @@
     top: 0;
 }
 td.candidateid {
-    display: flex;
+    /* display: flex; */
 }
 
 div#btnload {
@@ -147,4 +151,8 @@ div#btnload:hover {
 
 footer{
     margin: 50px 0;
+}
+div#errorcandi {
+    padding: 5px;
+    margin: 0;
 }

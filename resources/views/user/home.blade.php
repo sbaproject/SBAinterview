@@ -22,13 +22,13 @@
                                 </ul>
                             </div>
                         @endif
-                        <div class="alert alert-danger" role="alert" style="display:none" id="errorcandi">Candidate not found</div>
                         <table class="table table-bordered table-striped" id="users">
                             <tbody>
                                 <tr>
-                                    <td style="width: 30%;">Candidate ID</td>
+                                    <td style="width: 30%;">Candidate ID <span style="color:red">(*)</span></td>
                                     <td class="candidateid">
                                         <input type="text" name="candidate_id" value="{{old('candidate_id')}}" id="candidate_id" required>
+                                        <div class="alert alert-danger" role="alert" style="display:none" id="errorcandi">Candidate not found</div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -66,6 +66,7 @@
                                             <option value="0">-- Select the test</option>
                                             <option value="1" @if(old('selecttest') == 1) selected @endif>{{Config::get('constants.LANGUAGE.1')}}</option>
                                             <option value="2" @if(old('selecttest') == 2) selected @endif>{{Config::get('constants.LANGUAGE.2')}}</option>
+                                            <option value="3" @if(old('selecttest') == 3) selected @endif>JAPANESE</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -91,9 +92,8 @@
         $('#candidate_id').on('keyup', function(){
             var is = $(this);
             var id = $('#candidate_id').val();
-            if(id == ''){
-                alert('Please input candidate ID!');
-                return false;
+            if(id == ""){
+                $('#errorcandi').css('display','none');
             }else{
                 $.ajax({
                     type: 'GET',
