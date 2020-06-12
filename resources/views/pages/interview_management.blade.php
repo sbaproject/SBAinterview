@@ -10,12 +10,16 @@
                     <span>Interview Management</span>
                 </div>
             <a class="btn btn-primary add-new-btn" href="{{url('interview-management/new')}}" role="button">Create new</a>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Report test result</button>
             @if (\Session::has('success'))
                 <div class=" alert alert-success alert-dismissible fade show">
                     {{ \Session::get('success') }}
                 </div>    
             @endif
         </div>
+
+
 
         <div class="card card-default mb-4">
             <div class="card-body">
@@ -94,8 +98,6 @@
                                 </div>
                             </div>
                             <div class="row">
-
-
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="status">Status</label>
@@ -107,6 +109,34 @@
                                             @endforeach
 
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label for="status">Test time from</label>
+                                        <div class="input-group mb-3">
+                                            {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
+                                            <input id="date_from" readonly type="text" class="form-control datetimepicker-input"
+                                                   name="date_from" autocomplete="off" value="{{ old('date_from', $req_arr['date_from']) }}">
+                                            <div class="input-group-append" data-target="#date_from" onclick="$('#date_from').focus();">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label for="status">Test time to</label>
+                                        <div class="input-group mb-3">
+                                            {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
+                                            <input id="date_to" readonly type="text" class="form-control datetimepicker-input"
+                                                   name="date_to" autocomplete="off" value="{{ old('date_to', $req_arr['date_to']) }}">
+                                            <div class="input-group-append" data-target="#date_to" onclick="$('#date_to').focus();">
+                                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -225,4 +255,143 @@
             </div>
         @endif
     </div>
+    <script>
+        $('#myModal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+        })
+    </script>
+
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="chartContainer" style="height: 800px; width: 800px;">
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <script type="text/javascript">
+        // $(window).load(function () {
+        //     $("#chartContainer").css("width", "800");
+        //     var chart = new CanvasJS.Chart("chartContainer",
+        //         {
+        //             title:{
+        //                 text: "Test result"
+        //             },
+        //             data: [
+        //                 {
+        //                     type: "stackedColumn",
+        //                     showInLegend: true,
+        //                     name: "series1",
+        //                     legendText: "Apples",
+        //                     dataPoints: [
+        //                         { x: 10, y: 71 },
+        //                         { x: 20, y: 55},
+        //                         { x: 30, y: 50 },
+        //                         { x: 40, y: 65 },
+        //                         { x: 50, y: 95 },
+        //                         { x: 60, y: 68 },
+        //                         { x: 70, y: 28 },
+        //                         { x: 80, y: 34 },
+        //                         { x: 90, y: 14}
+        //
+        //                     ]
+        //                 },
+        //                 {
+        //                     type: "stackedColumn",
+        //                     legendText: "Oranges",
+        //                     name: "series2",
+        //                     showInLegend: true,
+        //                     dataPoints: [
+        //                         { x: 10, y: 7 },
+        //                         { x: 20, y: 5},
+        //                         { x: 30, y: 5 },
+        //                         { x: 40, y: 16 },
+        //                         { x: 50, y: 9 },
+        //                         { x: 60, y: 61 },
+        //                         { x: 70, y: 18 },
+        //                         { x: 80, y: 14 },
+        //                         { x: 90, y: 24}
+        //
+        //                     ]
+        //                 }
+        //             ]
+        //         });
+        //
+        //     chart.render();
+        //    // $("#chartContainer").width(800);
+        //
+        // })
+        window.onload = function () {
+            $("#chartContainer").width(800);
+            var chart = new CanvasJS.Chart("chartContainer",
+                {
+                    title:{
+                        text: "Report test result"
+                    },
+                        data: [
+                            {
+                                type: "stackedColumn",
+                                showInLegend: true,
+                                name: "iq_score",
+                                legendText: "IQ",
+                                dataPoints: [
+                                        @foreach($list_candidate_score AS $candidate_score)
+                                            @php
+                                            var_dump($list_candidate_score);die;
+                                                $iq_score = $candidate_score->iq_score;
+                                                $skill_score = $candidate_score->tech_score;
+                                                $data = '{x:'.$iq_score.',y:'.$skill_score.'}';
+                                           echo $data;
+                                            @endphp
+
+                                        @endforeach
+                                    // { x: 10, y: 71 },
+                                    // { x: 20, y: 55},
+                                    // { x: 30, y: 50 },
+                                    // { x: 40, y: 65 },
+                                    // { x: 50, y: 95 },
+                                    // { x: 60, y: 68 },
+                                    // { x: 70, y: 28 },
+                                    // { x: 80, y: 34 },
+                                    // { x: 90, y: 14}
+
+                                ]
+                            },
+                            {
+                                type: "stackedColumn",
+                                legendText: "Skill",
+                                name: "skill_score",
+                                showInLegend: true,
+                                dataPoints: [
+                                    { x: 10, y: 7 },
+                                    { x: 20, y: 5},
+                                    { x: 30, y: 5 },
+                                    { x: 40, y: 16 },
+                                    { x: 50, y: 9 },
+                                    { x: 60, y: 61 },
+                                    { x: 70, y: 18 },
+                                    { x: 80, y: 14 },
+                                    { x: 90, y: 24}
+
+                                ]
+                            }
+                        ]
+
+                });
+
+            chart.render();
+
+        }
+    </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 @endsection

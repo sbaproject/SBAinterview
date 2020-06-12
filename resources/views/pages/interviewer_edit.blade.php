@@ -11,7 +11,7 @@
                 <h2 class="border-bottom">
                     Candidate Edit
                 </h2>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden"  class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
                     <div class="form-group">
@@ -274,6 +274,29 @@
                                 <span class="input-group-text">Personality</span>
                             </div>
                             <textarea class="form-control"  name="in_personality" rows=4>{{ old('in_personality', $interviewer->in_personality) }}</textarea>
+                        </div>
+                    </div>
+                        @if($interviewer->in_file)
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Attached CV file</span>
+                                </div>
+                                <div class=" pl-2 justify-content-center my-auto">
+                                    <a href="cv_upload/{{$interviewer->in_file}}" download target="_blank">{{$interviewer->in_file}}</a>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">{{$interviewer->in_file ? 'Attach new CV file' : 'Attach CV file'}}</span>
+                            </div>
+
+                            <div class=" pl-2 justify-content-center my-auto">
+                                <input id="input-b2" name="in_file_new" type="file" class="file align-middle d-inline-block" data-show-preview="false">
+                            </div>
                         </div>
                     </div>
                     <div class="form-group-button">

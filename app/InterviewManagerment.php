@@ -35,10 +35,9 @@ class InterviewManagerment extends Model
         'in_date',
         'in_note',
         'in_extraskill',
-        'in_personality'
+        'in_personality',
+        'in_file'
     ];
      
-//    public function Shop(){
-//        return $this->belongsTo('App\Shop','s_shop','sh_id');
-//    }
+
 }

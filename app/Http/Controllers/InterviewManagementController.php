@@ -8,6 +8,11 @@ use Carbon\Carbon;
 use Session;
 use config\constants;
 use Illuminate\Validation\Rule;
+use Illuminate\Database\Eloquent\Builder;
+
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Collection;
+
 
 class InterviewManagementController extends Controller
 {
@@ -32,8 +37,25 @@ class InterviewManagementController extends Controller
             'in_mail' => '',
             'in_language' => '',
             'in_cvno' => '',
-            'in_status' => ''
+            'in_status' => '',
+            'date_from' => '',
+            'date_to' => ''
         );
+        $currentTime = Carbon::now()->format('yy/m/d');
+        //get score iq , skill
+        $list_candidate_score = InterviewManagerment::from('t_interviewmanagement as inte');
+        $list_candidate_score = $list_candidate_score ->join('t_result as re', function($join) {
+            $join->on('inte.in_id', '=', 're.candidate_id');
+        });
+        $list_candidate_score = $list_candidate_score->where([
+//            're.is_marked' =>1,
+//            'inte.in_del_flg' =>0
+
+        ]);
+        $list_candidate_score = $list_candidate_score->select('re.iq_score','tech_score');
+
+
+
         if($request->has('submit')){
             $validator = $request->validate([
                 'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
@@ -54,47 +76,74 @@ class InterviewManagementController extends Controller
             $cv_channel = $request->get('in_cvchannel');
             $cvno = $request->get('in_cvno');
             $status = $request->get('in_status');
+            $date_from = $request->get('date_from');
+            $date_to = $request->get('date_to');
 
 
             $req_arr = $request->all();
 
-            $list_interviewers = InterviewManagerment::where('in_del_flg', 0);
+            $list_interviewers = InterviewManagerment::from('t_interviewmanagement as inter')->where('inter.in_del_flg', 0);
              if(!empty($first_name)){
-               $list_interviewers = $list_interviewers ->where('in_firstname','like','%'.$first_name.'%');
+               $list_interviewers = $list_interviewers ->where('inter.in_firstname','like','%'.$first_name.'%');
+               $list_candidate_score = $list_candidate_score ->where('inte.in_firstname','like','%'.$first_name.'%');
              }
             if(!empty($last_name)){
-                $list_interviewers = $list_interviewers ->where('in_lastname','like','%'.$last_name.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_lastname','like','%'.$last_name.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_lastname','like','%'.$last_name.'%');
             }
             if(!empty($address)){
-                $list_interviewers = $list_interviewers ->where('in_address','like','%'.$address.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_address','like','%'.$address.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_address','like','%'.$address.'%');
             }
             if(!empty($dob)){
-                $list_interviewers = $list_interviewers ->where('in_dob','like','%'.$dob.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_dob','like','%'.$dob.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_dob','like','%'.$dob.'%');
             }
             if(!empty($tel)){
-                $list_interviewers = $list_interviewers ->where('in_tel','like','%'.$tel.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_tel','like','%'.$tel.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_tel','like','%'.$tel.'%');
             }
             if(!empty($mail)){
-                $list_interviewers = $list_interviewers ->where('in_mail','like','%'.$mail.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_mail','like','%'.$mail.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_mail','like','%'.$mail.'%');
             }
             if(!empty($language)){
-                $list_interviewers = $list_interviewers ->where('in_language',$language);
+                $list_interviewers = $list_interviewers ->where('inter.in_language',$language);
+                $list_candidate_score = $list_candidate_score ->where('inte.in_language',$language);
             }
             if(!empty($cv_channel)){
-                $list_interviewers = $list_interviewers ->where('in_cvchannel',$cv_channel);
+                $list_interviewers = $list_interviewers ->where('inter.in_cvchannel',$cv_channel);
+                $list_candidate_score = $list_candidate_score ->where('inte.in_cvchannel',$cv_channel);
             }
             if(!empty($cvno)){
-                $list_interviewers = $list_interviewers ->where('in_cvno','like','%'.$cvno.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_cvno','like','%'.$cvno.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_cvno','like','%'.$cvno.'%');
             }
             if(!empty($status)){
-                $list_interviewers = $list_interviewers ->where('in_status',$status);
+                $list_interviewers = $list_interviewers ->where('inter.in_status',$status);
+                $list_candidate_score = $list_candidate_score ->where('inte.in_status',$status);
             }
-             $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->paginate(10);
-
+            if(!empty($date_from) || !empty($date_to)){
+                $date_from = date_format(date_create($date_from),'Y-m-d 00:00:00');
+                $date_to = date_format(date_create($date_to),'Y-m-d 00:00:00');
+                $list_interviewers = $list_interviewers ->join('t_result as res', function($join) {
+                    $join->on('inter.in_id', '=', 'res.candidate_id');
+                });
+                if(!empty($date_from)){
+                    $list_interviewers = $list_interviewers ->where('res.date_created','>=',$date_from);
+                    $list_candidate_score = $list_candidate_score ->where('re.date_created','>=',$date_from);
+                }
+                if(!empty($date_to)){
+                    $list_interviewers = $list_interviewers->where('res.date_created','<=',$date_to);
+                    $list_candidate_score = $list_candidate_score->where('res.date_created','<=',$date_to);
+                }
+            }
+            $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->paginate(10);
+//var_dump($list_interviewers->toSql());die;
 
             $list_interviewers_count= $list_interviewers->count();
             $current_page = $list_interviewers->currentPage();
-            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
+            //return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
         }else{
             $req_arr = array(
                 'in_firstname' => '',
@@ -106,14 +155,17 @@ class InterviewManagementController extends Controller
                 'in_mail' => '',
                 'in_language' => '',
                 'in_cvno' => '',
-                'in_status' => ''
+                'in_status' => '',
+                'date_from' => '',
+                'date_to' => ''
             );
             // get all interviewer have del_flg = 0 and soft by update time
             $list_interviewers = InterviewManagerment::where('in_del_flg', 0)->orderBy('in_id', 'DESC')->paginate(10);
             $list_interviewers_count= $list_interviewers->count();
             $current_page = $list_interviewers->currentPage();
-            return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
+           // var_dump($list_candidate_score->toSql());die;
         }
+        return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page','currentTime','list_candidate_score'));
 
 
     }    
@@ -153,6 +205,13 @@ class InterviewManagementController extends Controller
 
         // get current time
         $currentTime = Carbon::now();
+        $new_file_name = '';
+        if($request->has('in_file')){
+            $file = $request->in_file;
+            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.$file->getClientOriginalExtension();
+            $cv_file = $file->move(public_path('cv_upload'),$new_file_name);
+           // var_dump($new_file_name);die;
+        }
         $interviewer = new InterviewManagerment([
 //        'in_id'               => $request->get('in_id'),
         'in_cvno'             => $request->get('in_cvno'),
@@ -175,6 +234,7 @@ class InterviewManagementController extends Controller
         'in_extraskill'       => $request->get('in_extraskill'),
         'in_personality'      => $request->get('in_personality'),
          'in_dob'               => $request->get('in_dob'),
+        'in_file'               => $new_file_name,
         'in_del_flg'          => 0,
         'in_datecreate'       => $currentTime,
         'in_update'           => $currentTime
@@ -263,6 +323,12 @@ class InterviewManagementController extends Controller
         $interviewer->in_note             = $request->get('in_note');
         $interviewer->in_extraskill       = $request->get('in_extraskill');
         $interviewer->in_personality      = $request->get('in_personality');
+        if($request->has('in_file_new') && !empty($request->in_file_new)){
+            $file = $request->in_file_new;
+            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.$file->getClientOriginalExtension();
+            $cv_file = $file->move(public_path('cv_upload'),$new_file_name);
+            $interviewer->in_file      = $new_file_name;
+        }
         $interviewer->in_update    = Carbon::now();
         $interviewer->save();
         return redirect('interview-management')->with('success', 'Updated candidate successfully!');

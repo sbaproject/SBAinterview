@@ -10,7 +10,7 @@
                 <h2 class="border-bottom">
                     Candidate Registration
                 </h2>
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <div class="input-group mb-3">
@@ -262,6 +262,16 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Attach CV file</span>
+                            </div>
+                            <div class=" pl-2 justify-content-center my-auto">
+                                <input id="input-b2" name="in_file" type="file" class="file align-middle d-inline-block" data-show-preview="false">
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="form-group-button">
                         <button type="submit" class="btn btn-primary btn-form btn-left">Create new</button>
