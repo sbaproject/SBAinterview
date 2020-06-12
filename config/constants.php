@@ -16,5 +16,6 @@
         'LANGUAGE' => [
             1 => 'PHP',
             2 => 'C#/ASP.NET',
+            3 => 'JAPANESE',
         ]
     ];

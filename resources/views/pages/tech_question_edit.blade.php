@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Technical question edit')
+@section('title','Skill question edit')
 @section('menu')
     @parent
 @endsection
@@ -9,7 +9,7 @@
         <div class="row">
             <div id="staff_new_edit_frm" class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
                 <h2 class="border-bottom">
-                    Technical question registration
+                    Skill question registration
                 </h2>
                 <form method="post">
                     @csrf
@@ -31,7 +31,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Language</span>
+                                <span class="input-group-text">Skill</span>
                             </div>
                             <div class="form-control wrapper-select">
                                 <select class="select-language" name="type">

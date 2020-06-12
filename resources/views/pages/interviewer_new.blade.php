@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Interviewer registration')
+@section('title','Candidate Registration')
 @section('menu')
 @parent
 @endsection
@@ -8,14 +8,14 @@
         <div class="row">
             <div id="staff_new_edit_frm" class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
                 <h2 class="border-bottom">
-                    Interviewer registration
+                    Candidate Registration
                 </h2>
                 <form method="post">
                     @csrf
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">CV No.</span>
+                                <span class="input-group-text">CV No.<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text"  class="form-control form-control {{ ($errors->first('in_cvno')) ? 'is-invalid'  :'' }}" name="in_cvno" value="{{ old('in_cvno')  }}">
                             <div class="invalid-feedback">
@@ -53,21 +53,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">First name</span>
-                            </div>
-                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
-                                name="in_firstname" value="{{ old('in_firstname') }}" >
-                            <div class="invalid-feedback">
-                                @error('in_firstname')
-                                    {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Last name</span>
+                                <span class="input-group-text">Last name<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_lastname')) ? 'is-invalid'  :'' }}"
                                    name="in_lastname" value="{{ old('in_lastname') }}" >
@@ -78,6 +64,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">First name<span class="text-danger"> *</span></span>
+                            </div>
+                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
+                                name="in_firstname" value="{{ old('in_firstname') }}" >
+                            <div class="invalid-feedback">
+                                @error('in_firstname')
+                                    {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     {{--<div class="form-group">--}}
                         {{--<div class="input-group mb-3">--}}
                             {{--<div class="input-group-prepend">--}}
@@ -148,7 +149,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Language</span>
+                                <span class="input-group-text">Skill<span class="text-danger"> *</span></span>
                             </div>
                             <div class="form-control wrapper-select">
                                 <select class="select-language" name="in_language">
@@ -264,6 +265,7 @@
 
                     <div class="form-group-button">
                         <button type="submit" class="btn btn-primary btn-form btn-left">Create new</button>
+                        <button type="submit" name="continuos" class="btn btn-primary btn-form btn-left">Continuous Create New</button>
                         <a role="button" href="{{url('interview-management')}}" class="btn btn-secondary btn-form" >Cancel</a>
                     </div>
                 </form>

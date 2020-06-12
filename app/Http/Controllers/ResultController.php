@@ -78,6 +78,7 @@ class ResultController extends Controller
                 return view('pages.result_list', compact('list_result','list_result_count','cst_lang','req_arr'));
             }else{
                 $list_result = Result::orderBy('id', 'DESC')->paginate(10);
+
                 $list_result_count= $list_result->count();
 
                 return view('pages.result_list', compact('list_result','list_result_count','cst_lang','req_arr'));

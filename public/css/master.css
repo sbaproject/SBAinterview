@@ -21,10 +21,10 @@
 
 	.clswidthimg{
 		width: 30%;
-		padding-top: 20px;
+		padding-top: 23px;
 	}
 	#user-img{
-		text-align: center;
+		/*text-align: center;*/
 	}
   }
 
@@ -96,8 +96,13 @@ body {
   }
 
 .logo{
-	margin-left: 14px;
-	padding-top: 10px;
+	/*margin-left: 14px;*/
+	/*padding-top: 10px;*/
+	position: relative;
+}
+.logo img{
+	position: absolute;
+	bottom: 0px;
 }
 
 .res-menu{

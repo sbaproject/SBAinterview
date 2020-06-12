@@ -71,7 +71,7 @@
   {{--@section('menu')--}}
   <div class="container-fluid">
     <div class="row header-br">
-        <div id="logo" class="col-3 logo">
+        <div id="logo" class="col-2 logo">
             <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
         </div>
         <div id="title" class="col-4">
@@ -99,7 +99,7 @@
           <div class="menu">
             <ul class="menu-left">
                 <li><a class="{{ (request()->is('interview-management*')) ? 'active' : '' }}" href="interview-management">Interview Management</a></li>
-                <li><a class="{{ (request()->is('tech-list*')) ? 'active' : '' }}" href="tech-list">Technical questions</a></li>
+                <li><a class="{{ (request()->is('tech-list*')) ? 'active' : '' }}" href="tech-list">Skill questions</a></li>
                 <li><a class="{{ (request()->is('iq-list*')) ? 'active' : '' }}" href="iq-list">IQ questions</a></li>
                 <li><a class="{{ (request()->is('result-list*')) ? 'active' : '' }}" href="result-list">Results</a></li>
             </ul>

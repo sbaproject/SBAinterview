@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Interviewer Edit')
+@section('title','Candidate Edit')
 @section('menu')
 @parent
 @endsection
@@ -9,7 +9,7 @@
         <div class="row">
             <div id="staff_new_edit_frm" class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
                 <h2 class="border-bottom">
-                    Interviewer Edit
+                    Candidate Edit
                 </h2>
                 <form method="post">
                     @csrf
@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">CV No.</span>
+                                <span class="input-group-text">CV No.<span class="text-danger"> *</span></span>
                             </div>
 
                             <input type="text"  class="form-control {{ ($errors->first('in_cvno')) ? 'is-invalid'  :'' }}" name="in_cvno" value="{{ old('in_cvno', $interviewer->in_cvno) }}">
@@ -56,22 +56,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">First name</span>
-                            </div>
-                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
-                                   name="in_firstname" value="{{ old('in_firstname', $interviewer->in_firstname) }}" >
-
-                            <div class="invalid-feedback">
-                                @error('in_firstname')
-                                {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">Last name</span>
+                                <span class="input-group-text">Last name<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_lastname')) ? 'is-invalid'  :'' }}"
                                    name="in_lastname" value="{{ old('in_lastname', $interviewer->in_lastname) }}" >
@@ -83,6 +68,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">First name<span class="text-danger"> *</span></span>
+                            </div>
+                            <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
+                                   name="in_firstname" value="{{ old('in_firstname', $interviewer->in_firstname) }}" >
+
+                            <div class="invalid-feedback">
+                                @error('in_firstname')
+                                {{ $message }}
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
                     {{--<div class="form-group">--}}
                         {{--<div class="input-group mb-3">--}}
                             {{--<div class="input-group-prepend">--}}
@@ -158,7 +159,7 @@
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text">Language</span>
+                                <span class="input-group-text">Skill<span class="text-danger"> *</span></span>
                             </div>
                             <div class="form-control wrapper-select">
                                 <select class="select-language" name="in_language">
@@ -255,7 +256,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Note</span>
                             </div>
-                            <textarea class="form-control"  name="in_university" rows=4>{{ old('in_note', $interviewer->in_note) }}</textarea>
+                            <textarea class="form-control"  name="in_note" rows=4>{{ old('in_note', $interviewer->in_note) }}</textarea>
                         </div>
                     </div>
 
@@ -264,7 +265,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Extra skill</span>
                             </div>
-                            <textarea class="form-control"  name="in_university" rows=4>{{ old('in_extraskill', $interviewer->in_extraskill) }}</textarea>
+                            <textarea class="form-control"  name="in_extraskill" rows=4>{{ old('in_extraskill', $interviewer->in_extraskill) }}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -272,7 +273,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text">Personality</span>
                             </div>
-                            <textarea class="form-control"  name="in_university" rows=4>{{ old('in_personality', $interviewer->in_personality) }}</textarea>
+                            <textarea class="form-control"  name="in_personality" rows=4>{{ old('in_personality', $interviewer->in_personality) }}</textarea>
                         </div>
                     </div>
                     <div class="form-group-button">

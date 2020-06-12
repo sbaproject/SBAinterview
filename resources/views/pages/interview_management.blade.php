@@ -82,9 +82,9 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <label for="language">Language</label>
+                                        <label for="language">Skill</label>
                                         <select class="form-control" name="in_language" >
-                                            <option value="0" >Please choose language</option>
+                                            <option value="0" >Please choose skill</option>
                                             @foreach($cst_lang As $k => $v){
                                             <option value="{{$k}}" {{ old('in_language',$req_arr['in_language']) == $k ? "selected"  : "" }}>{{$v}}</option>
                                             }
@@ -132,11 +132,12 @@
                         <th width="10%" scope="col">Candidate_id</th>
                         <th width="10%" scope="col">CV No. </th>
                         <th width="10%" scope="col">CV Channel</th>
-                        <th width="10%" scope="col">First name</th>
                         <th width="10%" scope="col">Last name</th>
-                        <th width="10%" scope="col">Mail</th>
-                        <th width="5%" scope="col">Language</th>
-                        <th width="10%" scope="col">Tel</th>
+                        <th width="10%" scope="col">First name</th>
+                        {{--<th width="10%" scope="col">Mail</th>--}}
+                        <th width="5%" scope="col">Skill</th>
+                        {{--<th width="10%" scope="col">Tel</th>--}}
+                        <th width="20%" scope="col">Note</th>
                         <th width="10%" scope="col">Status</th>
                         <th width="10%" scope="col">Action</th>
                     </tr>
@@ -191,11 +192,12 @@
                             <td width="10%">{{ $interviewer->in_id }}</td>
                             <td width="10%">{{ $interviewer->in_cvno }}</td>
                             <td width="10%">{{ getCVChannel_lay($interviewer->in_cvchannel,$cst_cvchannel) }}</td>
-                            <td width="10%">{{ $interviewer->in_firstname }}</td>
                             <td width="10%">{{ $interviewer->in_lastname}}</td>
-                            <td width="10%">{{ $interviewer->in_mail }}</td>
+                            <td width="10%">{{ $interviewer->in_firstname }}</td>
+                            {{--<td width="10%">{{ $interviewer->in_mail }}</td>--}}
                             <td width="5%">{{getLanguage_lay($interviewer->in_language ,$cst_lang)}}</td>
-                            <td width="10%">{{ $interviewer->in_tel }}</td>
+                            {{--<td width="10%">{{ $interviewer->in_tel }}</td>--}}
+                            <td width="10%">{{ $interviewer->in_note }}</td>
                             <td width="10%">{{ getStatusInterview_lay($interviewer->in_status,$cst_status) }}</td>
                             <td id="link" width="10%"><a href="{{ url('interview-management/edit/' . $interviewer->in_id) }}">Edit /
                                 </a>&nbsp;<a href="{{ url('interview-management/delete/' . $interviewer->in_id).'/'.$current_page }}" style="color: red;"  onclick="return confirm('Are you sure to delete this item?')">Delete</a></td>

@@ -15,7 +15,8 @@ class UserController extends Controller
     {
         if(session('user'))
         {
-            return redirect()->back();
+//            return redirect()->back();
+            return redirect('interview-management');
         }
         else{
             return view("pages.login");

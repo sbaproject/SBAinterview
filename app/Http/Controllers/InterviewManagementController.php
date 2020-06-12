@@ -7,6 +7,7 @@ use App\InterviewManagerment;
 use Carbon\Carbon;
 use Session;
 use config\constants;
+use Illuminate\Validation\Rule;
 
 class InterviewManagementController extends Controller
 {
@@ -131,7 +132,7 @@ class InterviewManagementController extends Controller
             'in_firstname'   => 'required',
             'in_lastname'   => 'required',
             'in_language'    => 'required',
-            'in_salary' => 'nullable|numeric',
+            'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
             'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
             'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
@@ -146,6 +147,7 @@ class InterviewManagementController extends Controller
             'in_mail.email' => 'The mail must be a valid email address.',
             'in_cvno.required' => 'The CV No. field is required.',
             'in_cvno.unique' => 'The CV No. has already been taken.',
+            'in_salary.digits_between' => 'The salary must be max 9 digits.',
         ]);
 
 
@@ -178,6 +180,9 @@ class InterviewManagementController extends Controller
         'in_update'           => $currentTime
         ]);
         $interviewer->save();
+        if($request->has('continuos')){
+            return redirect('interview-management/new');
+        }
         return redirect('interview-management')->with('success', 'Added interviewer successfully!');
     }
     public  function getStatusInterview_lay($status){
@@ -213,10 +218,14 @@ class InterviewManagementController extends Controller
             'in_firstname'   => 'required',
             'in_lastname'   => 'required',
             'in_language'    => 'required',
-            'in_salary' => 'nullable|numeric',
+            'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
             'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
+            'in_cvno'=>[
+                'required',
+                Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
+            ],
+           // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno,'.$request->get('in_id')
 
 
         ], [
@@ -228,6 +237,7 @@ class InterviewManagementController extends Controller
             'in_mail.email' => 'The mail must be a valid email address.',
             'in_cvno.required' => 'The CV No. field is required.',
             'in_cvno.unique' => 'The CV No. has already been taken.',
+            'in_salary.digits_between' => 'The salary must be max 9 digits.',
         ]);
 
         $interviewer  = InterviewManagerment::find($request->get('in_id'));

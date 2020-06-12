@@ -1,5 +1,5 @@
 @extends('master')
-@section('title','Technical questions')
+@section('title','Skill questions')
 @section('menu')
 @parent
 @endsection
@@ -7,7 +7,7 @@
     <div class="padding-20">
         <div class="header-index">
         <div class="header-title">
-                    <span>Technical questions</span>
+                    <span>Skill questions</span>
                 </div>
             <a class="btn btn-primary add-new-btn" href="{{url('tech-list/new')}}" role="button">Create new</a>
             @if (\Session::has('success'))
@@ -25,24 +25,25 @@
 
                             <div class="row">
                                 <div class="col-4">
-                                    <div class="form-group">
-                                        <label for="type">Programming language</label>
-                                        <select class="form-control" name="type" >
-                                            <option value="0" >Please choose language</option>
-                                            @foreach($cst_lang As $k => $v){
-                                            <option value="{{$k}}" {{ old('type',$req_arr['type']) == $k ? "selected"  : "" }}>{{$v}}</option>
-                                            }
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <div class="form-group ">
+                                        <label for="type">SKill</label>
+                                        <div class="d-block">
+                                            <div class="d-inline-block align-middle"><select class="form-control" name="type" >
+                                                    <option value="0" >Please choose a skill</option>
+                                                    @foreach($cst_lang As $k => $v){
+                                                    <option value="{{$k}}" {{ old('type',$req_arr['type']) == $k ? "selected"  : "" }}>{{$v}}</option>
+                                                    }
+                                                    @endforeach
+                                                </select></div>
+
+                                            <div class="d-inline-block align-middle"> <button type="submit" name="submit" class="btn btn-primary">Search</button></div>
+                                        </div>
+                                        </div>
+
                                 </div>
+
                             </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <button type="submit" name="submit" class="btn btn-primary">Search</button>
-                                    <a role="button" href="{{url('result-list')}}" class="btn btn-secondary btn-form" >Reset</a>
-                                </div>
-                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -59,7 +60,7 @@
                     <tr>
                         <th width="5%" scope="col">No.</th>
                         <th width="30%" scope="col">Content</th>
-                        <th width="30%" scope="col">programming language</th>
+                        <th width="30%" scope="col">Skill</th>
                         <th width="20%" scope="col">Action</th>
                     </tr>
                 </thead>
