@@ -67,6 +67,15 @@ Route::group(['prefix' => 'ung-vien'], function () {
     Route::get('/load-candidate/{id}','UserHomeController@getLoadCandidate')->name('getLoadCandidate');
 });
 
+/**
+ * 
+ * Sent mail
+ * Export excel
+ * 
+ * **/
+Route::get('/admin', 'AdminMEController@index')->name('adminME');
+Route::post('/sent-mail', 'AdminMEController@postadminSentMail')->name('postadminSentMail');
+ //
 /* tech question */
 Route::get('/tech-list', 'TechQuestionController@index');
 
