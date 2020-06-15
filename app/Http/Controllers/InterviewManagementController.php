@@ -48,11 +48,11 @@ class InterviewManagementController extends Controller
             $join->on('inte.in_id', '=', 're.candidate_id');
         });
         $list_candidate_score = $list_candidate_score->where([
-//            're.is_marked' =>1,
+           're.is_marked' =>1,
 //            'inte.in_del_flg' =>0
 
         ]);
-        $list_candidate_score = $list_candidate_score->select('re.iq_score','tech_score');
+        $list_candidate_score = $list_candidate_score->select('re.iq_score','re.tech_score','inte.in_firstname','inte.in_lastname');
 
 
 
@@ -125,7 +125,7 @@ class InterviewManagementController extends Controller
             }
             if(!empty($date_from) || !empty($date_to)){
                 $date_from = date_format(date_create($date_from),'Y-m-d 00:00:00');
-                $date_to = date_format(date_create($date_to),'Y-m-d 00:00:00');
+                $date_to = date_format(date_create($date_to),'Y-m-d 23:59:59');
                 $list_interviewers = $list_interviewers ->join('t_result as res', function($join) {
                     $join->on('inter.in_id', '=', 'res.candidate_id');
                 });
@@ -135,11 +135,12 @@ class InterviewManagementController extends Controller
                 }
                 if(!empty($date_to)){
                     $list_interviewers = $list_interviewers->where('res.date_created','<=',$date_to);
-                    $list_candidate_score = $list_candidate_score->where('res.date_created','<=',$date_to);
+                    $list_candidate_score = $list_candidate_score->where('re.date_created','<=',$date_to);
                 }
             }
+           // var_dump($list_candidate_score->toSql());die;
             $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->paginate(10);
-//var_dump($list_interviewers->toSql());die;
+
 
             $list_interviewers_count= $list_interviewers->count();
             $current_page = $list_interviewers->currentPage();
@@ -164,7 +165,9 @@ class InterviewManagementController extends Controller
             $list_interviewers_count= $list_interviewers->count();
             $current_page = $list_interviewers->currentPage();
            // var_dump($list_candidate_score->toSql());die;
+
         }
+        $list_candidate_score = $list_candidate_score->get();
         return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page','currentTime','list_candidate_score'));
 
 
