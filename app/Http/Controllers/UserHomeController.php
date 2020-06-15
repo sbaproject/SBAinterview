@@ -16,6 +16,12 @@ use Session;
 
 class UserHomeController extends Controller
 {
+    public function __construct()
+    {
+        if(session('permission') == null){
+            return redirect()->route('home');
+        }
+    }
     /**
      * Display a listing of the resource.
      *

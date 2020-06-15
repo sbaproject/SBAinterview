@@ -35,6 +35,7 @@
             $this.html(event.strftime('<span style="font-size: 23px; color: #FFC300;">EXIT(%S)</span>'));
         })
         .on('finish.countdown', function(event){
+            localStorage.clear();
             window.location.href = "/logout";
         });
     });   
