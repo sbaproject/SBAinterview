@@ -60,7 +60,7 @@
                                     <td><input type="text" name="email" value="{{old('email')}}" id="email" required></td>
                                 </tr>
                                 <tr>
-                                    <td>Programing Language</td>
+                                    <td>Programing Language <span style="color:red">(*)</span></td>
                                     <td>
                                         <select name="selecttest" id="in_language">
                                             <option value="0">-- Select the test</option>

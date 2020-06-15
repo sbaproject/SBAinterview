@@ -15,6 +15,7 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
     use Exportable;
     public $rows = [];
     //
+
     public function index(Request $request){
         $userLogged = Session::get('user');
         if ($userLogged == null) {

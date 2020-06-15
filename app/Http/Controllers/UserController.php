@@ -16,6 +16,9 @@ class UserController extends Controller
         if(session('user'))
         {
 //            return redirect()->back();
+            if(session('permission') == 0){
+                return redirect('/ung-vien');
+            }
             return redirect('interview-management');
         }
         else{
@@ -44,6 +47,7 @@ class UserController extends Controller
             session()->regenerate();
             session(['user' => $user]);
             if($user->is_admin == 0){
+                session(['permission' => $user->is_admin]);
                 return redirect()->route('userHome');
             }
             return redirect('interview-management');
