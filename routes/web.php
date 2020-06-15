@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function() {
+    
     //    return view('pages.login');
-    if(session('permission') == 0){
+    if(session()->has('permission')){
         return redirect('/ung-vien');
     }
     return redirect('interview-management');
