@@ -45,7 +45,7 @@ class UserHomeController extends Controller
         if (!is_numeric($request->tel)){
             return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
         } elseif (strlen($request->tel) < 10 || strlen($request->tel) > 15) {
-            return \Redirect::back()->withErrors(['Number must greater than 10 and less than 14.'])->withInput(\Request::all());
+            return \Redirect::back()->withErrors(['Tel must greater than 10 and less than 14.'])->withInput(\Request::all());
         } elseif (substr($request->tel, 0, 1) != 0){
             return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
         }
@@ -96,7 +96,7 @@ class UserHomeController extends Controller
         if (!is_numeric($request->tel)){
             return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
         } elseif (strlen($request->tel) < 10 || strlen($request->tel) > 15) {
-            return \Redirect::back()->withErrors(['Number must greater than 10 and less than 14.'])->withInput(\Request::all());
+            return \Redirect::back()->withErrors(['Tel must greater than 10 and less than 14.'])->withInput(\Request::all());
         } elseif (substr($request->tel, 0, 1) != 0){
             return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
         }
