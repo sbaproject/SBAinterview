@@ -59,18 +59,18 @@ Route::get('/interview-management/delete/{id}/{page}', 'InterviewManagementContr
  * PCVSTARBOARD
  * 
  * **/
-Route::group(['prefix' => 'ung-vien'], function () {
-
-    Route::get('/', 'UserHomeController@index')->name('userHome');
-    Route::post('/', 'UserHomeController@postUserHome')->name('postUserHome');
-    Route::get('/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
-    Route::post('/update','UserHomeController@postUserHomeEditById')->name('postUserHomeEditById');
-    Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
-    Route::post('/test/iq','UserHomeController@postResultTech')->name('postResultTech');
-    Route::post('/test/success','UserHomeController@postResultIQ')->name('postResultIQ');
-    Route::get('/load-candidate/{id}','UserHomeController@getLoadCandidate')->name('getLoadCandidate');
+Route::group(['middleware' => 'CheckUser'], function () {
+    Route::group(['prefix' => 'ung-vien'], function () {
+        Route::get('/', 'UserHomeController@index')->name('userHome');
+        Route::post('/', 'UserHomeController@postUserHome')->name('postUserHome');
+        Route::get('/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
+        Route::post('/update','UserHomeController@postUserHomeEditById')->name('postUserHomeEditById');
+        Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
+        Route::post('/test/iq','UserHomeController@postResultTech')->name('postResultTech');
+        Route::post('/test/success','UserHomeController@postResultIQ')->name('postResultIQ');
+        Route::get('/load-candidate/{id}','UserHomeController@getLoadCandidate')->name('getLoadCandidate');
+    });
 });
-
 /**
  * 
  * Sent mail

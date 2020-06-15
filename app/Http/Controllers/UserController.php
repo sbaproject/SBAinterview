@@ -60,6 +60,7 @@ class UserController extends Controller
     public function logout()
     {
         Session::forget('user');
+        Session::forget('permission');
         if(session('user'))
         {
             return redirect()->back();
