@@ -81,17 +81,71 @@
 
         </div>
         <div class="col-10">
-          <div class="mainexport">
-                <!-- row-->
-                <div class="row">                    
-                    <div class="col-lg-12">
+            @if(Session::has('doneMessage'))
+                <div class="alert alert-success" role="alert">{{ Session::get('doneMessage') }}</div>
+            @endif
+            <div class="mainexport">
+                    <!-- row-->
+                    {{Form::open(['route'=>'sendMail', 'method'=>'POST', 'class'=>'sentmail'])}}
+                    <div class="row">                    
+                        <div class="col-lg-8">
+                            <div class="form-group row">
+                                <label for="title" class="col-sm-2 form-control-label">Gửi đến
+                                </label>
+                                <div class="col-sm-10">
+                                    <div class="box p-a-xs">
+                                        {!! Form::textarea('mails', $mails, ['class' => 'form-control', 'rows' => '5']) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="title" class="col-sm-2 form-control-label">CC
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <div class="box p-a-xs">
+                                            {!! Form::text('mailcc', null, ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="title" class="col-sm-2 form-control-label">Tiêu đề mail
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <div class="box p-a-xs">
+                                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="form-group row">
+                                    <label for="title" class="col-sm-2 form-control-label">Nội dung mail
+                                    </label>
+                                    <div class="col-sm-10">
+                                        <div class="box p-a-xs">
+                                            {!! Form::textarea('content', $content, ['id' => 'content','class' => 'form-control']) !!}
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="panel-heading text-center">
+                                <button name="sent" value="sent" type="submit" class="btn btn-responsive button-alignment btn-primary">Send Mail</button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-          </div>
+                    {{Form::close()}}
+            </div>
         </div>
     </div>
   </div>
   <script src="{{ URL::asset('/js/jquery-3.4.1.min.js') }}"></script>
   <script src="js/bootstrap.js"></script>
+  <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+  <script>
+  var options = {
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+  };
+  CKEDITOR.replace( 'content', options);
+</script>
 </body>
 </html>

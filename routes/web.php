@@ -79,7 +79,8 @@ Route::group(['middleware' => 'CheckUser'], function () {
  * 
  * **/
 Route::get('/admin', 'AdminMEController@index')->name('adminME');
-Route::post('/sent-mail', 'AdminMEController@postadminSentMail')->name('postadminSentMail');
+Route::post('/mail-export', 'AdminMEController@postadminSentMail')->name('postadminSentMail');
+Route::post('/send-mail', 'AdminMEController@sendMail')->name('sendMail');
  //
 /* tech question */
 Route::get('/tech-list', 'TechQuestionController@index');
