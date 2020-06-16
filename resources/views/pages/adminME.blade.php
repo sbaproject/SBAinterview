@@ -196,12 +196,15 @@
                                 </ul>
                             </div>
                         @endif
+                        @if(Session::has('doneMessage'))
+                            <div class="alert alert-success" role="alert">{{ Session::get('doneMessage') }}</div>
+                        @endif
                         <form method="POST" action="{{route('postadminSentMail')}}" class="form-admin">
                         @csrf
                         <div class="panel panel-success filterable" style="overflow:auto;">
                             <div class="panel-heading">
                                 <h3 class="panel-title">
-                                <button name="sent" value="sent" type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">Sent Mail</button>
+                                <button name="sent" value="sent" type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">Send Mail</button>
                                 <button name="export" value="export" type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">Export</button>
                                 </h3>
                             </div>
