@@ -359,7 +359,11 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
             ], function ($message) use ($request, $item, $mailcc) {
                 $message->from(env('NO_REPLAY_EMAIL', 'noreplay.mlt@gmail.com'), $request->title);
                 $message->to($item->in_mail);
-                $message->cc([$mailcc[0], $mailcc[1]]);
+                
+                if(count($mailcc) > 0){
+                    $message->cc([$mailcc[0], $mailcc[1]]);
+                }
+                
                 $message->replyTo('noreplay.mlt@gmail.com', $request->title);
                 $message->subject($request->title);
 

@@ -81,9 +81,15 @@
 
         </div>
         <div class="col-10">
-            @if(Session::has('doneMessage'))
-                <div class="alert alert-success" role="alert">{{ Session::get('doneMessage') }}</div>
-            @endif
+                @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
             <div class="mainexport">
                     <!-- row-->
                     {{Form::open(['route'=>'sendMail', 'method'=>'POST', 'class'=>'sentmail'])}}
