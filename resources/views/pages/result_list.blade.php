@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-    <div class="padding-20">
+    <div class="">
         <div class="header-index">
         <div class="header-title">
                     <span>Test result list</span>
@@ -23,19 +23,19 @@
                         <form method="get" id="search_form" action="">
                             @csrf
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="firstname">First name</label>
                                         <input type="text" class="form-control" id="candidate_firstname"  name="candidate_firstname" value="{{old('candidate_firstname',$req_arr['candidate_firstname'])}}" placeholder="First name">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="lastname">Last name</label>
                                         <input type="text" class="form-control" id="candidate_lastname"  name="candidate_lastname" value="{{old('candidate_lastname',$req_arr['candidate_lastname'])}}" placeholder="Last name">
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="address">Adress</label>
                                         <input type="text" class="form-control" id="candidate_address"  name="candidate_address" value="{{old('candidate_address',$req_arr['candidate_address'])}}" placeholder="Address">
@@ -44,7 +44,7 @@
 
                             </div>
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="tel">Tel</label>
                                         <input type="text" class="form-control {{ ($errors->first('candidate_tel')) ? 'is-invalid'  :'' }}" id="candidate_tel" name="candidate_tel" value="{{old('candidate_tel',$req_arr['candidate_tel'])}}" placeholder="Tel">
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="mail">Mail</label>
                                         <input type="text" class="form-control {{ ($errors->first('candidate_mail')) ? 'is-invalid'  :'' }}" id="candidate_mail" name="candidate_mail" value="{{old('candidate_mail',$req_arr['candidate_mail'])}}"  placeholder="Mail">
@@ -67,7 +67,7 @@
 
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-12 col-md-4">
                                     <div class="form-group">
                                         <label for="language">Language</label>
                                         <select class="form-control" name="candidate_language" >
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                {{--<div class="col-4">--}}
+                                {{--<div class="col-12 col-md-4">--}}
                                     {{--<div class="form-group">--}}
                                         {{--<label for="dob">DOB</label>--}}
                                         {{--<input type="text" class="form-control" id="candidate_dob"  name="candidate_dob" value="{{old('candidate_dob',$req_arr['candidate_dob'])}}" placeholder="DOB">--}}
@@ -103,7 +103,7 @@
         <div class="row">
             <div class="col-12">
         <div class="table-responsive">
-            <table id ="table_staff" class="table table-bordered table-hover table-fixed">
+            <table id ="table_staff" class="table table-bordered table-hover ">
                 <thead class="table-header">
                     <tr>
                         <th width="5%" scope="col">No.</th>

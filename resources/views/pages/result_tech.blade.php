@@ -5,9 +5,9 @@
 @endsection
 @section('content')
 
-    <div class="container padding-20">
+    <div class="">
         <div class="row">
-            <div class="col-4 col-sm 12 mb-2">
+            <div class="col-12 col-lg-4 col-sm-12 mb-2">
                 <div class="card">
                     <div class="card-body">
                         <div class="font-weight-bold text-primary ">Number of questions : <span class="text-success">{{$count_tech_question}}</span></div>

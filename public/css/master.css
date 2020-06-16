@@ -203,7 +203,7 @@ hr {
 }
 
 .input-group-prepend {
-	width: 20%;
+	/*width: 20%;*/
 }
 
 .input-group-prepend .input-group-text {
@@ -277,7 +277,7 @@ input[type="radio"]:checked:disabled:before {
 	display: block;
 }
 .table_interview{
-	width: 1514px;
+	min-width: 1514px;
 	position: relative;
 }
 .table_interview_wrap{
@@ -285,9 +285,35 @@ input[type="radio"]:checked:disabled:before {
 	overflow: auto;
 	position: relative;
 }
+#table_list_tech{
+	min-width:1030px;
+}
+#table_list_iq{
+	min-width: 1070px;
+}
+#table_list_result{
+	min-width: 1514px;
+	position: relative;
+}
+body img{
+	max-width: 100%;
+}
 @media screen and (max-device-width : 576px){
-	.logo img {
-		position: relative;
-		bottom: 0px;
+	
+	.input-group-prepend {
+		width: auto !important;
 	}
+
+	.input-group-prepend .input-group-text {
+		width: 100%;
+		justify-content: center;
+	}
+	select {
+	    font-size: 14px;
+	}
+	.menu-left li a{
+		padding-top:20px;
+	}
+
+
 }

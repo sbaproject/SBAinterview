@@ -4,12 +4,15 @@
 @parent
 @endsection
 @section('content')
-    <div class="padding-20">
+    <div class="">
         <div class="header-index">
         <div class="header-title">
                     <span>Skill questions</span>
                 </div>
-            <a class="btn btn-primary add-new-btn" href="{{url('tech-list/new')}}" role="button">Create new</a>
+            <a class="btn btn-primary add-new-btn d-none d-md-block" href="{{url('tech-list/new')}}" role="button">Create new</a>
+            <div class=" d-block d-md-none mt-2">
+                 <a class="btn btn-primary add-new-btn" href="{{url('tech-list/new')}}" role="button">Create new</a>  
+            </div>
             @if (\Session::has('success'))
                 <div class=" alert alert-success alert-dismissible fade show">
                     {{ \Session::get('success') }}
@@ -24,7 +27,7 @@
                             @csrf
 
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-12">
                                     <div class="form-group ">
                                         <label for="type">SKill</label>
                                         <div class="d-block">
@@ -54,8 +57,8 @@
         @if (isset($list_tech) && $list_tech_count > 0)
         <div class="row">
             <div class="col-12">
-        <div class="table-responsive">
-            <table id ="table_staff" class="table table-bordered table-hover table-fixed">
+        <div class="table-responsive ">
+            <table id ="table_list_tech" class="table table-bordered table-hover ">
                 <thead class="table-header">
                     <tr>
                         <th width="5%" scope="col">No.</th>

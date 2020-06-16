@@ -4,14 +4,14 @@
 @parent
 @endsection
 @section('content')
-    <div class="padding-20">
+    <div class="">
         <div class="header-index">
         <div class="header-title">
                     <span>IQ questions</span>
                 </div>
             <a class="btn btn-primary add-new-btn" href="{{url('iq-list/new')}}" role="button">Create new</a>
             @if (\Session::has('success'))
-                <div class=" alert alert-success alert-dismissible fade show">
+                <div class=" alert alert-success alert-dismissible fade show ">
                     {{ \Session::get('success') }}
                 </div>    
             @endif
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-12">
         <div class="table-responsive">
-            <table id ="table_staff" class="table table-bordered table-hover table-fixed">
+            <table id ="table_list_iq" class="table table-bordered table-hover ">
                 <thead class="table-header">
                     <tr>
                         <th width="5%" scope="col">No.</th>
