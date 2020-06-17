@@ -19,7 +19,7 @@
 </head>
 
 <body yahoo="fix" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
-    <div>
+    <div style="font-size: 14px;">
         <!-- ======= section text ======= -->
         {!! $details !!}
     </div>
