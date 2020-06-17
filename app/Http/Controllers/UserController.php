@@ -62,6 +62,7 @@ class UserController extends Controller
     {
         Session::forget('user');
         Session::forget('permission');
+        Session::forget('key');
         if(session('user'))
         {
             return redirect()->back();

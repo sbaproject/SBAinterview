@@ -34,30 +34,30 @@
                                 <tr>
                                     <td style="width: 30%;">First Name</td>
                                     <td>
-                                        <input type="text" name="firstname" value="{{old('firstname')}}" id="firstname" required>
+                                        <input type="text" name="firstname" value="{{old('firstname')}}" id="firstname">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%;">Last Name</td>
                                     <td>
-                                        <input type="text" name="lastname" value="{{old('lastname')}}" id="lastname" required>
+                                        <input type="text" name="lastname" value="{{old('lastname')}}" id="lastname">
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Address</td>
-                                    <td><input type="text" name="address" value="{{old('address')}}" id="address" required></td>
+                                    <td><input type="text" name="address" value="{{old('address')}}" id="address"></td>
                                 </tr>
                                 <tr>
                                     <td>Birthday</td>
-                                    <td><input type="text" name="dob" value="{{old('dob')}}" id="dob" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" required></td>
+                                    <td><input type="text" name="dob" value="{{old('dob')}}" id="dob" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy"></td>
                                 </tr>
                                 <tr>
                                     <td>Tel</td>
-                                    <td><input type="text" name="tel" value="{{old('tel')}}" id="tel" required></td>
+                                    <td><input type="text" name="tel" value="{{old('tel')}}" id="tel"></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="email" value="{{old('email')}}" id="email" required></td>
+                                    <td><input type="text" name="email" value="{{old('email')}}" id="email"></td>
                                 </tr>
                                 <tr>
                                     <td>Programing Language <span style="color:red">(*)</span></td>
@@ -66,7 +66,7 @@
                                             <option value="0">-- Select the test</option>
                                             <option value="1" @if(old('selecttest') == 1) selected @endif>{{Config::get('constants.LANGUAGE.1')}}</option>
                                             <option value="2" @if(old('selecttest') == 2) selected @endif>{{Config::get('constants.LANGUAGE.2')}}</option>
-                                            <option value="3" @if(old('selecttest') == 3) selected @endif>JAPANESE</option>
+                                            <option value="3" @if(old('selecttest') == 3) selected @endif>{{Config::get('constants.LANGUAGE.3')}}</option>
                                         </select>
                                     </td>
                                 </tr>

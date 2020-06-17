@@ -24,20 +24,23 @@
                 <div class="panel-body">
                     {{ Form::open(['route'=>['postResultIQ'], 'method' => 'POST', 'class'=>'infoForm']) }}
                     <div class="listtest">
-                        @foreach($data['q'] as $k => $v)
-                        <div class="test">
-                            <div class="question"><strong>{{$k+1}}.</strong> <div>{!!$v['content']!!}</div></div>
-                            <div class="anser">
-                                @foreach($v['option'] as $val)
-                                <label>
-                                    <input type="radio" name="anser[{{$v['id']}}]" value="{{$val->id}}"/>
-                                    <div class="radioboxcss"></div>
-                                    <span>{{$val->option_value}}</span>
-                                </label>
-                                @endforeach
-                            </div>
-                        </div> 
-                        @endforeach
+                        <div id="listquestion">
+                            @foreach($data['q'] as $k => $v)
+                            <div class="test">
+                                <div class="question"><strong>{{$k+1}}.</strong> <div>{!!$v['content']!!}</div></div>
+                                <div class="anser">
+                                    @foreach($v['option'] as $val)
+                                    <label>
+                                        <input type="radio" name="anser[{{$v['id']}}]" value="{{$val->id}}"/>
+                                        <div class="radioboxcss"></div>
+                                        <span>{{$val->option_value}}</span>
+                                    </label>
+                                    @endforeach
+                                </div>
+                            </div> 
+                            @endforeach
+                        </div>
+                        
                     </div>                  
                     <div class="text-center">
                         <button type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">SAVE/EXIT</button>
@@ -58,7 +61,7 @@
         var time = 0;
         var d = localStorage.getItem('timeIQ');
         if(!d) {
-            time = new Date().getTime() + 1000  * 60 * 30;
+            time = new Date().getTime() + 1000  * 60 * 1;
         } else {
             var a = d.split(':');
             var second = (1000 * 60 * parseInt(a[0]) + parseInt(a[1])*1000);
@@ -69,6 +72,9 @@
             var $this = $(this);   
             localStorage.setItem('timeIQ', event.strftime('%M:%S'));       
             $this.html(event.strftime('<span style="font-size: 23px; color: #FFC300;">%M:%S</span>'));
+        }).on('finish.countdown', function(event){
+            alert("hết thời gian làm bài test IQ lưu bài và thoát.");
+            $('#listquestion').css('display', 'none');
         });
     });   
     //

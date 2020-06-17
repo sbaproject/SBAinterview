@@ -50,11 +50,13 @@ Route::post('/changepassword/{username}/{password}', 'UserController@changePassw
  * 
  * **/
 Route::group(['middleware' => 'CheckUser'], function () {
-    Route::group(['prefix' => 'ung-vien'], function () {
+    Route::group(['prefix' => 'ung-vien'], function () {        
         Route::get('/', 'UserHomeController@index')->name('userHome');
         Route::post('/', 'UserHomeController@postUserHome')->name('postUserHome');
-        Route::get('/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
+        Route::get('/edit/{id}','UserHomeController@userHomeEditById')->name('userHomeEditById');
         Route::post('/update','UserHomeController@postUserHomeEditById')->name('postUserHomeEditById');
+
+        Route::get('/{candidate_id}', 'UserHomeController@getName')->name('getName');
         Route::get('/test/{type}','UserHomeController@postUserTest')->name('postUserTest');
         Route::post('/test/iq','UserHomeController@postResultTech')->name('postResultTech');
         Route::post('/test/success','UserHomeController@postResultIQ')->name('postResultIQ');
