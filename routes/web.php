@@ -12,14 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function() {
-    
+
     //    return view('pages.login');
     if(session()->has('permission')){
-        return redirect('/ung-vien');
+        if(session('permission') === 0){
+            return redirect('/ung-vien');
+        }else{
+            return redirect('interview-management');
+        }
     }
-    return redirect('interview-management');
+    return redirect('login');
 })->name('home');
 
 
