@@ -100,7 +100,7 @@
                                 </label>
                                 <div class="col-sm-10">
                                     <div class="box p-a-xs">
-                                        {!! Form::textarea('mails', $mails, ['class' => 'form-control', 'rows' => '5']) !!}
+                                        {!! Form::textarea('mails', $mails, ['class' => 'form-control', 'rows' => '5', 'required' => 'true']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <div class="box p-a-xs">
-                                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                                            {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
                                         </div>
                                     </div>
                             </div>
