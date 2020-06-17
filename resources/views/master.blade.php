@@ -117,7 +117,7 @@
                                   <a class="nav-link " href="result-list">Results @if((request()->is('result-list*'))) <span class="sr-only">(current)</span>@endif</a>
                               </li>
                               <li class="nav-item {{route('adminME')}}">
-                                  <a class="nav-link ">Mail/Export</a></li>
+                                  <a class="nav-link " href="{{route('adminME')}}">Mail/Export</a></li>
                               </li>
                           </ul>
 

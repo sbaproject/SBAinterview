@@ -103,7 +103,7 @@
         <div class="row">
             <div class="col-12">
         <div class="table-responsive">
-            <table id ="table_staff" class="table table-bordered table-hover ">
+            <table id ="table_list_result" class="table table-bordered table-hover ">
                 <thead class="table-header">
                     <tr>
                         <th width="5%" scope="col">No.</th>
