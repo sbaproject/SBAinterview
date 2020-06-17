@@ -4,7 +4,7 @@
 @parent
 @endsection
 @section('content')
-    <div class="container padding-20">
+    <div class="">
         <div class="row">
             <div id="staff_new_edit_frm" class="col-xl-10 col-lg-12 col-md-12 col-sm-12">
                 <h2 class="border-bottom">
@@ -261,17 +261,31 @@
                             <textarea class="form-control"  name="in_personality" rows=4>{{ old('in_personality') }}</textarea>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend w-25">
-                                <span class="input-group-text">Attach CV file</span>
+                        <label for="firstname">Attach CV file :</label>
+                        <div class=" justify-content-center my-auto">
+                            <div class="">
+                                <label for="upload" class="btn btn-sm btn-primary">Upload Image</label>
+                                <input type="file" class="text-center form-control-file custom_file" id="upload" name="in_file">
+                                <label for="file_default">No File Choosen </label>
+                                <label for="file_name"><b></b></label>
                             </div>
-                            <div class=" pl-2 justify-content-center my-auto">
-                                <input id="upload" name="in_file" value="" type="file" class="file align-middle d-inline-block" data-show-preview="false">
-                            </div>
+                            <input type="hidden" name="temp_file_old" value="{{session::get('file_data_old')}}" >
+                            <input type="hidden" name="temp_file_new" value="{{session::get('file_data_old')}}" >
+                            <!-- <input id="upload" name="in_file" value="" type="file" class="file align-middle d-inline-block" data-show-preview="false"> -->
                         </div>
                     </div>
+
+                    {{--<div class="form-group">--}}
+                        {{--<div class="input-group">--}}
+                            {{--<div class="input-group-prepend w-25">--}}
+                                {{--<span class="input-group-text">Attach CV file</span>--}}
+                            {{--</div>--}}
+                            {{--<div class=" pl-2 justify-content-center my-auto">--}}
+                                {{--<input id="upload" name="in_file" value="" type="file" class="file align-middle d-inline-block" data-show-preview="false">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
 
                     <div class="form-group-button">
                         <button type="submit" class="btn btn-primary btn-form btn-left">Create new</button>
@@ -282,6 +296,72 @@
             </div>
         </div>
     </div>
+    <style>
+        .custom_file {
+            margin: auto;
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
 
+            @if(session::get('file_data_old'))
+            $("label[for='file_name'] b").html("{{session::get('file_data_old')}}");
+            $("label[for='file_default']").text('Selected File: ');
+
+            @endif
+            $('#upload').change(function() {
+                var filename = $('#upload').val();
+                if (filename.substring(3,11) == 'fakepath') {
+                    filename = filename.substring(12);
+                }
+                var file_lable =  $("label[for='file_name'] b").html();
+                // if(file_lable != ""){
+                //     $("label[for='file_default']").text('No File Choosen');
+                //     $("label[for='file_name'] b").html('');
+                //    // $("input[name='temp_file_new']").val('');
+                // }
+                // For Remove fakepath
+
+                $("label[for='file_name'] b").html(filename);
+                $("label[for='file_default']").text('Selected File: ');
+                if (filename == "") {
+                    $("label[for='file_default']").text('No File Choosen');
+                }
+                // var file_lable =  $("label[for='file_name'] b").html();
+                // //if()
+            });
+
+            $('#upload').click(function() {
+                var filename = $('#upload').val();
+                var filename = $('#upload').val();
+                if (filename.substring(3,11) == 'fakepath') {
+                    filename = filename.substring(12);
+                } // For Remove fakepath
+                if (filename == "") {
+                    $("label[for='file_default']").text('No File Choosen');
+                    $("label[for='file_name'] b").html('');
+                    $("input[name='temp_file_new']").val('');
+                }
+                //
+                // var file_lable =  $("label[for='file_name'] b").html();
+                // if(filename == "" ){
+                //     if(file_lable != ""){
+                //         //$("label[for='file_name'] b").html(file_lable);
+                //         $("label[for='file_default']").text('No File Choosen');
+                //     }else{
+                //         $("label[for='file_default']").text('No File Choosen');
+                //     }
+                // }else{
+                //     $("label[for='file_name'] b").html(filename);
+                //     $("label[for='file_default']").text('Selected File: ');
+                // }
+
+            })
+
+        })
+    </script>
 
 @endsection

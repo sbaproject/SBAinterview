@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\Storage;
 
 
 class InterviewManagementController extends Controller
@@ -185,27 +186,27 @@ class InterviewManagementController extends Controller
 
     public function postInterviewerNew(Request $request) {
 
-        $validator = $request->validate([
-            'in_firstname'   => 'required',
-            'in_lastname'   => 'required',
-            'in_language'    => 'required',
-            'in_salary' => 'nullable|numeric|digits_between:0,9',
-            'in_mail' => 'nullable|email',
-            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
-
-
-        ], [
-            'in_firstname.required'  => 'The first name field is required.',
-            'in_lastname.required'  => 'The last name field is required.',
-            'in_language.required'   => 'Please choose a progamming language.',
-            'in_salary.numeric' => 'The salary must be a number.',
-            'in_tel.regex' => 'The tel format is invalid.',
-            'in_mail.email' => 'The mail must be a valid email address.',
-            'in_cvno.required' => 'The CV No. field is required.',
-            'in_cvno.unique' => 'The CV No. has already been taken.',
-            'in_salary.digits_between' => 'The salary must be max 9 digits.',
-        ]);
+//        $validator = $request->validate([
+//            'in_firstname'   => 'required',
+//            'in_lastname'   => 'required',
+//            'in_language'    => 'required',
+//            'in_salary' => 'nullable|numeric|digits_between:0,9',
+//            'in_mail' => 'nullable|email',
+//            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
+//            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
+//
+//
+//        ], [
+//            'in_firstname.required'  => 'The first name field is required.',
+//            'in_lastname.required'  => 'The last name field is required.',
+//            'in_language.required'   => 'Please choose a progamming language.',
+//            'in_salary.numeric' => 'The salary must be a number.',
+//            'in_tel.regex' => 'The tel format is invalid.',
+//            'in_mail.email' => 'The mail must be a valid email address.',
+//            'in_cvno.required' => 'The CV No. field is required.',
+//            'in_cvno.unique' => 'The CV No. has already been taken.',
+//            'in_salary.digits_between' => 'The salary must be max 9 digits.',
+//        ]);
 //        $rules = [
 //            'in_firstname'   => 'required',
 //            'in_lastname'   => 'required',
@@ -229,22 +230,88 @@ class InterviewManagementController extends Controller
 //            'in_salary.digits_between' => 'The salary must be max 9 digits.',
 //        ];
 //        $validator = \Validator::make($request->all(), $rules,$custom_message);
-//        $file_temp = $request->in_file
-//        $file_data = $file_te->getClientOriginalName();
+//        $file_temp = $request->in_file;
+//        $file_data = $file_temp->getClientOriginalName();
 //        if ($validator->fails()) {
 //            return Redirect::back()->with('file_data',$file_data)->withInput()->withErrors($validator->errors());
 //        }
 
 
+        $rules = [
+            'in_firstname'   => 'required',
+            'in_lastname'   => 'required',
+            'in_language'    => 'required',
+            'in_salary' => 'nullable|numeric|digits_between:0,9',
+            'in_mail' => 'nullable|email',
+            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
+            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
+
+
+        ];
+        $custom_message = [
+            'in_firstname.required'  => 'The first name field is required.',
+            'in_lastname.required'  => 'The last name field is required.',
+            'in_language.required'   => 'Please choose a progamming language.',
+            'in_salary.numeric' => 'The salary must be a number.',
+            'in_tel.regex' => 'The tel format is invalid.',
+            'in_mail.email' => 'The mail must be a valid email address.',
+            'in_cvno.required' => 'The CV No. field is required.',
+            'in_cvno.unique' => 'The CV No. has already been taken.',
+            'in_salary.digits_between' => 'The salary must be max 9 digits.',
+        ];
+        $validator = \Validator::make($request->all(), $rules,$custom_message);
+        $file_data_old = $request->get('temp_file_old');
+        if($request->has('in_file')){
+            $file_temp = $request->file('in_file');
+            if(!empty($file_temp)){
+                $new_tem_name = $file_temp->getClientOriginalName();
+                $temp = $file_temp->move(public_path('cv_upload/temp'),$new_tem_name);
+               // $tem_name = $request->get('temp_file');
+                //          //var_dump($tem_name) ;die;
+                if($new_tem_name!=$file_data_old && !empty($file_data_old)){
+                    $path= public_path().'/cv_upload/temp/'.$file_data_old;
+                   //Storage::delete(public_path().'/cv_upload/temp/'.$tem_name);
+                    unlink($path);
+                }
+                $file_data_old = $new_tem_name;
+            }
+        }else{
+            $file_data_new = $request->get('temp_file_new');
+            if(!empty($file_data_old) && $file_data_new ==''){
+                $path = public_path().'/cv_upload/temp/'.$file_data_old;
+                unlink($path);
+                $file_data_old = '';
+            }
+        }
+
+
+
+        if ($validator->fails()) {
+            return Redirect::back()->with('file_data_old',$file_data_old)->withInput()->withErrors($validator->errors());
+        }
+
+
+
         // get current time
         $currentTime = Carbon::now();
         $new_file_name = '';
-        if($request->has('in_file')){
-            $file = $request->in_file;
-            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.$file->getClientOriginalExtension();
-            $cv_file = $file->move(public_path('cv_upload'),$new_file_name);
-           // var_dump($new_file_name);die;
+        if(!empty($file_data_old)){
+            $source_file = public_path().'/cv_upload/temp/'.$file_data_old;
+            $file_extension = explode('.',$file_data_old);
+            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.end($file_extension);
+            $destination_path = public_path().'/cv_upload/'.$new_file_name;
+            //var_dump($destination_path);die;
+            if (copy($source_file,$destination_path)) {
+                unlink($source_file);
+            }
         }
+//        $new_file_name = '';
+//        if($request->has('in_file')){
+//            $file = $request->in_file;
+//            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.$file->getClientOriginalExtension();
+//            $cv_file = $file->move(public_path('cv_upload'),$new_file_name);
+//           // var_dump($new_file_name);die;
+//        }
         $interviewer = new InterviewManagerment([
 //        'in_id'               => $request->get('in_id'),
         'in_cvno'             => $request->get('in_cvno'),
@@ -307,7 +374,33 @@ class InterviewManagementController extends Controller
 
     public function postInterviewerEdit(Request $request) {
 
-        $validator = $request->validate([
+//        $validator = $request->validate([
+//            'in_firstname'   => 'required',
+//            'in_lastname'   => 'required',
+//            'in_language'    => 'required',
+//            'in_salary' => 'nullable|numeric|digits_between:0,9',
+//            'in_mail' => 'nullable|email',
+//            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
+//            'in_cvno'=>[
+//                'required',
+//                Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
+//            ],
+//           // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno,'.$request->get('in_id')
+//
+//
+//        ], [
+//            'in_firstname.required'  => 'The first name field is required.',
+//            'in_lastname.required'  => 'The last name field is required.',
+//            'in_language.required'   => 'Please choose a progamming language.',
+//            'in_salary.numeric' => 'The salary must be a number.',
+//            'in_tel.regex' => 'The tel format is invalid.',
+//            'in_mail.email' => 'The mail must be a valid email address.',
+//            'in_cvno.required' => 'The CV No. field is required.',
+//            'in_cvno.unique' => 'The CV No. has already been taken.',
+//            'in_salary.digits_between' => 'The salary must be max 9 digits.',
+//        ]);
+
+        $rules = [
             'in_firstname'   => 'required',
             'in_lastname'   => 'required',
             'in_language'    => 'required',
@@ -318,10 +411,10 @@ class InterviewManagementController extends Controller
                 'required',
                 Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
             ],
-           // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno,'.$request->get('in_id')
 
 
-        ], [
+        ];
+        $custom_message = [
             'in_firstname.required'  => 'The first name field is required.',
             'in_lastname.required'  => 'The last name field is required.',
             'in_language.required'   => 'Please choose a progamming language.',
@@ -331,7 +424,38 @@ class InterviewManagementController extends Controller
             'in_cvno.required' => 'The CV No. field is required.',
             'in_cvno.unique' => 'The CV No. has already been taken.',
             'in_salary.digits_between' => 'The salary must be max 9 digits.',
-        ]);
+        ];
+
+        $validator = \Validator::make($request->all(), $rules,$custom_message);
+        $file_data_old = $request->get('temp_file_old');
+        if($request->has('in_file')){
+            $file_temp = $request->file('in_file');
+            if(!empty($file_temp)){
+                $new_tem_name = $file_temp->getClientOriginalName();
+                $temp = $file_temp->move(public_path('cv_upload/temp'),$new_tem_name);
+                // $tem_name = $request->get('temp_file');
+                //          //var_dump($tem_name) ;die;
+                if($new_tem_name!=$file_data_old && !empty($file_data_old)){
+                    $path= public_path().'/cv_upload/temp/'.$file_data_old;
+                    //Storage::delete(public_path().'/cv_upload/temp/'.$tem_name);
+                    unlink($path);
+                }
+                $file_data_old = $new_tem_name;
+            }
+        }else{
+            $file_data_new = $request->get('temp_file_new');
+            if(!empty($file_data_old) && $file_data_new ==''){
+                $path = public_path().'/cv_upload/temp/'.$file_data_old;
+                unlink($path);
+                $file_data_old = '';
+            }
+        }
+
+
+
+        if ($validator->fails()) {
+            return Redirect::back()->with('file_data_old',$file_data_old)->withInput()->withErrors($validator->errors());
+        }
 
         $interviewer  = InterviewManagerment::find($request->get('in_id'));
 
@@ -356,12 +480,25 @@ class InterviewManagementController extends Controller
         $interviewer->in_note             = $request->get('in_note');
         $interviewer->in_extraskill       = $request->get('in_extraskill');
         $interviewer->in_personality      = $request->get('in_personality');
-        if($request->has('in_file_new') && !empty($request->in_file_new)){
-            $file = $request->in_file_new;
-            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.$file->getClientOriginalExtension();
-            $cv_file = $file->move(public_path('cv_upload'),$new_file_name);
+
+        $new_file_name = '';
+        if(!empty($file_data_old)){
+            $source_file = public_path().'/cv_upload/temp/'.$file_data_old;
+            $file_extension = explode('.',$file_data_old);
+            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.end($file_extension);
+            $destination_path = public_path().'/cv_upload/'.$new_file_name;
+            //var_dump($destination_path);die;
+            if (copy($source_file,$destination_path)) {
+                unlink($source_file);
+            }
             $interviewer->in_file      = $new_file_name;
         }
+//        if($request->has('in_file_new') && !empty($request->in_file_new)){
+//            $file = $request->in_file_new;
+//            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.$file->getClientOriginalExtension();
+//            $cv_file = $file->move(public_path('cv_upload'),$new_file_name);
+//            $interviewer->in_file      = $new_file_name;
+//        }
         $interviewer->in_update    = Carbon::now();
         $interviewer->save();
         return redirect('interview-management')->with('success', 'Updated candidate successfully!');

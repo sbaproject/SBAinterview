@@ -153,7 +153,7 @@
                             <td width="10%">{{ $result->candidate_dob }}</td>
                             <td id="link" width="20%">
                                 <a href="{{ url('result-iq/' . $result->id) }}">IQ Test result  </a> /
-                                <a href="{{url('result-tech/'.$result->id)}}">Tech test result</a>
+                                <a href="{{url('result-tech/'.$result->id)}}" style="color: {{$result->is_marked ? 'red' : '' }}">Tech test result</a>
                             </td>
                         </tr>
                         @php

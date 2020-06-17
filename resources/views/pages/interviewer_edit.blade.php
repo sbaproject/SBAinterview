@@ -282,21 +282,32 @@
                                 <div class="input-group-prepend w-25">
                                     <span class="input-group-text">Attached CV file</span>
                                 </div>
-                                <div class=" pl-2 justify-content-center my-auto">
+                                <div class=" pl-0 pl-md-2 pt-2 pt-md-0 justify-content-center my-auto">
                                     <a href="cv_upload/{{$interviewer->in_file}}" download target="_blank">{{$interviewer->in_file}}</a>
                                 </div>
                             </div>
                         </div>
                         @endif
+
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend w-25">
                                 <span class="input-group-text">{{$interviewer->in_file ? 'Attach new CV file' : 'Attach CV file'}}</span>
                             </div>
 
-                            <div class=" pl-2 justify-content-center my-auto">
-                                <input id="input-b2" name="in_file_new" type="file" class="file align-middle d-inline-block" data-show-preview="false">
+                            <div class=" pl-0 pl-md-2 pt-2 pt-md-0 justify-content-center my-auto w-75">
+                                    <div class="">
+                                        <label for="upload" class="btn btn-sm btn-primary">Upload Image</label>
+                                        <input type="file" class="text-center  custom_file" id="upload" name="in_file">
+                                        <label for="file_default">No File Choosen </label>
+                                        <label for="file_name"><b></b></label>
+                                        <input type="hidden" name="temp_file_old" value="{{session::get('file_data_old')}}" >
+                                        <input type="hidden" name="temp_file_new" value="{{session::get('file_data_old')}}" >
+                                    </div>
+
+                                    <!-- <input id="upload" name="in_file" value="" type="file" class="file align-middle d-inline-block" data-show-preview="false"> -->
                             </div>
+                                {{--<input id="input-b2" name="in_file_new" type="file" class="file align-middle d-inline-block" data-show-preview="false">--}}
                         </div>
                     </div>
                     <div class="form-group-button">
@@ -307,4 +318,54 @@
             </div>
         </div>
     </div>
+    <style>
+        .custom_file {
+            margin: auto;
+            opacity: 0;
+            position: absolute;
+            z-index: -1;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            @if(session::get('file_data_old'))
+            $("label[for='file_name'] b").html("{{session::get('file_data_old')}}");
+            $("label[for='file_default']").text('Selected File: ');
+
+            @endif
+            $('#upload').change(function() {
+                var filename = $('#upload').val();
+                if (filename.substring(3,11) == 'fakepath') {
+                    filename = filename.substring(12);
+                }
+
+                // For Remove fakepath
+
+                $("label[for='file_name'] b").html(filename);
+                $("label[for='file_default']").text('Selected File: ');
+                if (filename == "") {
+                    $("label[for='file_default']").text('No File Choosen');
+                }
+                // var file_lable =  $("label[for='file_name'] b").html();
+                // //if()
+            });
+
+            $('#upload').click(function() {
+                var filename = $('#upload').val();
+                var filename = $('#upload').val();
+                if (filename.substring(3,11) == 'fakepath') {
+                    filename = filename.substring(12);
+                } // For Remove fakepath
+                if (filename == "") {
+                    $("label[for='file_default']").text('No File Choosen');
+                    $("label[for='file_name'] b").html('');
+                    $("input[name='temp_file_new']").val('');
+                }
+
+
+            })
+
+        })
+    </script>
 @endsection
