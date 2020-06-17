@@ -292,7 +292,6 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
      * 
      * **/
     public function postadminSentMail(Request $request){
-        
         if($request->seletitem){
             $arr = explode(',', $request->seletitem);
             if($request->export){
@@ -306,9 +305,18 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
             if($request->sent){
                 $mails = '';
                 $list = InterviewManagerment::whereIn('in_id', $arr)->get();
-          
-                foreach($list as $item){
-                    $mails .= $item->in_mail . ',' . "\n";
+                $cnt = 0;
+                foreach($list as $key => $item){
+                    if($cnt == 0){
+                        if($item->in_mail != ""){
+                            $mails .= $item->in_mail;
+                            $cnt++;
+                        }                        
+                    }else{
+                        if($item->in_mail != ""){
+                            $mails .= ',' . "\n" . $item->in_mail;
+                        }
+                    }
                 }
                 $content = "<strong>Dear [firstname]</strong>, <br/><br/>We were impressed by your background on website Vieclam24h and would like to invite you to come to our office for the interview as the following: Time/ Date: [time] on  [date] Venue:  StarboardAsia Company <br/><br/>Room 2.2B, 2nd floor QTSC 1, No. 14 Str., Quang Trung software city, Tan Chanh Hiep Ward, District 12, Ho Chi Minh City <br/><strong>Tel:</strong> (+84)-28-3715-4544 <br/><strong>Website:</strong>  http://www.starboardasia.com   <br/><br/>We have enclosed the company profile as attached file. <br/>Please help to reply for confirmation through this email. <br/>Should you have any question regarding to this appointment, please do not hesitate to contact us. <br/>Thanks & best regards, <br/><br/> <strong>Phuong Nhi</strong><br/>";
                 return view('pages.adminMailPage', compact('mails','content'));
@@ -323,11 +331,16 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
      * 
      * **/
     public function sendMail(Request $request){
+        $this->validate($request, [
+            'title' => 'required',
+            'mails' => 'required'
+        ]);
         $textarea = trim(preg_replace('/\s\s+/', '', $request->mails));
         $mails = explode(',', $textarea);
-        array_pop($mails);
-        
-        $mailcc = explode(',', $request->mailcc);
+        $mailcc = '';
+        if($request->mailcc){
+            $mailcc = explode(',', $request->mailcc);
+        }
         $candi = InterviewManagerment::whereIn('in_mail', $mails)->get();
 
         foreach($candi as $item){
@@ -359,7 +372,9 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
             ], function ($message) use ($request, $item, $mailcc) {
                 $message->from(env('NO_REPLAY_EMAIL', 'noreplay.mlt@gmail.com'), $request->title);
                 $message->to($item->in_mail);
-                $message->cc([$mailcc[0], $mailcc[1]]);
+                if($mailcc != ""){
+                    $message->cc($mailcc);
+                }
                 $message->replyTo('noreplay.mlt@gmail.com', $request->title);
                 $message->subject($request->title);
 

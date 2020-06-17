@@ -81,9 +81,15 @@
 
         </div>
         <div class="col-10">
-            @if(Session::has('doneMessage'))
-                <div class="alert alert-success" role="alert">{{ Session::get('doneMessage') }}</div>
-            @endif
+                @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
             <div class="mainexport">
                     <!-- row-->
                     {{Form::open(['route'=>'sendMail', 'method'=>'POST', 'class'=>'sentmail'])}}
@@ -94,7 +100,7 @@
                                 </label>
                                 <div class="col-sm-10">
                                     <div class="box p-a-xs">
-                                        {!! Form::textarea('mails', $mails, ['class' => 'form-control', 'rows' => '5']) !!}
+                                        {!! Form::textarea('mails', $mails, ['class' => 'form-control', 'rows' => '5', 'required' => 'true']) !!}
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +118,7 @@
                                     </label>
                                     <div class="col-sm-10">
                                         <div class="box p-a-xs">
-                                            {!! Form::text('title', null, ['class' => 'form-control']) !!}
+                                            {!! Form::text('title', null, ['class' => 'form-control', 'required']) !!}
                                         </div>
                                     </div>
                             </div>
