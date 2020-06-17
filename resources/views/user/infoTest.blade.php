@@ -54,7 +54,7 @@
                     </div>
                     <div class="text-center">
                         <a href="{{route('userHomeEditById', $userId)}}" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;">Nhập lại</a>
-                        <a href="{{route('postUserTest', Config::get('constants.LANGUAGE.'.$data['candidate_language']))}}" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;">Bắt Đầu Thi</a>
+                        <a href="{{route('getName', $data['candidate_id'])}}" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;">Bắt Đầu Thi</a>
                     </div>
                 </div>
             </div>

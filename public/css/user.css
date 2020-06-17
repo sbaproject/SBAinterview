@@ -156,3 +156,10 @@ div#errorcandi {
     padding: 5px;
     margin: 0;
 }
+
+iframe#iframe-test {
+    width: 100%;
+    box-shadow: none;
+    border: none;
+    height: 98vh;
+}

@@ -10,6 +10,7 @@ use App\TechQuestion;
 use App\IqQuestion;
 use App\TestAnswer;
 use App\InterviewManagerment;
+use App\IqQuestionOption;
 use Carbon\Carbon;
 use DB;
 use Session;
@@ -42,23 +43,19 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserHome(Request $request){
-        if (!is_numeric($request->tel)){
-            return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
-        } elseif (strlen($request->tel) < 10 || strlen($request->tel) > 15) {
-            return \Redirect::back()->withErrors(['Tel must greater than 10 and less than 14.'])->withInput(\Request::all());
-        } elseif (substr($request->tel, 0, 1) != 0){
-            return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
+        if($request->tel){
+            if (!is_numeric($request->tel)){
+                return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
+            } elseif (strlen($request->tel) < 10 || strlen($request->tel) > 15) {
+                return \Redirect::back()->withErrors(['Tel must greater than 10 and less than 14.'])->withInput(\Request::all());
+            } elseif (substr($request->tel, 0, 1) != 0){
+                return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
+            }
+            if($request->selecttest == 0){
+                return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
+            }
         }
-        $this->validate($request, [
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'address' => 'required',
-            'address' => 'required',
-            'email' => 'required|email'
-        ]);
-        if($request->selecttest == 0){
-            return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
-        }
+        $time = Carbon::now();
         $data = [
             'candidate_id' => $request->candidate_id,
             'candidate_firstname' => $request->firstname,
@@ -72,7 +69,8 @@ class UserHomeController extends Controller
             'endtime' => '00:00',
             'totaltime' => 0,
             'iq_score' => 0,
-            'tech_score' => 0
+            'tech_score' => 0,
+            'date_created' => $time
         ];
         $userId = DB::table('t_result')->insertGetId($data);
         Session(['ID' => $userId]);
@@ -93,23 +91,20 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserHomeEditById(Request $request){
-        if (!is_numeric($request->tel)){
-            return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
-        } elseif (strlen($request->tel) < 10 || strlen($request->tel) > 15) {
-            return \Redirect::back()->withErrors(['Tel must greater than 10 and less than 14.'])->withInput(\Request::all());
-        } elseif (substr($request->tel, 0, 1) != 0){
-            return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
+        if($request->tel){
+            if (!is_numeric($request->tel)){
+                return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
+            } elseif (strlen($request->tel) < 10 || strlen($request->tel) > 15) {
+                return \Redirect::back()->withErrors(['Tel must greater than 10 and less than 14.'])->withInput(\Request::all());
+            } elseif (substr($request->tel, 0, 1) != 0){
+                return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
+            }
+            if($request->selecttest == 0){
+                return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
+            }
         }
-        $this->validate($request, [
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'address' => 'required',
-            'address' => 'required',
-            'email' => 'required|email'
-        ]);
-        if($request->selecttest == 0){
-            return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
-        }
+        
+        $time = Carbon::now();
         $user = Result::find($request->userId);
         $user->candidate_id = $request->candidate_id;
         $user->candidate_firstname = $request->firstname;
@@ -119,6 +114,7 @@ class UserHomeController extends Controller
         $user->candidate_mail = $request->email;
         $user->candidate_language = $request->selecttest;
         $user->candidate_dob = $request->dob;
+        $user->date_created = $time;
         $user->save();
         
         $data = [
@@ -141,17 +137,22 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserTest($type, Request $request){
+        if(session()->has('key')){
+            return redirect()->route('userHome');
+        }
+        $key = time() . rand(1111,9999);
+        session(['key' => $key]);
+        
         $data = [];
         $time = Carbon::now();
         $id = $request->session()->get('ID');
         $result = Result::find($id);
         $result->starttime = $time->toTimeString();
+        
         $result->save();
-        if($type == "PHP"){
-            $type = 1;
-            $data = TechQuestion::where([['type', 1], ['del_flg', 0]])->get();
-        }elseif($type == "IQ"){
-            $type = 3;
+        if($type != 0){
+            $data = TechQuestion::where([['type', $type], ['del_flg', 0]])->get();
+        }else{
             $q = IqQuestion::where('del_flg', 0)->get();
         
             foreach($q as $k => $i){
@@ -160,9 +161,6 @@ class UserHomeController extends Controller
                 $data['q'][$k]['option'] = $i->Options; 
             }
             return view('user.testIQ', compact("type", "data"));
-        }else{
-            $type = 2;
-            $data = TechQuestion::where([['type', 2], ['del_flg', 0]])->get();
         }
         return view('user.questionTest', compact("type", "data"));
     }
@@ -176,6 +174,7 @@ class UserHomeController extends Controller
         $tech = $request->tech;
         $id = $request->session()->get('ID');
         $currentTime = Carbon::now();
+
         $cnt = 0;
         foreach($tech as $key => $value){
             if($value != null){
@@ -186,7 +185,6 @@ class UserHomeController extends Controller
             $result->type = 2;
             $result->question_id = $key;
             $result->tech_content_ans = $value;
-            $result->date_created = $currentTime;
             $result->save();
         }
         $total = $cnt."/".count($tech);
@@ -195,7 +193,7 @@ class UserHomeController extends Controller
         $user->save();
         //
         $type = 3;
-        $q = IqQuestion::where('del_flg', 0)->get();
+        $q = IqQuestion::where('del_flg', 0)->orderBy('id', 'DESC')->get();
         
         foreach($q as $k => $i){
             $data['q'][$k]['id'] = $i->id;
@@ -211,6 +209,7 @@ class UserHomeController extends Controller
      * **/
     public function postResultIQ(Request $request){
         $total = "";
+        $score = 0;
         $id = $request->session()->get('ID');
         $currentTime = Carbon::now();
         $q = IqQuestion::where('del_flg', 0)->get();
@@ -219,6 +218,11 @@ class UserHomeController extends Controller
             foreach($q as $value){
                 $result = new TestAnswer;
                 if(isset($iq[$value->id])){
+                    $option = IqQuestionOption::find($iq[$value->id]);
+                    if($option->correct_flg == 1){
+                        $score++;
+                    }
+
                     $result->result_id = $id;
                     $result->type = 1;
                     $result->question_id = $value->id;
@@ -246,11 +250,25 @@ class UserHomeController extends Controller
         $iq_total = $total;
         //
         $result->endtime = $currentTime->toTimeString();
-        $result->tech_total = $total;
+        $result->iq_total = $total;
         $result->totaltime = $totaltime;
+        $result->iq_score = $score*10;
+        $result->date_update = $currentTime;
         $result->save();
         $request->session()->forget('ID');
         return view('user.success', compact("tech_total", "iq_total"));
+    }
+    /**
+     * 
+     * 
+     * Get link test
+     * 
+     * **/
+    public function getName($id, Request $request){
+        $userid = $request->session()->get('ID');
+        $lang = Result::where('id', $userid)->first();
+        $type = $lang->candidate_language;
+        return view('user.testname', compact("type"));
     }
     /**
      * Show the form for creating a new resource.

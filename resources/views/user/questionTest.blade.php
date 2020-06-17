@@ -25,14 +25,16 @@
                     {{ Form::open(['route'=>['postResultTech'], 'method' => 'POST', 'class'=>'infoForm']) }}
                     <input type="hidden" name="typetech" value="{{$type}}" />
                     <div class="listtest">
-                        @foreach($data as $key => $item)
-                        <div class="test">
-                            <div class="question"><strong>{{$key+1}}.</strong> <div>{!!$item->content!!}</div></div>
-                            <div class="anser">
-                                <textarea rows="6" id="aws-{{$key}}" name="tech[{{$item->id}}]"></textarea>
-                            </div>
-                        </div> 
-                        @endforeach
+                        <div id="listquestion">
+                            @foreach($data as $key => $item)
+                            <div class="test">
+                                <div class="question"><strong>{{$key+1}}.</strong> <div>{!!$item->content!!}</div></div>
+                                <div class="anser">
+                                    <textarea rows="6" id="aws-{{$key}}" name="tech[{{$item->id}}]"></textarea>
+                                </div>
+                            </div> 
+                            @endforeach
+                        </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;">SAVE/TEST IQ</button>
                             <!-- <a href="{{route('postUserTest', 'IQ')}}" class="btn btn-responsive button-alignment btn-primary" style="margin-bottom:7px;" data-toggle="button">TEST IQ</a> -->
@@ -65,6 +67,9 @@
             var $this = $(this);   
             localStorage.setItem('timeTECH', event.strftime('%M:%S'));       
             $this.html(event.strftime('<span style="font-size: 23px; color: #FFC300;">%M:%S</span>'));
+        }).on('finish.countdown', function(event){
+            alert("Hết thời gian làm bài test, vui lòng lưu bài và tiếp tục.");
+            $('#listquestion').css('display', 'none');
         });
         //
         window.onscroll = function() {myFunction()};
