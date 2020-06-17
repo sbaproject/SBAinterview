@@ -54,17 +54,17 @@
           </div>
           <div class="form-btn">
               <button type="submit" class="btn login_us">Login</button>
-              <a class="btn chang_pw" onClick="changepassword()">Change Pass</a>
-              <script type="text/javascript">
-                function changepassword(){
-                  var re_userName = document.getElementById("u_user").value;
-                  var re_passWord = document.getElementById("u_pw").value;
-                  if(re_userName != "" && re_passWord != "")
-                  {
-                    window.location.href = "changepassword/" + re_userName + "/" + re_passWord;
-                  }
-                }
-              </script>
+              {{--<a class="btn chang_pw" onClick="changepassword()">Change Pass</a>--}}
+              {{--<script type="text/javascript">--}}
+                {{--function changepassword(){--}}
+                  {{--var re_userName = document.getElementById("u_user").value;--}}
+                  {{--var re_passWord = document.getElementById("u_pw").value;--}}
+                  {{--if(re_userName != "" && re_passWord != "")--}}
+                  {{--{--}}
+                    {{--window.location.href = "changepassword/" + re_userName + "/" + re_passWord;--}}
+                  {{--}--}}
+                {{--}--}}
+              {{--</script>--}}
           </div>
           
         </form>

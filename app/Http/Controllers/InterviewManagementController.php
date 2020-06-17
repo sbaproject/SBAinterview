@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\InterviewManagerment;
 use Carbon\Carbon;
+use MicrosoftAzure\Storage\Common\Internal\Validate;
 use Session;
 use config\constants;
 use Illuminate\Validation\Rule;
@@ -12,6 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Redirect;
 
 
 class InterviewManagementController extends Controller
@@ -204,6 +206,34 @@ class InterviewManagementController extends Controller
             'in_cvno.unique' => 'The CV No. has already been taken.',
             'in_salary.digits_between' => 'The salary must be max 9 digits.',
         ]);
+//        $rules = [
+//            'in_firstname'   => 'required',
+//            'in_lastname'   => 'required',
+//            'in_language'    => 'required',
+//            'in_salary' => 'nullable|numeric|digits_between:0,9',
+//            'in_mail' => 'nullable|email',
+//            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
+//            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
+//
+//
+//        ];
+//        $custom_message = [
+//            'in_firstname.required'  => 'The first name field is required.',
+//            'in_lastname.required'  => 'The last name field is required.',
+//            'in_language.required'   => 'Please choose a progamming language.',
+//            'in_salary.numeric' => 'The salary must be a number.',
+//            'in_tel.regex' => 'The tel format is invalid.',
+//            'in_mail.email' => 'The mail must be a valid email address.',
+//            'in_cvno.required' => 'The CV No. field is required.',
+//            'in_cvno.unique' => 'The CV No. has already been taken.',
+//            'in_salary.digits_between' => 'The salary must be max 9 digits.',
+//        ];
+//        $validator = \Validator::make($request->all(), $rules,$custom_message);
+//        $file_temp = $request->in_file
+//        $file_data = $file_te->getClientOriginalName();
+//        if ($validator->fails()) {
+//            return Redirect::back()->with('file_data',$file_data)->withInput()->withErrors($validator->errors());
+//        }
 
 
         // get current time

@@ -5,9 +5,9 @@
 @endsection
 @section('content')
 
-    <div class="container padding-20">
+    <div class="">
         <div class="row">
-            <div id="staff_new_edit_frm" class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
+            <div id="staff_new_edit_frm" class="col-xl-10 col-lg-12 col-md-12 col-sm-12">
                 <h2 class="border-bottom">
                     Candidate Edit
                 </h2>
@@ -16,7 +16,7 @@
                     <input type="hidden"  class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">CV No.<span class="text-danger"> *</span></span>
                             </div>
 
@@ -30,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">CV channel</span>
                             </div>
                             <div class="form-control wrapper-select">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">CV link</span>
                             </div>
                             <input type="text"  class="form-control" name="in_cvlink" value="{{ old('in_cvlink',$interviewer->in_cvlink)  }}">
@@ -55,7 +55,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Last name<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_lastname')) ? 'is-invalid'  :'' }}"
@@ -70,7 +70,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">First name<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
@@ -86,7 +86,7 @@
 
                     {{--<div class="form-group">--}}
                         {{--<div class="input-group mb-3">--}}
-                            {{--<div class="input-group-prepend">--}}
+                            {{--<div class="input-group-prepend w-25">--}}
                                 {{--<span class="input-group-text">DOB</span>--}}
                             {{--</div>--}}
                             {{--<input type="text" maxlength="100" class="form-control "  name="in_dob" value="{{ old('in_dob', $interviewer->in_dob) }}" >--}}
@@ -95,7 +95,7 @@
                     {{--</div>--}}
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">DOB</span>
                             </div>
                             @php
@@ -114,7 +114,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Salary(VNĐ/USD)</span>
                             </div>
                             <input type="text"  class="form-control {{ ($errors->first('in_salary')) ? 'is-invalid'  :'' }}"  name="in_salary" value="{{  old('in_salary',$interviewer->in_salary )}}" >
@@ -128,7 +128,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Mail</span>
                             </div>
                             <input type="text"  class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }} "  name="in_mail" value="{{ old('in_mail', $interviewer->in_mail)}}" >
@@ -142,7 +142,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Education</span>
                             </div>
                             <textarea class="form-control"  name="in_education" rows=4>{{ old('in_education', $interviewer->in_education) }}</textarea>
@@ -150,7 +150,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Experience</span>
                             </div>
                             <textarea class="form-control"  name="in_experience" rows=4>{{ old('in_experience', $interviewer->in_experience )}}</textarea>
@@ -158,7 +158,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Skill<span class="text-danger"> *</span></span>
                             </div>
                             <div class="form-control wrapper-select">
@@ -175,7 +175,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">University</span>
                             </div>
                             <textarea class="form-control"  name="in_university" rows=4>{{ old('in_university', $interviewer->in_university) }}</textarea>
@@ -183,7 +183,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Tel</span>
                             </div>
                             <input type="text" maxlength="14" class="form-control {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }} "  name="in_tel" value="{{ old('in_tel', $interviewer->in_tel )}}" >
@@ -196,7 +196,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Address</span>
                             </div>
                             <input type="text"  class="form-control "  name="in_address" value="{{ old('in_address', $interviewer->in_address )}}" >
@@ -205,7 +205,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Status</span>
                             </div>
                             <div class="form-control wrapper-select">
@@ -222,7 +222,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Interview time</span>
                             </div>
                             <input type="text"  class="form-control "  name="in_time" value="{{ old('in_time', $interviewer->in_time)}}"  id='in_time'>
@@ -234,7 +234,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Interview date</span>
                             </div>
                             @php
@@ -253,7 +253,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Note</span>
                             </div>
                             <textarea class="form-control"  name="in_note" rows=4>{{ old('in_note', $interviewer->in_note) }}</textarea>
@@ -262,7 +262,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Extra skill</span>
                             </div>
                             <textarea class="form-control"  name="in_extraskill" rows=4>{{ old('in_extraskill', $interviewer->in_extraskill) }}</textarea>
@@ -270,7 +270,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Personality</span>
                             </div>
                             <textarea class="form-control"  name="in_personality" rows=4>{{ old('in_personality', $interviewer->in_personality) }}</textarea>
@@ -279,7 +279,7 @@
                         @if($interviewer->in_file)
                         <div class="form-group">
                             <div class="input-group">
-                                <div class="input-group-prepend">
+                                <div class="input-group-prepend w-25">
                                     <span class="input-group-text">Attached CV file</span>
                                 </div>
                                 <div class=" pl-2 justify-content-center my-auto">
@@ -290,7 +290,7 @@
                         @endif
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">{{$interviewer->in_file ? 'Attach new CV file' : 'Attach CV file'}}</span>
                             </div>
 

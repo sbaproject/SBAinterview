@@ -12,14 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function() {
-    
+
     //    return view('pages.login');
     if(session()->has('permission')){
-        return redirect('/ung-vien');
+        if(session('permission') === 0){
+            return redirect('/ung-vien');
+        }else{
+            return redirect('interview-management');
+        }
     }
-    return redirect('interview-management');
+    return redirect('login');
 })->name('home');
 
 
@@ -38,20 +41,6 @@ Route::post('/changepassword/{username}/{password}', 'UserController@changePassw
 
 
 
-/*************sba interview ********************/
-
-/* interview-management */
-Route::get('/interview-management', 'InterviewManagementController@index');
-
-Route::get('/interview-management/new', 'InterviewManagementController@getInterviewerNew');
-
-Route::post('interview-management/new', 'InterviewManagementController@postInterviewerNew');
-
-Route::get('/interview-management/edit/{id}', 'InterviewManagementController@getInterviewerEdit');
-
-Route::post('/interview-management/edit/{id}', 'InterviewManagementController@postInterviewerEdit');
-
-Route::get('/interview-management/delete/{id}/{page}', 'InterviewManagementController@getInterviewerDelete');
 
 
 /**
@@ -72,6 +61,24 @@ Route::group(['middleware' => 'CheckUser'], function () {
         Route::get('/load-candidate/{id}','UserHomeController@getLoadCandidate')->name('getLoadCandidate');
     });
 });
+
+
+Route::middleware('CheckAdmin')->group(function () {
+    
+/*************sba interview ********************/
+
+/* interview-management */
+Route::get('/interview-management', 'InterviewManagementController@index');
+
+Route::get('/interview-management/new', 'InterviewManagementController@getInterviewerNew');
+
+Route::post('interview-management/new', 'InterviewManagementController@postInterviewerNew');
+
+Route::get('/interview-management/edit/{id}', 'InterviewManagementController@getInterviewerEdit');
+
+Route::post('/interview-management/edit/{id}', 'InterviewManagementController@postInterviewerEdit');
+
+Route::get('/interview-management/delete/{id}/{page}', 'InterviewManagementController@getInterviewerDelete');
 /**
  * 
  * Sent mail
@@ -128,3 +135,4 @@ Route::get('/result-iq/{candidate_id}', 'TestAnswerController@resultIQ');
 Route::get('/result-tech/{candidate_id}', 'TestAnswerController@ResultTech');
 Route::get('/result-tech/mark/{candidate_id}', 'TestAnswerController@getResultTechMark');
 Route::post('/result-tech/mark/{candidate_id}', 'TestAnswerController@postResultTechMark');
+});

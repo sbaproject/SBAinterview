@@ -71,15 +71,15 @@
   {{--@section('menu')--}}
   <div class="container-fluid">
       <div class="row header-wrap">
-          <div class="col-md-2 col-sm-12 float-md-left float-sm-none">
+          <div class="col-md-2 col-lg-2 col-sm-12 float-md-left float-sm-none">
               <div  class="logo1 center_content">
                   <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
               </div>
           </div>
-          <div id="title1" class="col-md-4 col-sm-12 float-md-left float-sm-none">
+          <div id="title1" class="col-lg-6 col-md-6 col-sm-12 float-md-left float-sm-none">
               <div id="title_cls1" class="title_cls1 text-md-left text-center">Interview Management</div>
           </div>
-          <div class="col-md-6 col-sm-12 ">
+          <div class="col-lg-4 col-md-4 col-sm-12 ">
                   <div  class="row" >
                       <div class="col-12 col-md-11">
                           <div class="text-center text-md-right">
@@ -91,9 +91,13 @@
                           </div>
                       </div>
                   </div>
-              <div class="row d-block d-md-none">
+              
+          </div>
+      </div>
+      <div class="row d-block d-lg-none">
+        <div class="col-12 ">
                   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
-                      <a class="navbar-brand" href="#">menu</a>
+                      <a class="navbar-brand" href="#">Menu</a>
                       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                       </button>
@@ -120,7 +124,6 @@
                       </div>
                   </nav>
               </div>
-          </div>
       </div>
 
 
@@ -149,7 +152,7 @@
     {{--<hr>--}}
 
     <div class="row">
-        <div class="col-2 d-md-block d-none res-menu">
+        <div class="col-2 d-lg-block d-none res-menu">
           <div class="menu">
             <ul class="menu-left">
                 <li><a class="{{ (request()->is('interview-management*')) ? 'active' : '' }}" href="interview-management">Interview Management</a></li>
@@ -162,8 +165,8 @@
           </div>
 
         </div>
-        <div class="col-12 col-md-10 bg-white">
-          <div class="main ml-0 ml-md-3 p-0 p-md-1">
+        <div class="col-12 col-lg-10 bg-white">
+          <div class="main ml-0 ml-lg-3 p-0 pt-2 p-lg-1">
     		    @show
     		    @yield('content')
           </div>

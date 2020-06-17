@@ -6,7 +6,7 @@
 @section('content')
     <div class="container padding-20">
         <div class="row">
-            <div id="staff_new_edit_frm" class="col-xl-10 col-lg-10 col-md-10 col-sm-12">
+            <div id="staff_new_edit_frm" class="col-xl-10 col-lg-12 col-md-12 col-sm-12">
                 <h2 class="border-bottom">
                     Candidate Registration
                 </h2>
@@ -14,7 +14,7 @@
                     @csrf
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">CV No.<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text"  class="form-control form-control {{ ($errors->first('in_cvno')) ? 'is-invalid'  :'' }}" name="in_cvno" value="{{ old('in_cvno')  }}">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">CV channel</span>
                             </div>
                             <div class="form-control wrapper-select">
@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">CV link</span>
                             </div>
                             <input type="text"  class="form-control" name="in_cvlink" value="{{ old('in_cvlink')  }}">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Last name<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_lastname')) ? 'is-invalid'  :'' }}"
@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">First name<span class="text-danger"> *</span></span>
                             </div>
                             <input type="text" maxlength="200" class="form-control {{ ($errors->first('in_firstname')) ? 'is-invalid'  :'' }}"
@@ -81,7 +81,7 @@
 
                     {{--<div class="form-group">--}}
                         {{--<div class="input-group mb-3">--}}
-                            {{--<div class="input-group-prepend">--}}
+                            {{--<div class="input-group-prepend w-25">--}}
                                 {{--<span class="input-group-text">DOB</span>--}}
                             {{--</div>--}}
                             {{--<input type="text"  class="form-control datetimepicker-input" name="in_dob" value="{{ old('in_dob')  }}">--}}
@@ -89,7 +89,7 @@
                     {{--</div>--}}
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">DOB</span>
                             </div>
                             {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
@@ -104,7 +104,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Salary(VNĐ/USD)</span>
                             </div>
                             <input type="text"  class="form-control {{ ($errors->first('in_salary')) ? 'is-invalid'  :'' }} "  name="in_salary" value="{{ old('in_salary') }}" >
@@ -118,7 +118,7 @@
 
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Mail</span>
                             </div>
                             <input type="text"  class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }} "  name="in_mail" value="{{ old('in_mail') }}" >
@@ -132,7 +132,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Education</span>
                             </div>
                             <textarea class="form-control"  name="in_education" rows=4>{{ old('in_education') }}</textarea>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Experience</span>
                             </div>
                             <textarea class="form-control"  name="in_experience" rows=4>{{ old('in_experience') }}</textarea>
@@ -148,7 +148,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Skill<span class="text-danger"> *</span></span>
                             </div>
                             <div class="form-control wrapper-select">
@@ -165,7 +165,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">University</span>
                             </div>
                             <textarea class="form-control"  name="in_university" rows=4>{{ old('in_university') }}</textarea>
@@ -173,7 +173,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Tel</span>
                             </div>
                             <input type="text" maxlength="14" class="form-control  {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }} "  name="in_tel" value="{{ old('in_tel') }}" >
@@ -186,7 +186,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Address</span>
                             </div>
                             <input type="text"  class="form-control "  name="in_address" value="{{ old('in_address') }}" >
@@ -195,7 +195,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Status</span>
                             </div>
                             <div class="form-control wrapper-select">
@@ -212,7 +212,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Interview time</span>
                             </div>
                             <input type="text"  class="form-control "  name="in_time" value="{{ old('in_time') }}"  id='in_time'>
@@ -224,7 +224,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group mb-3">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Interview date</span>
                             </div>
                             {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
@@ -238,7 +238,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Note</span>
                             </div>
                             <textarea class="form-control"  name="in_note" rows=4 >{{ old('in_note') }}</textarea>
@@ -247,7 +247,7 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Extra skill</span>
                             </div>
                             <textarea class="form-control"  name="in_extraskill" rows=4>{{ old('in_extraskill') }}</textarea>
@@ -255,7 +255,7 @@
                     </div>
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Personality</span>
                             </div>
                             <textarea class="form-control"  name="in_personality" rows=4>{{ old('in_personality') }}</textarea>
@@ -264,11 +264,11 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-prepend">
+                            <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Attach CV file</span>
                             </div>
                             <div class=" pl-2 justify-content-center my-auto">
-                                <input id="input-b2" name="in_file" type="file" class="file align-middle d-inline-block" data-show-preview="false">
+                                <input id="upload" name="in_file" value="" type="file" class="file align-middle d-inline-block" data-show-preview="false">
                             </div>
                         </div>
                     </div>
@@ -282,4 +282,6 @@
             </div>
         </div>
     </div>
+
+
 @endsection
