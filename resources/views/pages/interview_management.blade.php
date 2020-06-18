@@ -140,6 +140,7 @@
                                             <div class="input-group-append" data-target="#date_to" onclick="$('#date_to').focus();">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -159,9 +160,8 @@
         @if (isset($list_interviewers) && $list_interviewers_count > 0)
         <div class="row">
             <div class="col-12">
-                <div class="table_interview_wrap">
-                    <div class="table_interview">
-                        <table id ="table_staff" class="table table-bordered table-hover ">
+                    <div class="table-responsive">
+                        <table id ="table_interview" class="table table-bordered table-hover ">
                             <thead class="table-header">
                             <tr>
                                 <th width="5%" scope="col">No.</th>
@@ -245,7 +245,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
 
             </div>
             </div>

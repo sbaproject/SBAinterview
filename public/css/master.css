@@ -276,15 +276,11 @@ input[type="radio"]:checked:disabled:before {
 .nav-custom{
 	display: block;
 }
-.table_interview{
-	min-width: 1514px;
+#table_interview{
+	min-width: 1496px;
 	position: relative;
 }
-.table_interview_wrap{
-	max-width: 100%;
-	overflow: auto;
-	position: relative;
-}
+
 #table_list_tech{
 	min-width:1030px;
 }
@@ -316,4 +312,9 @@ body img{
 	}
 
 
+}
+@media screen and (min-device-width : 768px) and (max-device-width : 992px){
+	.title_cls1 {
+		font-size: 26px;
+	}
 }
