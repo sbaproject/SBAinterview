@@ -298,7 +298,7 @@ class InterviewManagementController extends Controller
         if(!empty($file_data_old)){
             $source_file = public_path().'/cv_upload/temp/'.$file_data_old;
             $file_extension = explode('.',$file_data_old);
-            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.end($file_extension);
+            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').' '.$request->get('in_firstname').'.'.end($file_extension);
             $destination_path = public_path().'/cv_upload/'.$new_file_name;
             //var_dump($destination_path);die;
             if (copy($source_file,$destination_path)) {
@@ -485,7 +485,7 @@ class InterviewManagementController extends Controller
         if(!empty($file_data_old)){
             $source_file = public_path().'/cv_upload/temp/'.$file_data_old;
             $file_extension = explode('.',$file_data_old);
-            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').'_'.$request->get('in_firstname').'.'.end($file_extension);
+            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').' '.$request->get('in_firstname').'.'.end($file_extension);
             $destination_path = public_path().'/cv_upload/'.$new_file_name;
             //var_dump($destination_path);die;
             if (copy($source_file,$destination_path)) {
