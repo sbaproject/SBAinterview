@@ -112,7 +112,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-lg-10">
                 @if ($errors->any())
                             <div class="alert alert-danger">
                                 <ul>

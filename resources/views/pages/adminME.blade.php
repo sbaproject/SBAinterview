@@ -113,7 +113,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-md-10">
+        <div class="col-lg-10">
             <div class="header-index d-block d-md-flex">
                 <div class="header-title">
                     <span style="font-weight: bold; padding: 20px 0; display:block">Send Mail/Export</span>
