@@ -10,6 +10,7 @@
     <link href="{{URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{URL::asset('/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="css/datatable/dataTables.bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha256-yMjaV542P+q1RnH6XByCPDfUFhmOafWbeLPmqKh11zo=" crossorigin="anonymous" />
     <style>
         .mainexport {
             margin: 30px 0;
@@ -42,33 +43,66 @@
 </head>
 <body>
 {{--@section('menu')--}}
-  <div class="container-fluid">
-    <div class="row header-br">
-        <div id="logo" class="col-2 logo">
-            <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
-        </div>
-        <div id="title" class="col-4">
-        <div id="title_cls" class="title_cls">Sent Mail / Export Excel</div>
-        </div>
-        <div id="username" class="col-3">
-            <div id="user-name" class="user-name">
-            @if (Session::get('user'))
-            {{ Session::get('user')->u_name }}
-            @endif
-        </div>
-        </div>
-        <div id="user-img" class="col-1">
-            <img src="images/user.svg"  class="img-responsive icon-user clswidthimg">
-        </div>
-        <a id="user-logout" class="user-logout" href="{{ asset('/logout')}}">Logout</a>
-        <!-- <div class="col-1">
-          <a class="user-logout" href="{{ asset('/logout')}}">Logout</a>
-        </div> -->
-  	</div>
+<div class="container-fluid">
+    <div class="row header-wrap">
+          <div class="col-md-2 col-lg-2 col-sm-12 float-md-left float-sm-none">
+              <div  class="logo1 center_content">
+                  <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
+              </div>
+          </div>
+          <div id="title1" class="col-lg-6 col-md-6 col-sm-12 float-md-left float-sm-none">
+              <div id="title_cls1" class="title_cls1 text-md-left text-center">Interview Management</div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 ">
+                  <div  class="row" >
+                      <div class="col-12 col-md-11">
+                          <div class="text-center text-md-right">
+                              @if (Session::get('user'))
+                                  {{ Session::get('user')->u_name }}
+                              @endif
+                              <img src="images/user.svg"  class=" " style="width: 50px;margin:0  20px;">
+                              <a id="user-logout1" class="user-logout1" href="{{ asset('/logout')}}">Logout</a>
+                          </div>
+                      </div>
+                  </div>
+              
+          </div>
+      </div>
+      <div class="row d-block d-lg-none">
+        <div class="col-12 ">
+                  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+                      <a class="navbar-brand" href="#">Menu</a>
+                      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                      </button>
+
+                      <div class="navbar-collapse collapse" id="navbarColor03" style="">
+                          <ul class="navbar-nav mr-auto">
+                              <li class="nav-item {{ (request()->is('interview-management*')) ? 'active' : '' }}">
+                                  <a class="nav-link " href="interview-management">Interview Management @if((request()->is('interview-management*'))) <span class="sr-only">(current)</span>@endif</a>
+                              </li>
+                              <li class="nav-item {{ (request()->is('tech-list*')) ? 'active' : '' }}">
+                                  <a class="nav-link " href="tech-list">Skill questions @if((request()->is('tech-list*'))) <span class="sr-only">(current)</span>@endif</a>
+                              </li>
+                              <li class="nav-item {{ (request()->is('iq-list*')) ? 'active' : '' }}">
+                                  <a class="nav-link " href="iq-list">IQ questions @if((request()->is('iq-list*'))) <span class="sr-only">(current)</span>@endif</a>
+                              </li>
+                              <li class="nav-item {{ (request()->is('result-list*')) ? 'active' : '' }}">
+                                  <a class="nav-link " href="result-list">Results @if((request()->is('result-list*'))) <span class="sr-only">(current)</span>@endif</a>
+                              </li>
+                              <li class="nav-item {{route('adminME')}}">
+                                  <a class="nav-link " href="{{route('adminME')}}">Mail/Export</a></li>
+                              </li>
+                          </ul>
+
+                      </div>
+                  </nav>
+              </div>
+      </div>
     {{--<hr>--}}
 
     <div class="row">
-        <div class="col-2 res-menu">
+        <div class="col-2 d-lg-block d-none res-menu">
           <div class="menu">
             <ul class="menu-left">
                 <li><a class="{{ (request()->is('interview-management*')) ? 'active' : '' }}" href="interview-management">Interview Management</a></li>
@@ -78,10 +112,14 @@
                 <li><a class="active" href="{{route('adminME')}}">Mail/Export</a></li>
             </ul>
           </div>
-
         </div>
-        <div class="col-10">
-          <div class="mainexport">
+        <div class="col-md-10">
+            <div class="header-index d-block d-md-flex">
+                <div class="header-title">
+                    <span style="font-weight: bold; padding: 20px 0; display:block">Send Mail/Export</span>
+                </div>
+            </div>
+            <div class="mainexport">
                 <div class="card card-default mb-4">
                     <div class="card-body">
                         <div class="row">
@@ -89,13 +127,13 @@
                                 <form method="get" id="search_form" action="">
                                     @csrf
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="cvno">CV No.</label>
                                                 <input type="text" class="form-control" id="in_cvno"  name="in_cvno" value="{{old('in_cvno',$req_arr['in_cvno'])}}" placeholder="CV No.">
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="language">CV channel</label>
                                                 <select class="form-control" name="in_cvchannel" >
@@ -107,7 +145,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="firstname">First name</label>
                                                 <input type="text" class="form-control" id="in_firstname"  name="in_firstname" value="{{old('in_firstname',$req_arr['in_firstname'])}}" placeholder="First name">
@@ -116,13 +154,13 @@
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="lastname">Last name</label>
                                                 <input type="text" class="form-control" id="in_lastname"  name="in_lastname" value="{{old('in_lastname',$req_arr['in_lastname'])}}" placeholder="Last name">
                                             </div>
                                         </div>
-                                        {{--<div class="col-4">--}}
+                                        {{--<div class="col-12 col-md-4">--}}
                                             {{--<div class="form-group">--}}
                                                 {{--<label for="tel">Tel</label>--}}
                                                 {{--<input type="text" class="form-control {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }}" id="in_tel" name="in_tel" value="{{old('in_tel',$req_arr['in_tel'])}}" placeholder="Tel">--}}
@@ -133,7 +171,7 @@
                                                 {{--</div>--}}
                                             {{--</div>--}}
                                         {{--</div>--}}
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="mail">Mail</label>
                                                 <input type="text" class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }}" id="in_mail" name="in_mail" value="{{old('in_mail',$req_arr['in_mail'])}}"  placeholder="Mail">
@@ -145,7 +183,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="language">Skill</label>
                                                 <select class="form-control" name="in_language" >
@@ -159,9 +197,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-
-
-                                        <div class="col-4">
+                                        <div class="col-12 col-md-4">
                                             <div class="form-group">
                                                 <label for="status">Status</label>
                                                 <select class="form-control" name="in_status" >
@@ -172,6 +208,34 @@
                                                     @endforeach
 
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="status">Test time from</label>
+                                                <div class="input-group mb-3">
+                                                    {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
+                                                    <input id="date_from" readonly type="text" class="form-control datetimepicker-input"
+                                                        name="date_from" autocomplete="off" value="{{ old('date_from', $req_arr['date_from']) }}">
+                                                    <div class="input-group-append" data-target="#date_from" onclick="$('#date_from').focus();">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="status">Test time to</label>
+                                                <div class="input-group mb-3">
+                                                    {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
+                                                    <input id="date_to" readonly type="text" class="form-control datetimepicker-input"
+                                                        name="date_to" autocomplete="off" value="{{ old('date_to', $req_arr['date_to']) }}">
+                                                    <div class="input-group-append" data-target="#date_to" onclick="$('#date_to').focus();">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
+
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -232,6 +296,38 @@
                                     </thead>
                                     <tbody>
                                         <?php $cnt = 1; ?>
+
+                            @php
+                                function getStatusInterview_lay($status,$status_arr){
+
+                                  $status_res = '';
+                                  foreach ($status_arr as $key => $val){
+                                      if ($status == $key){
+                                          $status_res = $val;
+                                      }
+                                  }
+                                  return $status_res;
+
+                              }
+                           function getCVChannel_lay($channel,$channel_arr){
+                               $channel_text = '';
+                               foreach ($channel_arr as $kcn => $vcn){
+                                   if($channel == $kcn){
+                                       $channel_text = $vcn;
+                                   }
+                               }
+                               return $channel_text;
+                           }
+                           function getLanguage_lay($lang,$lang_arr){
+                               $lag = '';
+                               foreach ($lang_arr as $klg => $vlg){
+                                   if($lang == $klg){
+                                       $lag = $vlg;
+                                   }
+                               }
+                               return $lag;
+                           }
+                            @endphp
                                         @foreach($list_interviewers as $item)
                                         <tr>
                                             <td>
@@ -242,13 +338,13 @@
                                             <td>{{$cnt}}</td>
                                             <td>{{$item->in_id }}</td>
                                             <td>{{$item->in_cvno }}</td>
-                                            <td>{{$item->in_cvchannel }}</td>
+                                            <td>{{ getCVChannel_lay($item->in_cvchannel,$cst_cvchannel) }}</td>
                                             <td>{{$item->in_lastname }}</td>
                                             <td>{{$item->in_firstname }}</td>
                                             <td>{{$item->in_mail }}</td>
-                                            <td></td>
+                                            <td>{{getLanguage_lay($item->in_language ,$cst_lang)}}</td>
                                             <td>{{$item->in_note }}</td>
-                                            <td>{{$item->in_status }}</td>
+                                            <td>{{ getStatusInterview_lay($item->in_status,$cst_status) }}</td>
                                         </tr>  
                                         <?php $cnt++; ?>
                                         @endforeach                                      
@@ -267,6 +363,8 @@
   <script src="js/bootstrap.js"></script>
   <script src="css/datatable/jquery.dataTables.js"></script>
   <script src="css/datatable/dataTables.bootstrap.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
   <script>
     $(document).ready(function() {
         //re-order columns

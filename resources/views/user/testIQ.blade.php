@@ -61,7 +61,7 @@
         var time = 0;
         var d = localStorage.getItem('timeIQ');
         if(!d) {
-            time = new Date().getTime() + 1000  * 60 * 1;
+            time = new Date().getTime() + 1000  * 60 * 30;
         } else {
             var a = d.split(':');
             var second = (1000 * 60 * parseInt(a[0]) + parseInt(a[1])*1000);

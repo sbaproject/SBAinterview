@@ -40,9 +40,26 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
             'in_mail' => '',
             'in_language' => '',
             'in_cvno' => '',
-            'in_status' => ''
+            'in_status' => '',
+            'date_from' => '',
+            'date_to' => ''
         );
-        if($request->submit){
+        $currentTime = Carbon::now()->format('yy/m/d');
+        //get score iq , skill
+        $list_candidate_score = InterviewManagerment::from('t_interviewmanagement as inte');
+        $list_candidate_score = $list_candidate_score ->join('t_result as re', function($join) {
+            $join->on('inte.in_id', '=', 're.candidate_id');
+        });
+        $list_candidate_score = $list_candidate_score->where([
+           're.is_marked' =>1,
+//            'inte.in_del_flg' =>0
+
+        ]);
+        $list_candidate_score = $list_candidate_score->select('re.iq_score','re.tech_score','inte.in_firstname','inte.in_lastname');
+
+
+
+        if($request->has('submit')){
             $validator = $request->validate([
                 'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
                 'in_mail'    => 'nullable|email',
@@ -62,47 +79,71 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
             $cv_channel = $request->get('in_cvchannel');
             $cvno = $request->get('in_cvno');
             $status = $request->get('in_status');
+            $date_from = $request->get('date_from');
+            $date_to = $request->get('date_to');
 
 
             $req_arr = $request->all();
 
-            $list_interviewers = InterviewManagerment::where('in_del_flg', 0);
+            $list_interviewers = InterviewManagerment::from('t_interviewmanagement as inter')->where('inter.in_del_flg', 0);
              if(!empty($first_name)){
-               $list_interviewers = $list_interviewers ->where('in_firstname','like','%'.$first_name.'%');
+               $list_interviewers = $list_interviewers ->where('inter.in_firstname','like','%'.$first_name.'%');
+               $list_candidate_score = $list_candidate_score ->where('inte.in_firstname','like','%'.$first_name.'%');
              }
             if(!empty($last_name)){
-                $list_interviewers = $list_interviewers ->where('in_lastname','like','%'.$last_name.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_lastname','like','%'.$last_name.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_lastname','like','%'.$last_name.'%');
             }
             if(!empty($address)){
-                $list_interviewers = $list_interviewers ->where('in_address','like','%'.$address.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_address','like','%'.$address.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_address','like','%'.$address.'%');
             }
             if(!empty($dob)){
-                $list_interviewers = $list_interviewers ->where('in_dob','like','%'.$dob.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_dob','like','%'.$dob.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_dob','like','%'.$dob.'%');
             }
             if(!empty($tel)){
-                $list_interviewers = $list_interviewers ->where('in_tel','like','%'.$tel.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_tel','like','%'.$tel.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_tel','like','%'.$tel.'%');
             }
             if(!empty($mail)){
-                $list_interviewers = $list_interviewers ->where('in_mail','like','%'.$mail.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_mail','like','%'.$mail.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_mail','like','%'.$mail.'%');
             }
             if(!empty($language)){
-                $list_interviewers = $list_interviewers ->where('in_language',$language);
+                $list_interviewers = $list_interviewers ->where('inter.in_language',$language);
+                $list_candidate_score = $list_candidate_score ->where('inte.in_language',$language);
             }
             if(!empty($cv_channel)){
-                $list_interviewers = $list_interviewers ->where('in_cvchannel',$cv_channel);
+                $list_interviewers = $list_interviewers ->where('inter.in_cvchannel',$cv_channel);
+                $list_candidate_score = $list_candidate_score ->where('inte.in_cvchannel',$cv_channel);
             }
             if(!empty($cvno)){
-                $list_interviewers = $list_interviewers ->where('in_cvno','like','%'.$cvno.'%');
+                $list_interviewers = $list_interviewers ->where('inter.in_cvno','like','%'.$cvno.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_cvno','like','%'.$cvno.'%');
             }
             if(!empty($status)){
-                $list_interviewers = $list_interviewers ->where('in_status',$status);
+                $list_interviewers = $list_interviewers ->where('inter.in_status',$status);
+                $list_candidate_score = $list_candidate_score ->where('inte.in_status',$status);
             }
-             $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->paginate(10);
-
-
-            $list_interviewers_count= $list_interviewers->count();
-            $current_page = $list_interviewers->currentPage();
-            return view('pages.adminME', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
+            if(!empty($date_from) || !empty($date_to)){
+                $date_from = date_format(date_create($date_from),'Y-m-d 00:00:00');
+                $date_to = date_format(date_create($date_to),'Y-m-d 23:59:59');
+                $list_interviewers = $list_interviewers ->join('t_result as res', function($join) {
+                    $join->on('inter.in_id', '=', 'res.candidate_id');
+                });
+                if(!empty($date_from)){
+                    $list_interviewers = $list_interviewers ->where('res.date_created','>=',$date_from);
+                    $list_candidate_score = $list_candidate_score ->where('re.date_created','>=',$date_from);
+                }
+                if(!empty($date_to)){
+                    $list_interviewers = $list_interviewers->where('res.date_created','<=',$date_to);
+                    $list_candidate_score = $list_candidate_score->where('re.date_created','<=',$date_to);
+                }
+            }
+           // var_dump($list_candidate_score->toSql());die;
+            $list_interviewers = $list_interviewers->orderBy('in_id', 'DESC')->get();
+            //return view('pages.interview_management', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
         }else{
             $req_arr = array(
                 'in_firstname' => '',
@@ -114,13 +155,17 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
                 'in_mail' => '',
                 'in_language' => '',
                 'in_cvno' => '',
-                'in_status' => ''
+                'in_status' => '',
+                'date_from' => '',
+                'date_to' => ''
             );
             // get all interviewer have del_flg = 0 and soft by update time
             $list_interviewers = InterviewManagerment::where('in_del_flg', 0)->orderBy('in_id', 'DESC')->get();
-            $list_interviewers_count= $list_interviewers->count();
-            return view('pages.adminME', compact('list_interviewers','list_interviewers_count','req_arr','cst_lang','cst_cvchannel','cst_status','current_page'));
+
         }
+        $list_candidate_score = $list_candidate_score->get();
+        return view('pages.adminME', compact('list_interviewers','req_arr','cst_lang','cst_cvchannel','cst_status','current_page','currentTime','list_candidate_score'));
+
     }
     /**
      * 

@@ -51,9 +51,9 @@ class UserHomeController extends Controller
             } elseif (substr($request->tel, 0, 1) != 0){
                 return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
             }
-            if($request->selecttest == 0){
-                return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
-            }
+        }
+        if($request->selecttest == 0){
+            return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
         }
         $time = Carbon::now();
         $data = [
@@ -99,11 +99,10 @@ class UserHomeController extends Controller
             } elseif (substr($request->tel, 0, 1) != 0){
                 return \Redirect::back()->withErrors(['The Tel format is invalid.'])->withInput(\Request::all());
             }
-            if($request->selecttest == 0){
-                return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
-            }
         }
-        
+        if($request->selecttest == 0){
+            return \Redirect::back()->withErrors(['Please select a programing language.'])->withInput(\Request::all());
+        }
         $time = Carbon::now();
         $user = Result::find($request->userId);
         $user->candidate_id = $request->candidate_id;
