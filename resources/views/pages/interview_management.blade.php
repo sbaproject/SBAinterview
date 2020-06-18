@@ -140,7 +140,6 @@
                                             <div class="input-group-append" data-target="#date_to" onclick="$('#date_to').focus();">
                                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>

@@ -43,6 +43,12 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserHome(Request $request){
+        if($request->email != ""){
+            $this->validate($request, [
+                'email' => "email"
+            ]);
+        }
+
         if($request->tel){
             if (!is_numeric($request->tel)){
                 return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
@@ -91,6 +97,12 @@ class UserHomeController extends Controller
      * 
      * **/
     public function postUserHomeEditById(Request $request){
+        if($request->email != ""){
+            $this->validate($request, [
+                'email' => "email"
+            ]);
+        }
+        
         if($request->tel){
             if (!is_numeric($request->tel)){
                 return \Redirect::back()->withErrors(['Tel is not a number, please try again.'])->withInput(\Request::all());
