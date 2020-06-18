@@ -11,7 +11,7 @@
                 </div>
             <a class="btn btn-primary add-new-btn" href="{{url('iq-option/new/'.$iq_id)}}" role="button">Create new</a>
             @if (\Session::has('success'))
-                <div class=" alert alert-success alert-dismissible fade show">
+                <div class=" alert alert-success alert-dismissible fade show mt-2 mt-md-0">
                     {{ \Session::get('success') }}
                 </div>    
             @endif

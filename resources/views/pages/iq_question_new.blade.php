@@ -11,7 +11,7 @@
                    IQ question registration
                 </h2>
                 @if (\Session::has('success'))
-                    <div class=" alert alert-success alert-dismissible fade show">
+                    <div class=" alert alert-success alert-dismissible fade show mt-2 mt-md-0">
                         {{ \Session::get('success') }}
                     </div>
                 @endif

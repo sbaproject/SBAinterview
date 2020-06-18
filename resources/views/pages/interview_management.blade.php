@@ -18,7 +18,7 @@
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Report test result</button>
                 </div>
                 @if (\Session::has('success'))
-                    <div class=" alert alert-success alert-dismissible fade show">
+                    <div class=" alert alert-success alert-dismissible fade show mt-2 mt-md-0">
                         {{ \Session::get('success') }}
                     </div>
                 @endif

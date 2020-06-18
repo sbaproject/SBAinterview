@@ -345,23 +345,7 @@ class InterviewManagementController extends Controller
         }
         return redirect('interview-management')->with('success', 'Added candidate successfully!');
     }
-    public  function getStatusInterview_lay($status){
-        $status_arr = array(
-            0 => '',
-            1 => 'Phone&mail contacted',
-            2 => 'Interviewed',
-            3 => 'Cancelled interview',
-            4 => 'Not pass Contacted'
-        );
-        $status_res = '';
-        foreach ($status_arr as $key => $val){
-            if ($status == $key){
-                $status_res = $val;
-            }
-        }
-        return $status_res;
-
-    }
+    
     public function getInterviewerEdit($id) {
         $currentTime = Carbon::now()->format('yy/m/d');
         $interviewer = InterviewManagerment::where('in_id', $id)->first();

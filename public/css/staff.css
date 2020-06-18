@@ -47,6 +47,7 @@ tbody {
 	display: flex;
 	align-items: center;
 	margin-bottom: 25px;
+	flex-wrap: wrap;
 }
 .alert {
 	margin-bottom: 0px;

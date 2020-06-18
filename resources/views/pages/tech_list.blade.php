@@ -14,10 +14,12 @@
                  <a class="btn btn-primary add-new-btn" href="{{url('tech-list/new')}}" role="button">Create new</a>  
             </div>
             @if (\Session::has('success'))
-                <div class=" alert alert-success alert-dismissible fade show">
+                <div class=" alert alert-success alert-dismissible fade show mt-2 mt-md-0 ">
+                {{--<div class=" alert alert-success d-block">--}}
                     {{ \Session::get('success') }}
                 </div>    
             @endif
+
         </div>
         <div class="card card-default mb-4">
             <div class="card-body">
