@@ -3,8 +3,12 @@
 <head>
     @include('user.includes.head')
     @yield('headInclude')
+    <SCRIPT type="text/javascript">
+        window.history.forward();
+        function noBack() { window.history.forward(); }
+    </SCRIPT>
 </head>
-<body onselectstart="return false" oncontextmenu="return false">
+<body onselectstart="return false" oncontextmenu="return false" onload="noBack();" onpageshow="if (event.persisted) noBack();" onunload="">
 <div id="wrapper">
     <!-- start header -->
     @include('user.includes.header')

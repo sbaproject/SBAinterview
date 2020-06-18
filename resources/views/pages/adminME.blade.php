@@ -44,7 +44,7 @@
 <body>
 {{--@section('menu')--}}
 <div class="container-fluid">
-    <div class="row header-wrap">
+        <div class="row header-wrap">
           <div class="col-md-2 col-lg-2 col-sm-12 float-md-left float-sm-none">
               <div  class="logo1 center_content">
                   <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
@@ -208,34 +208,6 @@
                                                     @endforeach
 
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="form-group">
-                                                <label for="status">Test time from</label>
-                                                <div class="input-group mb-3">
-                                                    {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
-                                                    <input id="date_from" readonly type="text" class="form-control datetimepicker-input"
-                                                        name="date_from" autocomplete="off" value="{{ old('date_from', $req_arr['date_from']) }}">
-                                                    <div class="input-group-append" data-target="#date_from" onclick="$('#date_from').focus();">
-                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-4">
-                                            <div class="form-group">
-                                                <label for="status">Test time to</label>
-                                                <div class="input-group mb-3">
-                                                    {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
-                                                    <input id="date_to" readonly type="text" class="form-control datetimepicker-input"
-                                                        name="date_to" autocomplete="off" value="{{ old('date_to', $req_arr['date_to']) }}">
-                                                    <div class="input-group-append" data-target="#date_to" onclick="$('#date_to').focus();">
-                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                                    </div>
-
-                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
