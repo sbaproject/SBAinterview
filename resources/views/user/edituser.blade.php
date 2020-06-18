@@ -28,36 +28,36 @@
                                 <tr>
                                     <td style="width: 30%;">Candidate ID</td>
                                     <td>
-                                        <input type="text" name="candidate_id" value="{{$data->candidate_id}}" required>
+                                        <input type="text" name="candidate_id" value="{{$data->candidate_id}}" >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%;">First Name</td>
                                     <td>
-                                        <input type="text" name="firstname" value="{{$data->candidate_firstname}}" required>
+                                        <input type="text" name="firstname" value="{{$data->candidate_firstname}}" >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="width: 30%;">Last Name</td>
                                     <td>
-                                        <input type="text" name="lastname" value="{{$data->candidate_lastname}}" required>
+                                        <input type="text" name="lastname" value="{{$data->candidate_lastname}}" >
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Address</td>
-                                    <td><input type="text" name="address" value="{{$data->candidate_address}}" required></td>
+                                    <td><input type="text" name="address" value="{{$data->candidate_address}}" ></td>
                                 </tr>
                                 <tr>
                                     <td>Birthday</td>
-                                    <td><input type="text" name="dob" value="{{$data->candidate_dob}}" id="dob" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" required></td>
+                                    <td><input type="text" name="dob" value="{{$data->candidate_dob}}" id="dob" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" ></td>
                                 </tr>
                                 <tr>
                                     <td>Tel</td>
-                                    <td><input type="text" name="tel" value="{{$data->candidate_tel}}" required></td>
+                                    <td><input type="text" name="tel" value="{{$data->candidate_tel}}" ></td>
                                 </tr>
                                 <tr>
                                     <td>Email</td>
-                                    <td><input type="text" name="email" value="{{$data->candidate_mail}}" required></td>
+                                    <td><input type="text" name="email" value="{{$data->candidate_mail}}" ></td>
                                 </tr>
                                 <tr>
                                     <td>Programing Language</td>
