@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="font-weight-bold text-primary ">Number of questions : <span class="text-success">{{$count_iq_question}}</span></div>
-                        <div class="font-weight-bold text-primary">Result : <span class="text-success">{{$count_correct}} / {{$count_iq_question}}</span></div>
+                        <div class="font-weight-bold text-primary">Result : <span class="text-success">{{$count_correct}} / {{$count_iq_question *10}}</span></div>
                     </div>
                 </div>
             </div>

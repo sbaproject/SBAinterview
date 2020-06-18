@@ -103,7 +103,7 @@
         <div class="row">
             <div class="col-12">
         <div class="table-responsive">
-            <table id ="table_staff" class="table table-bordered table-hover ">
+            <table id ="table_list_result" class="table table-bordered table-hover ">
                 <thead class="table-header">
                     <tr>
                         <th width="5%" scope="col">No.</th>
@@ -153,7 +153,7 @@
                             <td width="10%">{{ $result->candidate_dob }}</td>
                             <td id="link" width="20%">
                                 <a href="{{ url('result-iq/' . $result->id) }}">IQ Test result  </a> /
-                                <a href="{{url('result-tech/'.$result->id)}}">Tech test result</a>
+                                <a href="{{url('result-tech/'.$result->id)}}" style="color: {{$result->is_marked ? 'red' : '' }}">Tech test result</a>
                             </td>
                         </tr>
                         @php

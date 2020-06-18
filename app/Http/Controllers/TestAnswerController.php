@@ -48,7 +48,7 @@ class TestAnswerController extends Controller
                 //get correct answers count
                 foreach ($list_option as $option){
                     if($list_iq_question_arr[$i]['question_options_id'] == $option['id'] && $option['correct_flg'] == 1){
-                        $count_correct = $count_correct +1;
+                        $count_correct = $count_correct +10;
                     }
                 }
             }

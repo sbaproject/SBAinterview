@@ -71,12 +71,12 @@
   {{--@section('menu')--}}
   <div class="container-fluid">
       <div class="row header-wrap">
-          <div class="col-md-2 col-lg-2 col-sm-12 float-md-left float-sm-none">
+          <div class="col-md-3 col-lg-2 col-sm-12 float-md-left float-sm-none">
               <div  class="logo1 center_content">
                   <img src="images/logo.png"  width="100%" alt="" class="img-responsive">
               </div>
           </div>
-          <div id="title1" class="col-lg-6 col-md-6 col-sm-12 float-md-left float-sm-none">
+          <div id="title1" class="col-lg-6 col-md-5 col-sm-12 float-md-left float-sm-none">
               <div id="title_cls1" class="title_cls1 text-md-left text-center">Interview Management</div>
           </div>
           <div class="col-lg-4 col-md-4 col-sm-12 ">
@@ -117,7 +117,7 @@
                                   <a class="nav-link " href="result-list">Results @if((request()->is('result-list*'))) <span class="sr-only">(current)</span>@endif</a>
                               </li>
                               <li class="nav-item {{route('adminME')}}">
-                                  <a class="nav-link ">Mail/Export</a></li>
+                                  <a class="nav-link " href="{{route('adminME')}}">Mail/Export</a></li>
                               </li>
                           </ul>
 
