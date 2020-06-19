@@ -24,10 +24,12 @@
         </div>
     @endif
     <div class="row">
-      <div id="login_img" class="col-5">
-        <img src="{{asset('images/logo.png') }}"  width="100%" alt="Starboard Asia" class="imagesLogo">
+      <div id="login_img" class="col-12 col-md-5">
+          <div class="img_wrap">
+              <img src="{{asset('images/logo.png') }}"   alt="Starboard Asia" class="imagesLogo1">
+          </div>
       </div>
-      <div id="login_frm" class="col-7">
+      <div id="login_frm" class="col-12 col-md-7">
         <form action="{{ asset ('/login')}}" method="post">
           @csrf
           <div class="form-group">
