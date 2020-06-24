@@ -164,7 +164,7 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
 
         }
         $list_candidate_score = $list_candidate_score->get();
-        return view('pages.adminME', compact('list_interviewers','req_arr','cst_lang','cst_cvchannel','cst_status','current_page','currentTime','list_candidate_score'));
+        return view('pages.adminME', compact('list_interviewers','req_arr','cst_lang','cst_cvchannel','cst_status','currentTime','list_candidate_score'));
 
     }
     /**

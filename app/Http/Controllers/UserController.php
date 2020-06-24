@@ -47,6 +47,7 @@ class UserController extends Controller
             session()->regenerate();
             session(['user' => $user]);
             session(['permission' => $user->is_admin]);
+           // var_dump(session::get('permission'));die;
             if($user->is_admin == 0){
                 //session(['permission' => $user->is_admin]);
                 return redirect()->route('userHome');

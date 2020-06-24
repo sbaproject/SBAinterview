@@ -3,3 +3,14 @@
     RewriteCond %{REQUEST_URI} !^/public/
     RewriteRule ^(.*)$ /public/$1 [L,QSA]
 </IfModule>
+
+#Chỉ cho IP công ty truy cập:
+Order Deny,Allow
+Deny from all
+Allow from 120.72.106.146
+
+#Tạo kiểm tra username/pass
+AuthName "Section Name"
+AuthType Basic
+AuthUserFile /home/starboar/public_html/.htpasswd
+Require valid-user

@@ -26,6 +26,7 @@ Route::get('/', function() {
 })->name('home');
 
 
+
 /* login */
 Route::get('/login', 'UserController@getLogin');
 
@@ -40,7 +41,8 @@ Route::get('/changepassword/{username}/{password}', 'UserController@getChangePas
 Route::post('/changepassword/{username}/{password}', 'UserController@changePassword');
 
 
-
+/* acess */
+Route::get('/access-denied', 'AccessController@index');
 
 
 /**

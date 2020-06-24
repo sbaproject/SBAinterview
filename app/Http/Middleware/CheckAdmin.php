@@ -20,7 +20,7 @@ class CheckAdmin
         if ($userLogged == null) {
             return redirect('/login');
         }
-        if (session('permission') === 1) {
+        if (session('permission') == 1) {
             return $next($request);
         }else{
             return redirect('/access-denied');

@@ -15,7 +15,7 @@ class CheckUser
      */
     public function handle($request, Closure $next)
     {
-        if (session('permission') === 0) {
+        if (session('permission') == 0) {
             return $next($request);
         }
         return redirect()->route('home');
