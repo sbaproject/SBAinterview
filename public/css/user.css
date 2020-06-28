@@ -163,3 +163,19 @@ iframe#iframe-test {
     border: none;
     height: 98vh;
 }
+.header{
+    position: relative;
+}
+.user_info{
+    position: absolute;
+    top:20px;
+    right:20px;
+}
+@media screen and (max-width: 576px ){
+    .user_info{
+        position: relative;
+        top:10px;
+        right:auto;
+    }
+}
+
