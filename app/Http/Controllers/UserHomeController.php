@@ -162,7 +162,7 @@ class UserHomeController extends Controller
         
         $result->save();
         if($type != 0){
-            $data = TechQuestion::where([['type', $type], ['del_flg', 0]])->get();
+            $data = TechQuestion::where([['type', $type], ['del_flg', 0]])->orderBy('id', 'ASC')->get();
         }else{
             $q = IqQuestion::where('del_flg', 0)->get();
         
@@ -204,7 +204,7 @@ class UserHomeController extends Controller
         $user->save();
         //
         $type = 3;
-        $q = IqQuestion::where('del_flg', 0)->orderBy('id', 'DESC')->get();
+        $q = IqQuestion::where('del_flg', 0)->orderBy('id', 'ASC')->get();
         
         foreach($q as $k => $i){
             $data['q'][$k]['id'] = $i->id;
