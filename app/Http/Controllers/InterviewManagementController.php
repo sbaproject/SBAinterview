@@ -58,8 +58,8 @@ class InterviewManagementController extends Controller
         $list_candidate_score = $list_candidate_score->select('re.iq_score','re.tech_score','inte.in_firstname','inte.in_lastname');
 
 
-
-        if($request->has('submit')){
+        $req_search = $request->all();
+        if(!empty($req_search)){
             $validator = $request->validate([
                 'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
                 'in_mail'    => 'nullable|email',
@@ -82,8 +82,21 @@ class InterviewManagementController extends Controller
             $date_from = $request->get('date_from');
             $date_to = $request->get('date_to');
 
-
-            $req_arr = $request->all();
+            $req_arr = array(
+                'in_firstname' => $first_name,
+                'in_lastname' => $last_name,
+                'in_cvchannel' => $cv_channel,
+                'in_address' => $address,
+                'in_dob' => $dob,
+                'in_tel' => $tel,
+                'in_mail' => $mail,
+                'in_language' => $language,
+                'in_cvno' => $cvno,
+                'in_status' => $status,
+                'date_from' => $date_from,
+                'date_to' => $date_to
+            );
+           // $req_arr = $request->all();
 
             $list_interviewers = InterviewManagerment::from('t_interviewmanagement as inter')->where('inter.in_del_flg', 0);
              if(!empty($first_name)){

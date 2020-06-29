@@ -166,7 +166,7 @@
             </div>
             </div>
             <div class="pagination-container">
-                <div>{{ $list_result->links() }}</div>
+                <div>{{ $list_result->appends(Request::except('page'))->links() }}</div>
             </div>
             @else
             <div class="row">

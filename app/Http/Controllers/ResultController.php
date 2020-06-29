@@ -31,7 +31,8 @@ class ResultController extends Controller
                 'candidate_language' => ''
             );
             $cst_lang = config('constants.LANGUAGE');
-            if($request->has('submit')){
+            $req_search = $request->all();
+        if(!empty($req_search)){
                 $validator = $request->validate([
                     'candidate_tel' => 'nullable|regex:/(0)[0-9]{9}/',
                     'candidate_mail'    => 'nullable|email',
@@ -47,7 +48,17 @@ class ResultController extends Controller
                 $mail = $request->get('candidate_mail');
                 $language = $request->get('candidate_language');
 
-                $req_arr = $request->all();
+                $req_arr = array(
+                    'candidate_firstname' => $first_name,
+                    'candidate_lastname' => $last_name,
+                    'candidate_address' => $address,
+                    'candidate_dob' =>$dob,
+                    'candidate_tel' => $tel,
+                    'candidate_mail' => $mail,
+                    'candidate_language' => $language
+                );
+
+               // $req_arr = $request->all();
 
                 $list_result =  new Result();
                 if(!empty($first_name)){

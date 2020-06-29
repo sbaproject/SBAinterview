@@ -23,7 +23,8 @@ class TechQuestionController extends Controller
                 'type' => '',
 
             );
-        if($request->has('submit')){
+            $req_search = $request->all();
+        if( !empty($req_search) && !empty($request->get('type'))){
             $type = $request->get('type');
             $req_arr = $request->all();
 
@@ -32,9 +33,10 @@ class TechQuestionController extends Controller
                 $list_tech = $list_tech ->where('type',$type);
             }
             $list_tech= $list_tech->orderBy('id', 'DESC')->paginate(10);
-
+           // $list_tech->setPath('custom/url');
             $list_tech_count= $list_tech->count();
             $current_page = $list_tech->currentPage();
+
 
             for ($i=0;$i<$list_tech_count;$i++){
                 $list_tech[$i]['type'] = $this->getProgammingLanguage($list_tech[$i]['type']);

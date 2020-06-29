@@ -34,7 +34,7 @@
                                         <label for="type">SKill</label>
                                         <div class="d-block">
                                             <div class="d-inline-block align-middle"><select class="form-control" name="type" >
-                                                    <option value="0" >Please choose a skill</option>
+                                                    <option value="" >Please choose a skill</option>
                                                     @foreach($cst_lang As $k => $v){
                                                     <option value="{{$k}}" {{ old('type',$req_arr['type']) == $k ? "selected"  : "" }}>{{$v}}</option>
                                                     }
@@ -99,7 +99,7 @@
             </div>
             </div>
             <div class="pagination-container">
-                <div>{{ $list_tech->links() }}</div>
+                <div>{{ $list_tech->appends(Request::except('page'))->links() }}</div>
             </div>
             @else
             <div class="row">

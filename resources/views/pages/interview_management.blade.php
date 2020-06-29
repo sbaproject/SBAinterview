@@ -249,7 +249,7 @@
             </div>
             </div>
             <div class="pagination-container">
-                <div>{{ $list_interviewers->links() }}</div>
+                <div>{{ $list_interviewers->appends(Request::except('page'))->links() }}</div>
             </div>
             @else
             <div class="row">
