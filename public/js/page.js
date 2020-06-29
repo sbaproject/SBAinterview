@@ -62,8 +62,8 @@ $(function() {
         changeMonth: true,
         changeYear: true,
         minDate: new Date(1960, 0, 1),
-        maxDate: new Date(2000, 11, 31),
-        yearRange: "1960:2000",
+        maxDate: new Date(1999, 11, 31),
+        yearRange: "1960:1999",
     });
 });
 
