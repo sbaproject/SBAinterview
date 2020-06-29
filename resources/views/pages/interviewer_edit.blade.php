@@ -13,19 +13,20 @@
                 </h2>
                 <form method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="hidden"  class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend w-25">
-                                <span class="input-group-text">CV No.<span class="text-danger"> *</span></span>
+                                <span class="input-group-text">Candidate ID</span>
                             </div>
-
-                            <input type="text"  class="form-control {{ ($errors->first('in_cvno')) ? 'is-invalid'  :'' }}" name="in_cvno" value="{{ old('in_cvno', $interviewer->in_cvno) }}">
-                            <div class="invalid-feedback">
-                                @error('in_cvno')
-                                {{ $message }}
-                                @enderror
+                            <input type="text" readonly class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text">CV No.</span>
                             </div>
+                            <input type="text"  class="form-control " name="in_cvno" value="{{ old('in_cvno', $interviewer->in_cvno) }}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -102,13 +103,16 @@
                                 $date = date_format(date_create($interviewer->in_dob),'Y/m/d');
                             @endphp
                             {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
-                            <input id="in_dob" readonly type="text" class="form-control datetimepicker-input"
+                            <input id="in_dob"  type="text" class="form-control datetimepicker-input-dob {{ ($errors->first('in_dob')) ? 'is-invalid'  :'' }}"
                                    name="in_dob" autocomplete="off" value="{{ old('in_dob', $date )}}">
                             <div class="input-group-append" data-target="#in_dob" onclick="$('#in_dob').focus();">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>
-
-
+                            <div class="invalid-feedback">
+                                @error('in_dob')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -126,19 +130,7 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend w-25">
-                                <span class="input-group-text">Mail</span>
-                            </div>
-                            <input type="text"  class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }} "  name="in_mail" value="{{ old('in_mail', $interviewer->in_mail)}}" >
-                            <div class="invalid-feedback">
-                                @error('in_mail')
-                                {{ $message }}
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+
 
                     <div class="form-group">
                         <div class="input-group">
@@ -179,6 +171,19 @@
                                 <span class="input-group-text">University</span>
                             </div>
                             <textarea class="form-control"  name="in_university" rows=4>{{ old('in_university', $interviewer->in_university) }}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend w-25">
+                                <span class="input-group-text">Mail</span>
+                            </div>
+                            <input type="text"  class="form-control {{ ($errors->first('in_mail')) ? 'is-invalid'  :'' }} "  name="in_mail" value="{{ old('in_mail', $interviewer->in_mail)}}" >
+                            <div class="invalid-feedback">
+                                @error('in_mail')
+                                {{ $message }}
+                                @enderror
+                            </div>
                         </div>
                     </div>
                     <div class="form-group">

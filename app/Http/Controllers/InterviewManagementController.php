@@ -181,61 +181,11 @@ class InterviewManagementController extends Controller
         $cst_lang =config('constants.LANGUAGE');
         $cst_cvchannel = config('constants.CV_CHANNEL');
         $cst_status = config('constants.STATUS');
-        return view('pages.interviewer_new',compact('currentTime','cst_status','cst_cvchannel','cst_lang'));
+        $candidate_id = InterviewManagerment::orderBy('in_id','desc')->first()->in_id;
+        return view('pages.interviewer_new',compact('currentTime','cst_status','cst_cvchannel','cst_lang','candidate_id'));
     }
 
     public function postInterviewerNew(Request $request) {
-
-//        $validator = $request->validate([
-//            'in_firstname'   => 'required',
-//            'in_lastname'   => 'required',
-//            'in_language'    => 'required',
-//            'in_salary' => 'nullable|numeric|digits_between:0,9',
-//            'in_mail' => 'nullable|email',
-//            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-//            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
-//
-//
-//        ], [
-//            'in_firstname.required'  => 'The first name field is required.',
-//            'in_lastname.required'  => 'The last name field is required.',
-//            'in_language.required'   => 'Please choose a progamming language.',
-//            'in_salary.numeric' => 'The salary must be a number.',
-//            'in_tel.regex' => 'The tel format is invalid.',
-//            'in_mail.email' => 'The mail must be a valid email address.',
-//            'in_cvno.required' => 'The CV No. field is required.',
-//            'in_cvno.unique' => 'The CV No. has already been taken.',
-//            'in_salary.digits_between' => 'The salary must be max 9 digits.',
-//        ]);
-//        $rules = [
-//            'in_firstname'   => 'required',
-//            'in_lastname'   => 'required',
-//            'in_language'    => 'required',
-//            'in_salary' => 'nullable|numeric|digits_between:0,9',
-//            'in_mail' => 'nullable|email',
-//            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-//            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
-//
-//
-//        ];
-//        $custom_message = [
-//            'in_firstname.required'  => 'The first name field is required.',
-//            'in_lastname.required'  => 'The last name field is required.',
-//            'in_language.required'   => 'Please choose a progamming language.',
-//            'in_salary.numeric' => 'The salary must be a number.',
-//            'in_tel.regex' => 'The tel format is invalid.',
-//            'in_mail.email' => 'The mail must be a valid email address.',
-//            'in_cvno.required' => 'The CV No. field is required.',
-//            'in_cvno.unique' => 'The CV No. has already been taken.',
-//            'in_salary.digits_between' => 'The salary must be max 9 digits.',
-//        ];
-//        $validator = \Validator::make($request->all(), $rules,$custom_message);
-//        $file_temp = $request->in_file;
-//        $file_data = $file_temp->getClientOriginalName();
-//        if ($validator->fails()) {
-//            return Redirect::back()->with('file_data',$file_data)->withInput()->withErrors($validator->errors());
-//        }
-
 
         $rules = [
             'in_firstname'   => 'required',
@@ -244,7 +194,8 @@ class InterviewManagementController extends Controller
             'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
             'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
+            'in_dob' => 'date_format:Y/m/d'
+           // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
 
 
         ];
@@ -255,9 +206,10 @@ class InterviewManagementController extends Controller
             'in_salary.numeric' => 'The salary must be a number.',
             'in_tel.regex' => 'The tel format is invalid.',
             'in_mail.email' => 'The mail must be a valid email address.',
-            'in_cvno.required' => 'The CV No. field is required.',
-            'in_cvno.unique' => 'The CV No. has already been taken.',
+//            'in_cvno.required' => 'The CV No. field is required.',
+//            'in_cvno.unique' => 'The CV No. has already been taken.',
             'in_salary.digits_between' => 'The salary must be max 9 digits.',
+            'in_dob.date_format' => 'The dob does not match the format yyyy/mm/dd.'
         ];
         $validator = \Validator::make($request->all(), $rules,$custom_message);
         $file_data_old = $request->get('temp_file_old');
@@ -298,7 +250,7 @@ class InterviewManagementController extends Controller
         if(!empty($file_data_old)){
             $source_file = public_path().'/cv_upload/temp/'.$file_data_old;
             $file_extension = explode('.',$file_data_old);
-            $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').' '.$request->get('in_firstname').'.'.end($file_extension);
+            $new_file_name = $request->get('in_id').'_'.$request->get('in_lastname').' '.$request->get('in_firstname').'.'.end($file_extension);
             $destination_path = public_path().'/cv_upload/'.$new_file_name;
             //var_dump($destination_path);die;
             if (copy($source_file,$destination_path)) {
@@ -358,32 +310,6 @@ class InterviewManagementController extends Controller
 
     public function postInterviewerEdit(Request $request) {
 
-//        $validator = $request->validate([
-//            'in_firstname'   => 'required',
-//            'in_lastname'   => 'required',
-//            'in_language'    => 'required',
-//            'in_salary' => 'nullable|numeric|digits_between:0,9',
-//            'in_mail' => 'nullable|email',
-//            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-//            'in_cvno'=>[
-//                'required',
-//                Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
-//            ],
-//           // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno,'.$request->get('in_id')
-//
-//
-//        ], [
-//            'in_firstname.required'  => 'The first name field is required.',
-//            'in_lastname.required'  => 'The last name field is required.',
-//            'in_language.required'   => 'Please choose a progamming language.',
-//            'in_salary.numeric' => 'The salary must be a number.',
-//            'in_tel.regex' => 'The tel format is invalid.',
-//            'in_mail.email' => 'The mail must be a valid email address.',
-//            'in_cvno.required' => 'The CV No. field is required.',
-//            'in_cvno.unique' => 'The CV No. has already been taken.',
-//            'in_salary.digits_between' => 'The salary must be max 9 digits.',
-//        ]);
-
         $rules = [
             'in_firstname'   => 'required',
             'in_lastname'   => 'required',
@@ -391,10 +317,11 @@ class InterviewManagementController extends Controller
             'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
             'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_cvno'=>[
-                'required',
-                Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
-            ],
+            'in_dob' => 'date_format:Y/m/d'
+//            'in_cvno'=>[
+//                'required',
+//                Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
+//            ],
 
 
         ];
@@ -405,9 +332,10 @@ class InterviewManagementController extends Controller
             'in_salary.numeric' => 'The salary must be a number.',
             'in_tel.regex' => 'The tel format is invalid.',
             'in_mail.email' => 'The mail must be a valid email address.',
-            'in_cvno.required' => 'The CV No. field is required.',
-            'in_cvno.unique' => 'The CV No. has already been taken.',
+//            'in_cvno.required' => 'The CV No. field is required.',
+//            'in_cvno.unique' => 'The CV No. has already been taken.',
             'in_salary.digits_between' => 'The salary must be max 9 digits.',
+            'in_dob.date_format' => 'The dob does not match the format yyyy/mm/dd.'
         ];
 
         $validator = \Validator::make($request->all(), $rules,$custom_message);
