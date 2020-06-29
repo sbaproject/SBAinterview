@@ -32,7 +32,7 @@ class TestAnswerController extends Controller
                 ->join('t_iq_questions', function($join) {
                     $join->on('t_iq_questions.id', '=', 't_test_answer.question_id');
                 })
-                ->orderBy('t_test_answer.id', 'DESC')->get()->toArray();
+                ->orderBy('t_test_answer.id', 'ASC')->get()->toArray();
 
             $count_iq_question = count($list_iq_question_arr);
             //get options
@@ -41,7 +41,7 @@ class TestAnswerController extends Controller
                 $list_option = IqQuestionOption::where([
                     'del_flg' => 0,
                     'iq_question_id' => $list_iq_question_arr[$i]['question_id']
-                ])->orderBy('id', 'DESC')->get()->toArray();
+                ])->orderBy('id', 'ASC')->get()->toArray();
                 $list_iq_question_arr[$i]['list_option'] = array();
                 $list_iq_question_arr[$i]['list_option'] = $list_option;
 
@@ -71,7 +71,7 @@ class TestAnswerController extends Controller
                     $join->on('t_tech_questions.id', '=', 't_test_answer.question_id');
                 })
                 ->select(['t_test_answer.id AS id_result', 't_tech_questions.*','t_test_answer.*'])
-                ->orderBy('t_test_answer.id', 'DESC')->get()->toArray();
+                ->orderBy('t_test_answer.id', 'ASC')->get()->toArray();
 
             //check is marked
             $result  = Result::where('id',$result_id)->first();
@@ -101,7 +101,7 @@ class TestAnswerController extends Controller
                 $join->on('t_tech_questions.id', '=', 't_test_answer.question_id');
             })
             ->select([ 't_tech_questions.*','t_test_answer.*'])
-            ->orderBy('t_test_answer.id', 'DESC')->get()->toArray();
+            ->orderBy('t_test_answer.id', 'ASC')->get()->toArray();
 
         //check is marked
         $result  = Result::find($result_id)->first();
