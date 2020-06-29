@@ -181,7 +181,12 @@ class InterviewManagementController extends Controller
         $cst_lang =config('constants.LANGUAGE');
         $cst_cvchannel = config('constants.CV_CHANNEL');
         $cst_status = config('constants.STATUS');
-        $candidate_id = InterviewManagerment::orderBy('in_id','desc')->first()->in_id;
+        $candidate = InterviewManagerment::orderBy('in_id','desc')->first();
+        if(!empty($candidate)){
+            $candidate_id = $candidate->in_id;
+        }else{
+            $candidate_id = 1;
+        }
         return view('pages.interviewer_new',compact('currentTime','cst_status','cst_cvchannel','cst_lang','candidate_id'));
     }
 
