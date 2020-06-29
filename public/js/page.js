@@ -53,4 +53,18 @@ $(function() {
     $('.datetimepicker-input').datepicker();
 });
 
+$(function() {
+    $('.datetimepicker-input-dob').datepicker({
+        dateFormat: "yy/mm/dd",
+        firstDay: 0,
+        isRTL: false,
+        showMonthAfterYear: true,
+        changeMonth: true,
+        changeYear: true,
+        minDate: new Date(1960, 0, 1),
+        maxDate: new Date(2000, 11, 31),
+        yearRange: "1960:2000",
+    });
+});
+
 
