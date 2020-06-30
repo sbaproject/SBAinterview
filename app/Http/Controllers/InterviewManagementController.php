@@ -212,7 +212,7 @@ class InterviewManagementController extends Controller
             'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
             'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_dob' => 'date_format:Y/m/d'
+            'in_dob' => 'nullable|date_format:Y/m/d'
            // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
 
 
@@ -336,7 +336,7 @@ class InterviewManagementController extends Controller
             'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
             'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_dob' => 'date_format:Y/m/d'
+            'in_dob' => 'nullable|date_format:Y/m/d'
 //            'in_cvno'=>[
 //                'required',
 //                Rule::unique('t_interviewmanagement')->ignore($request->get('in_id'), 'in_id')
@@ -418,7 +418,7 @@ class InterviewManagementController extends Controller
             $file_extension = explode('.',$file_data_old);
             $new_file_name = $request->get('in_cvno').'_'.$request->get('in_lastname').' '.$request->get('in_firstname').'.'.end($file_extension);
             $new_file_name = preg_replace('/\s+/', '', $new_file_name);
-            
+
             $destination_path = public_path().'/cv_upload/'.$new_file_name;
             //var_dump($destination_path);die;
             if (copy($source_file,$destination_path)) {

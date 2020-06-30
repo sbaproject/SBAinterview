@@ -103,7 +103,7 @@
                             </div>
                             {{--<input type="text"  class="form-control "  name="in_date" value="{{ old('in_date') }}" >--}}
                             <input id="in_dob"  type="text" class="form-control datetimepicker-input-dob {{ ($errors->first('in_dob')) ? 'is-invalid'  :'' }}"
-                                   name="in_dob" autocomplete="off" value="{{ old('in_dob', $currentTime) }}">
+                                   name="in_dob"  value="{{ old('in_dob') }}">
                             <div class="input-group-append" data-target="#in_dob" onclick="$('#in_dob').focus();">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                             </div>

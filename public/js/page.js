@@ -56,15 +56,16 @@ $(function() {
 $(function() {
     $('.datetimepicker-input-dob').datepicker({
         dateFormat: "yy/mm/dd",
-        firstDay: 0,
-        isRTL: false,
+        //firstDay: 0,
+        //isRTL: false,
         showMonthAfterYear: true,
         changeMonth: true,
         changeYear: true,
         minDate: new Date(1960, 0, 1),
         maxDate: new Date(1999, 11, 31),
         yearRange: "1960:1999",
+        defaultDate: '',
+        constrainInput: true,
     });
 });
-
 
