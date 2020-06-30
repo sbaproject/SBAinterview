@@ -32,17 +32,17 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 30%;">First Name</td>
-                                    <td>
-                                        <input type="text" name="firstname" value="{{old('firstname')}}" id="firstname">
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td style="width: 30%;">Last Name</td>
                                     <td>
                                         <input type="text" name="lastname" value="{{old('lastname')}}" id="lastname">
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="width: 30%;">First Name</td>
+                                    <td>
+                                        <input type="text" name="firstname" value="{{old('firstname')}}" id="firstname">
+                                    </td>
+                                </tr>                                
                                 <tr>
                                     <td>Address</td>
                                     <td><input type="text" name="address" value="{{old('address')}}" id="address"></td>
@@ -110,7 +110,7 @@
                             }
                             $('#firstname').val(msg.in_firstname);
                             $('#lastname').val(msg.in_lastname);
-                            $('#address').val(msg.in_firstname);
+                            $('#address').val(msg.in_address);
                             $('#dob').val(r);
                             $('#tel').val(msg.in_tel);
                             $('#email').val(msg.in_mail);                            

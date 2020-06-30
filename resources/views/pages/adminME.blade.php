@@ -206,8 +206,23 @@
                                                     <option value="{{$k2}}" {{ old('in_status',$req_arr['in_status']) == $k2 ? "selected"  : "" }}>{{$v2}}</option>
                                                     }
                                                     @endforeach
-
                                                 </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="status">Test time from</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text datetimepicker-input" name="date_from" value="{{ old('date_from') }}" id="date_from" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-4">
+                                            <div class="form-group">
+                                                <label for="status">Test time to</label>
+                                                <div class="input-group mb-3">
+                                                    <input type="text datetimepicker-input" name="date_to" value="{{ old('date_to') }}" id="date_to" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" >
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -331,13 +346,34 @@
         </div>
     </div>
   </div>
-  <script src="{{ URL::asset('/js/jquery-3.4.1.min.js') }}"></script>
-  <script src="js/bootstrap.js"></script>
-  <script src="css/datatable/jquery.dataTables.js"></script>
-  <script src="css/datatable/dataTables.bootstrap.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js" integrity="sha256-5YmaxAwMjIpMrVlK84Y/+NjCpKnFYa8bWWBbUHSBGfU=" crossorigin="anonymous"></script>
-  <script>
+    <script src="{{ URL::asset('/js/jquery-3.4.1.min.js') }}"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="css/datatable/jquery.dataTables.js"></script>
+    <script src="css/datatable/dataTables.bootstrap.js"></script>
+    <script src="{{URL::asset('js/moment.min.js')}}" type="text/javascript"></script>
+    <script src="{{URL::asset('frontEnd/datetimepicker/js/bootstrap-datetimepicker.min.js')}}" type="text/javascript"></script>
+  
+ 
+<script>
+    $(document).ready(function(){
+        //
+        $("#date_to").datetimepicker({
+            format: 'DD-MM-YYYY',
+            widgetPositioning:{
+                vertical:'bottom'
+            },
+            useCurrent: false,
+        });
+        $("#date_from").datetimepicker({
+            format: 'DD-MM-YYYY',
+            widgetPositioning:{
+                vertical:'bottom'
+            },
+            useCurrent: false,
+        });
+    });
+</script>
+<script>
     $(document).ready(function() {
         //re-order columns
         var oTable = $('#table2').dataTable({

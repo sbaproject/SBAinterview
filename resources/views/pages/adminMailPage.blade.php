@@ -124,7 +124,7 @@
                         @endif
             <div class="mainexport">
                     <!-- row-->
-                    {{Form::open(['route'=>'sendMail', 'method'=>'POST', 'class'=>'sentmail'])}}
+                    {{Form::open(['route'=>'sendMail', 'method'=>'POST', 'class'=>'sentmail' , 'enctype'=>'multipart/form-data'])}}
                     <div class="row">                    
                         <div class="col-lg-8">
                             <div class="form-group row">
