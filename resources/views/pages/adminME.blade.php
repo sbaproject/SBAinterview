@@ -213,7 +213,10 @@
                                             <div class="form-group">
                                                 <label for="status">Test time from</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text datetimepicker-input" name="date_from" value="{{ old('date_from') }}" id="date_from" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" >
+                                                    <input type="text" name="date_from" class="form-control datetimepicker-input" value="{{ old('date_from') }}" id="date_from" data-date-format="DD-MM-YYYY">
+                                                    <div class="input-group-append" data-target="#date_from" onclick="$('#date_from').focus();">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -221,7 +224,10 @@
                                             <div class="form-group">
                                                 <label for="status">Test time to</label>
                                                 <div class="input-group mb-3">
-                                                    <input type="text datetimepicker-input" name="date_to" value="{{ old('date_to') }}" id="date_to" data-date-format="DD-MM-YYYY" placeholder="dd-mm-yyyy" >
+                                                    <input type="text" name="date_to" value="{{ old('date_to') }}" class="form-control datetimepicker-input" id="date_to" data-date-format="DD-MM-YYYY">
+                                                    <div class="input-group-append" data-target="#date_from" onclick="$('#date_from').focus();">
+                                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
