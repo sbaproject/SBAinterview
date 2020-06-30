@@ -363,7 +363,7 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
                         }
                     }
                 }
-                $content = "<strong>Dear [firstname]</strong>, <br/><br/>We were impressed by your background on website Vieclam24h and would like to invite you to come to our office for the interview as the following: Time/ Date: [time] on  [date] Venue:  StarboardAsia Company <br/><br/>Room 2.2B, 2nd floor QTSC 1, No. 14 Str., Quang Trung software city, Tan Chanh Hiep Ward, District 12, Ho Chi Minh City <br/><strong>Tel:</strong> (+84)-28-3715-4544 <br/><strong>Website:</strong>  http://www.starboardasia.com   <br/><br/>We have enclosed the company profile as attached file. <br/>Please help to reply for confirmation through this email. <br/>Should you have any question regarding to this appointment, please do not hesitate to contact us. <br/>Thanks & best regards, <br/><br/> <strong>Phuong Nhi</strong><br/>";
+                $content = "<strong>Dear [firstname]</strong>, <br/><br/>We were impressed by your background on website [in_cvchannel] and would like to invite you to come to our office for the interview as the following:<br/> Time/ Date: [time] on  [date]<br/> Venue:  StarboardAsia Company <br/><br/>Room 2.2B, 2nd floor QTSC 1, No. 14 Str., Quang Trung software city, Tan Chanh Hiep Ward, District 12, Ho Chi Minh City <br/><strong>Tel:</strong> (+84)-28-3715-4544 <br/><strong>Website:</strong>  http://www.starboardasia.com   <br/><br/>We have enclosed the company profile as attached file. <br/>Please help to reply for confirmation through this email. <br/>Should you have any question regarding to this appointment, please do not hesitate to contact us. <br/>Thanks & best regards, <br/><br/> <strong>Phuong Nhi</strong><br/>";
                 return view('pages.adminMailPage', compact('mails','content'));
             }
         }else{
@@ -391,6 +391,7 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
         foreach($candi as $item){
             $iq_find = [
                 '[firstname]',
+                '[in_cvchannel]',
                 '[time]',
                 '[date]'
             ];
@@ -399,26 +400,36 @@ class AdminMEController extends Controller implements FromCollection, WithHeadin
             $times = $item->in_time;
             $times = explode(':',$times);
             $time = $times[0].':'.$times[1];
-
+            $cvchannel = "";
+            if($item->in_cvchannel != "" || $item->in_cvchannel != 0){
+                $cvchannel = config('constants.CV_CHANNEL')[$item->in_cvchannel];
+            }
             $date = Carbon::parse($item->in_date);
             $date = $date->isoFormat('dddd Do MMMM, YYYY');
-
+            
             $iq_replace = [
                 $firstname,
+                $cvchannel,
                 $time,
                 $date
             ];
 
             $details = str_replace($iq_find, $iq_replace, $request->content);
-
+            $file = ($item->in_file) ? \URL::to('/public/cv_upload/'.$item->in_file) : "";
+            if($file != ""){
+                $tempImage = public_path().'/cv_upload/'.$item->in_file;
+            }
             Mail::send('Mail', [
                 'title' => $request->title,
                 'details' => $details,
-            ], function ($message) use ($request, $item, $mailcc) {
+            ], function ($message) use ($request, $item, $mailcc, $file, $tempImage) {
                 $message->from(env('NO_REPLAY_EMAIL', 'noreplay.mlt@gmail.com'), $request->title);
                 $message->to($item->in_mail);
                 if($mailcc != ""){
                     $message->cc($mailcc);
+                }
+                if($file != ""){
+                    $message->attach($tempImage);
                 }
                 $message->replyTo('noreplay.mlt@gmail.com', $request->title);
                 $message->subject($request->title);

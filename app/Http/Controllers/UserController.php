@@ -28,6 +28,7 @@ class UserController extends Controller
 
     public function postLogin(Request $req)
     {
+
         // validate
         $req->validate([
             'u_user'   => 'required',
@@ -42,7 +43,7 @@ class UserController extends Controller
         // check user and pass
         $user = User::where('u_user',$req->u_user)
                     ->where('u_pw', $req->u_pw)->first();
-    
+            
         if (isset($user)) {
             session()->regenerate();
             session(['user' => $user]);
