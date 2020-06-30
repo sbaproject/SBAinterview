@@ -32,17 +32,17 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="width: 30%;">First Name</td>
-                                    <td>
-                                        <input type="text" name="firstname" value="{{old('firstname', $data->candidate_firstname)}}" >
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td style="width: 30%;">Last Name</td>
                                     <td>
                                         <input type="text" name="lastname" value="{{old('lastname', $data->candidate_lastname)}}" >
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="width: 30%;">First Name</td>
+                                    <td>
+                                        <input type="text" name="firstname" value="{{old('firstname', $data->candidate_firstname)}}" >
+                                    </td>
+                                </tr>                                
                                 <tr>
                                     <td>Address</td>
                                     <td><input type="text" name="address" value="{{old('address', $data->candidate_address)}}" ></td>
