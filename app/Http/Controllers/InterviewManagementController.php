@@ -196,7 +196,7 @@ class InterviewManagementController extends Controller
         $cst_status = config('constants.STATUS');
         $candidate = InterviewManagerment::orderBy('in_id','desc')->first();
         if(!empty($candidate)){
-            $candidate_id = $candidate->in_id;
+            $candidate_id = $candidate->in_id + 1;
         }else{
             $candidate_id = 1;
         }
