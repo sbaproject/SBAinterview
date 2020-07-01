@@ -13,7 +13,7 @@
                 </h2>
                 <form method="post" enctype="multipart/form-data">
                     @csrf
-                    <input type="text" type="hidden" class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
+                    <input  type="hidden" class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
                     <div class="form-group">
                         <div class="input-group mb-3">
                             <div class="input-group-prepend w-25">
