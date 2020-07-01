@@ -198,7 +198,7 @@
                             <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Tel</span>
                             </div>
-                            <input type="text" maxlength="14" class="form-control {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }} "  name="in_tel" value="{{ old('in_tel', $interviewer->in_tel )}}" >
+                            <input type="text" maxlength="15" class="form-control {{ ($errors->first('in_tel')) ? 'is-invalid'  :'' }} "  name="in_tel" value="{{ old('in_tel', $interviewer->in_tel )}}" >
                             <div class="invalid-feedback">
                                 @error('in_tel')
                                 {{ $message }}
