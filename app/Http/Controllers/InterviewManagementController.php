@@ -212,7 +212,7 @@ class InterviewManagementController extends Controller
             'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
 //            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_tel' => 'nullable|regex:/(^[0-9])[0-9]{9,14}$/',
+            'in_tel' => 'nullable|regex:/(^[\+\x200-9])[\x200-9]{9,14}$/',
             'in_dob' => 'nullable|date_format:Y/m/d'
            // 'in_cvno' => 'required|unique:t_interviewmanagement,in_cvno'
 
@@ -337,7 +337,7 @@ class InterviewManagementController extends Controller
             'in_salary' => 'nullable|numeric|digits_between:0,9',
             'in_mail' => 'nullable|email',
 //            'in_tel' => 'nullable|regex:/(0)[0-9]{9}/',
-            'in_tel' => 'nullable|regex:/(^[0-9])[0-9]{9,14}$/',
+            'in_tel' => 'nullable|regex:/(^[\+\x200-9])[\x200-9]{9,14}$/',
             'in_dob' => 'nullable|date_format:Y/m/d'
 //            'in_cvno'=>[
 //                'required',
