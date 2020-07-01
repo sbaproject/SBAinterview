@@ -17,5 +17,8 @@
             1 => 'PHP',
             2 => 'C#/ASP.NET',
             3 => 'JAPANESE',
+            4 => 'ANDROID',
+            5 => 'IOS',
+            6 => 'OTHERS'
         ]
     ];
