@@ -22,7 +22,8 @@
                             <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Candidate ID</span>
                             </div>
-                            <input type="text" readonly  class="form-control form-control " name="in_id" value="{{ $candidate_id }}">
+                            <input type="text" readonly  class="form-control form-control " name="candidate_id" value="{{ $candidate_id }}">
+                            <input type="text" type="hidden"  class="form-control form-control " name="in_id" value="{{ $candidate_id }}">
                         </div>
                     </div>
                     <div class="form-group">

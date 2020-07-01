@@ -18,7 +18,8 @@
                             <div class="input-group-prepend w-25">
                                 <span class="input-group-text">Candidate ID</span>
                             </div>
-                            <input type="text" readonly class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
+                            <input type="text" readonly class="form-control" name="candidate_id" value="{{ $interviewer->in_id }}">
+                            <input type="text" type="hidden" class="form-control" name="in_id" value="{{ $interviewer->in_id }}">
                         </div>
                     </div>
                     <div class="form-group">
