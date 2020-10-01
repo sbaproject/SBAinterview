@@ -32,11 +32,11 @@ class UserController extends Controller
         // validate
         $req->validate([
             'u_user'   => 'required',
-            'u_pw'    => 'required|min:4|max:8',
+            'u_pw'    => 'required|min:4|max:100',
         ], [
             'u_user.required'  => 'User name is required.',
             'u_pw.required'   => '',
-            'u_pw.max'   => 'Password must has max 8 letters',
+            'u_pw.max'   => 'Password must has max 100 letters',
             'u_pw.min'   => 'Password must has min 6 letters',
         ]);
 
