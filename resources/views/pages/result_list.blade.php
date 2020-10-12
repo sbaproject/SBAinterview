@@ -37,7 +37,7 @@
                                 </div>
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="address">Adress</label>
+                                        <label for="address">Address</label>
                                         <input type="text" class="form-control" id="candidate_address"  name="candidate_address" value="{{old('candidate_address',$req_arr['candidate_address'])}}" placeholder="Address">
                                     </div>
                                 </div>

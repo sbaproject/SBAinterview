@@ -39,7 +39,7 @@ class InterviewManagementController extends Controller
             'in_tel' => '',
             'in_mail' => '',
             'in_language' => '',
-            'in_cvno' => '',
+            'in_id' => '',
             'in_status' => '',
             'date_from' => '',
             'date_to' => ''
@@ -77,7 +77,7 @@ class InterviewManagementController extends Controller
             $mail = $request->get('in_mail');
             $language = $request->get('in_language');
             $cv_channel = $request->get('in_cvchannel');
-            $cvno = $request->get('in_cvno');
+            $inid = $request->get('in_id');
             $status = $request->get('in_status');
             $date_from = $request->get('date_from');
             $date_to = $request->get('date_to');
@@ -91,7 +91,7 @@ class InterviewManagementController extends Controller
                 'in_tel' => $tel,
                 'in_mail' => $mail,
                 'in_language' => $language,
-                'in_cvno' => $cvno,
+                'in_id' => $inid,
                 'in_status' => $status,
                 'date_from' => $date_from,
                 'date_to' => $date_to
@@ -131,9 +131,9 @@ class InterviewManagementController extends Controller
                 $list_interviewers = $list_interviewers ->where('inter.in_cvchannel',$cv_channel);
                 $list_candidate_score = $list_candidate_score ->where('inte.in_cvchannel',$cv_channel);
             }
-            if(!empty($cvno)){
-                $list_interviewers = $list_interviewers ->where('inter.in_cvno','like','%'.$cvno.'%');
-                $list_candidate_score = $list_candidate_score ->where('inte.in_cvno','like','%'.$cvno.'%');
+            if(!empty($inid)){
+                $list_interviewers = $list_interviewers ->where('inter.in_id','like','%'.$inid.'%');
+                $list_candidate_score = $list_candidate_score ->where('inte.in_id','like','%'.$inid.'%');
             }
             if(!empty($status)){
                 $list_interviewers = $list_interviewers ->where('inter.in_status',$status);
@@ -171,7 +171,7 @@ class InterviewManagementController extends Controller
                 'in_tel' => '',
                 'in_mail' => '',
                 'in_language' => '',
-                'in_cvno' => '',
+                'in_id' => '',
                 'in_status' => '',
                 'date_from' => '',
                 'date_to' => ''

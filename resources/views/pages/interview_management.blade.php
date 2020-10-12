@@ -35,8 +35,8 @@
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <div class="form-group">
-                                        <label for="cvno">CV No.</label>
-                                        <input type="text" class="form-control" id="in_cvno"  name="in_cvno" value="{{old('in_cvno',$req_arr['in_cvno'])}}" placeholder="CV No.">
+                                        <label for="inid">Candidate_id</label>
+                                        <input type="text" class="form-control" id="in_id"  name="in_id" value="{{old('in_id',$req_arr['in_id'])}}" placeholder="Candidate_id">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-4">
